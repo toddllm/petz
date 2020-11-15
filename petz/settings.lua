@@ -229,7 +229,7 @@ local settings_def = {
 	type = "boolean",
 	default = false,
 	},
-	--Blood
+	--Poop
 	{
 	name = "poop",
 	type = "boolean",
@@ -244,6 +244,22 @@ local settings_def = {
 	name = "poop_decay",
 	type = "number",
 	default = 1200,
+	},
+	--Ants
+	{
+	name = "lay_antegg_timing",
+	type = "number",
+	default = 1200,
+	},
+	{
+	name = "max_laid_anteggs",
+	type = "number",
+	default = 500,
+	},
+	{
+	name = "ant_population",
+	type = "number",
+	default = 5,
 	},
 	--Smoke particles when die
 	{
