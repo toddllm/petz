@@ -14,7 +14,7 @@ petz.lay_egg = function(self)
 	end
 	local pos = self.object:get_pos()
 	if self.type_of_egg == "item" then
-		if math.random(1, petz.settings.lay_egg_chance) == 1 then
+		if mobkit.timer(self, petz.settings.herding_timing) then
 			minetest.add_item(pos, "petz:"..self.type.."_egg") --chicken/duck/penguin egg!
 			petz.increase_egg_count(self)
 		end
