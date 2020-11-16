@@ -169,9 +169,9 @@ local settings_def = {
 	},
 	--Lay Eggs
 	{
-	name = "lay_egg_chance",
+	name = "lay_egg_timing",
 	type = "number",
-	default = 90000,
+	default = 1200,
 	},
 	{
 	name = "max_laid_eggs",
