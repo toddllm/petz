@@ -115,6 +115,12 @@ local settings_def = {
 	type = "boolean",
 	default = true,
 	},
+	--Disable Kennel
+	{
+	name = "disable_kennel",
+	type = "boolean",
+	default = false,
+	},
 	--Spawn
 	{
 	name = "spawn_interval",

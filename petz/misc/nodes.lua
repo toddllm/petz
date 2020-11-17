@@ -66,7 +66,17 @@ minetest.register_craftitem("petz:kennel", {
             return
         end
         local pt_above = pointed_thing.above
-        if not(minetest.is_protected(pt_above, user:get_player_name())) then
+        local pos2 = {
+			x = pt_above.x + 3,
+			y = pt_above.y + 5,
+			z = pt_above.z + 4,
+		}
+		local player_name = user:get_player_name()
+		if petz.settings["disable_kennel"] then
+			minetest.chat_send_player(player_name, S("The placement of kennel was disabled."))
+			return
+		end
+		if not(minetest.is_area_protected(pt_above, pos2, player_name, 4)) then
 			minetest.place_schematic(pt_above, modpath..'/schematics/kennel.mts', 0, nil, true)
 			itemstack:take_item()
 			return itemstack
