@@ -204,7 +204,8 @@ minetest.register_node("petz:chicken_nest_egg", {
     },
     on_construct = function(pos)
 		local timer = minetest.get_node_timer(pos)
-		timer:start(math.random(400, 600))
+		local hatch_egg_timing = petz.settings.hatch_egg_timing
+		timer:start(math.random(hatch_egg_timing - (hatch_egg_timing*0.2), hatch_egg_timing+ (hatch_egg_timing*0.2)))
     end,
 	on_timer = function(pos)
 		local pos_above = {x = pos.x, y = pos.y +1, z= pos.z}
@@ -212,7 +213,9 @@ minetest.register_node("petz:chicken_nest_egg", {
 			if not minetest.registered_entities["petz:chicken"] then
 				return
 			end
-			minetest.add_entity(pos_above, "petz:chicken")
+			local entity = minetest.add_entity(pos_above, "petz:chicken"):get_luaentity()
+			entity.is_baby = mobkit.remember(entity, "is_baby", true) --it is a baby
+			entity.growth_time = mobkit.remember(entity, "growth_time", 0.0) --the chicken to grow
 			minetest.set_node(pos, {name= "petz:ducky_nest"})
 			return true
 		end

@@ -184,6 +184,11 @@ local settings_def = {
 	type = "number",
 	default = 10,
 	},
+	{
+	name = "hatch_egg_timing",
+	type = "number",
+	default = 500,
+	},
 	--Misc Random Sound Chance
 	{
 	name = "misc_sound_chance",
@@ -463,7 +468,7 @@ for i = 1, #petz.settings["petz_list"] do --load the settings
 	petz.settings[petz_type.."_spawn_biome"]  = user:get(petz_type.."_spawn_biome") or settings:get(petz_type.."_spawn_biome") or "default"
 	petz.settings[petz_type.."_spawn_herd"] = tonumber(user:get(petz_type.."_spawn_herd") or settings:get(petz_type.."_spawn_herd")) or 1
 	petz.settings[petz_type.."_seasonal"] = user:get(petz_type.."_seasonal") or settings:get(petz_type.."_seasonal") or ""
-	petz.settings[petz_type.."_follow"] = user:get(petz_type.."_follow") or settings:get(petz_type.."_follow") or ""
+	petz.settings[petz_type.."_follow"] = user:get(petz_type.."_follow") or settings:get(petz_type.."_follow") or nil
 	petz.settings[petz_type.."_breed"]  = user:get(petz_type.."_breed") or settings:get(petz_type.."_breed") or ""
 	petz.settings[petz_type.."_predators"]  = user:get(petz_type.."_predators") or settings:get(petz_type.."_predators") or ""
 	petz.settings[petz_type.."_preys"] = user:get(petz_type.."_preys") or settings:get(petz_type.."_preys") or ""
