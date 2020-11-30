@@ -13,6 +13,7 @@ for i=1, 3 do
 	local p2
 	local lay_eggs
 	local parents
+	local aggressive
 	if i == 1 then
 		pet_name = "hen"
 		description = "Hen"
@@ -27,6 +28,7 @@ for i=1, 3 do
 			misc = {"petz_hen_cluck", "petz_hen_cluck_2", "petz_hen_cluck_3"},
 		}
 		parents = nil
+		aggressive = false
 	elseif i == 2 then
 		pet_name = "rooster"
 		description = "Rooster"
@@ -41,6 +43,7 @@ for i=1, 3 do
 			misc = {"petz_rooster_crow", "petz_rooster_chirp"},
 		}
 		parents = nil
+		aggressive = true
 	else
 		pet_name = "chicken"
 		description = "Chicken"
@@ -55,6 +58,7 @@ for i=1, 3 do
 			misc = {"petz_chicken_chirp", "petz_chicken_chirp_2", "petz_chicken_chirp_3"},
 		}
 		parents = {"petz:hen", "petz:rooster"}
+		aggressive = false
 	end
 	local collisionbox, collisionbox_baby = petz.get_collisionbox(p1, p2, scale_model, nil)
 
@@ -67,6 +71,7 @@ for i=1, 3 do
 		is_wild = false,
 		is_baby = is_baby,
 		parents = parents,
+		aggressive = aggressive,
 		backface_culling = backface_culling,
 		give_orders = false,
 		feathered = true,

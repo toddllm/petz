@@ -152,6 +152,12 @@ local settings_def = {
 	type = "boolean",
 	default = false,
 	},
+	--Parent Search
+	{
+	name = "parent_search",
+	type = "boolean",
+	default = true,
+	},
 	--Lifetime
 	{
 	name = "lifetime",
