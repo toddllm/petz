@@ -1,6 +1,3 @@
-local modpath, S = ...
-
---
 -- 1. HERBIBORE/FLYING MOBS BRAIN
 --
 

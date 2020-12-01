@@ -1,5 +1,3 @@
-local modpath, S = ...
-
 --
 -- PREDATOR BRAIN
 --

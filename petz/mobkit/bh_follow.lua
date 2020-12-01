@@ -1,5 +1,3 @@
-local modpath, S = ...
-
 --
 -- FOLLOW BEHAVIOURS
 -- 2 types: for terrestrial and for flying/aquatic mobs.
