@@ -355,7 +355,7 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 		end
 	end
 	if self.type == "chicken" then
-		mobkit.remember(self, "texture_no", 1)
+		self.texture_no = mobkit.remember(self, "texture_no", 1)
 		petz.set_properties(self, {textures = {self.textures[1]}})
 	end
 	if self.horseshoes and captured_mob == false then
