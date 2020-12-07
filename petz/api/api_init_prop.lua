@@ -354,10 +354,12 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 			petz.colorize(self, self.colorized)
 		end
 	end
+	--DELETE THIS BLOCK IN THE NEXT UPDATE -- FOR COMPATIBIITY PURPOSES FOR OLD CHICKENS ONLY>>>
 	if self.type == "chicken" then
 		self.texture_no = mobkit.remember(self, "texture_no", 1)
 		petz.set_properties(self, {textures = {self.textures[1]}})
 	end
+	--<<<
 	if self.horseshoes and captured_mob == false then
 		petz.horseshoes_speedup(self)
 	end
