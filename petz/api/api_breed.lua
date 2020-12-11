@@ -150,7 +150,7 @@ petz.growth_timer = function(self, dtime)
 			mokapi.remove_mob(self)
 			obj = minetest.add_entity(pos, self.parents[math.random(1, #self.parents)])
 		else
-			obj = self
+			obj = self.object
 			petz.set_properties(self, {
 				jump = false,
 				is_baby = false,
