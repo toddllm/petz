@@ -31,7 +31,7 @@ function petz.bh_create_beehive(self, pos)
 end
 
 function mobkit.hq_gotopollen(self, prty, tpos)
-	local func = function(self)
+	local func = function()
 		if self.pollen == true then
 			--mobkit.clear_queue_low(self)
 			--mobkit.clear_queue_high(self)
@@ -44,7 +44,7 @@ function mobkit.hq_gotopollen(self, prty, tpos)
 end
 
 function mobkit.lq_search_flower(self, tpos)
-	local func = function(self)
+	local func = function()
 		local pos = self.object:get_pos()
 		if not(pos) or not(tpos) then
 			return true
@@ -64,7 +64,7 @@ function mobkit.lq_search_flower(self, tpos)
 end
 
 function mobkit.hq_gotobehive(self, prty, pos)
-	local func = function(self)
+	local func = function()
 		if self.pollen == false or not(self.behive) then
 			return true
 		end
@@ -75,7 +75,7 @@ function mobkit.hq_gotobehive(self, prty, pos)
 end
 
 function mobkit.lq_search_behive(self)
-	local func = function(self)
+	local func = function()
 		local tpos
 		if self.behive then
 			tpos = self.behive
@@ -105,7 +105,7 @@ function mobkit.lq_search_behive(self)
 end
 
 function mobkit.hq_approach_behive(self, pos, prty)
-	local func = function(self)
+	local func = function()
 		if math.abs(pos.x - self.behive.x) <= (self.view_range / 2) or math.abs(pos.z - self.behive.z) <= (self.view_range / 2) then
 			mobkit.clear_queue_low(self)
 			mobkit.clear_queue_high(self)
@@ -117,7 +117,7 @@ function mobkit.hq_approach_behive(self, pos, prty)
 end
 
 function mobkit.lq_approach_behive(self)
-	local func = function(self)
+	local func = function()
 		local tpos
 		if self.behive then
 			tpos = self.behive

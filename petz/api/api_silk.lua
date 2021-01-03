@@ -1,4 +1,4 @@
-local modpath, S = ...
+local S = ...
 
 --Coocon
 minetest.register_node("petz:cocoon", {
@@ -28,8 +28,7 @@ minetest.register_node("petz:cocoon", {
 			return
 		end
 		if pos and petz.is_night() == true then --only spawn at night, to it does not die
-			local mob = minetest.add_entity(pos, "petz:moth")
-			local ent = mob:get_luaentity()
+			minetest.add_entity(pos, "petz:moth")
 			minetest.set_node(pos, {name= "air"})
 			return false
 		end
@@ -163,7 +162,7 @@ minetest.register_craft({
 })
 
 petz.init_convert_to_chrysalis = function(self)
-	minetest.after(math.random(1200, 1500), function(self)
+	minetest.after(math.random(1200, 1500), function()
 		if not(mobkit.is_alive(self)) then
 			return
 		end
@@ -177,7 +176,7 @@ petz.init_convert_to_chrysalis = function(self)
 end
 
 petz.init_lay_eggs = function(self)
-	minetest.after(math.random(150, 240), function(self)
+	minetest.after(math.random(150, 240), function()
 		if not(mobkit.is_alive(self)) then
 			return
 		end
@@ -185,7 +184,7 @@ petz.init_lay_eggs = function(self)
 			return
 		end
 		petz.alight(self)
-		minetest.after(10.0, function(self)
+		minetest.after(10.0, function()
 			if not(mobkit.is_alive(self)) then
 				return
 			end

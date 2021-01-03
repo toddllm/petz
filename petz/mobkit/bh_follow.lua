@@ -43,7 +43,7 @@ end
 --
 
 function mobkit.hq_followliquidair(self, prty, player)
-	local func=function(self)
+	local func=function()
 		local pos = mobkit.get_stand_pos(self)
 		local tpos = player:get_pos()
 		if self.can_swin then
@@ -76,7 +76,7 @@ function mobkit.hq_followliquidair(self, prty, player)
 end
 
 function mobkit.lq_followliquidair(self, target)
-	local func = function(self)
+	local func = function()
 		mobkit.flyto(self, target)
 		return true
 	end

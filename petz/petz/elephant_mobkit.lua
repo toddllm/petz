@@ -13,7 +13,6 @@ for i=1, 2 do
 	local textures = {}
 	local is_male
 	local mesh
-	local collisionbox
 	local description
 	if i == 1 then --if male
 		pet_name= "elephant"

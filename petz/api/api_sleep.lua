@@ -1,5 +1,3 @@
-local modpath, S = ...
-
 petz.calculate_sleep_times = function(self)
 	if not petz.settings.sleeping then
 		return
@@ -72,7 +70,7 @@ end
 
 function mobkit.hq_sleep(self, prty, force)
 	local timer = 2
-	local func=function(self)
+	local func=function()
 		timer = timer - self.dtime
 		if timer <  0 then
 			if not(force) then

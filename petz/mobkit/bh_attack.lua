@@ -47,7 +47,7 @@ function petz.bh_attack_player(self, pos, prty, player)
 end
 
 function petz.hq_hunt(self,prty,tgtobj)
-	local func = function(self)
+	local func = function()
 		if not mobkit.is_alive(tgtobj) then return true end
 		if mobkit.is_queue_empty_low(self) and self.isonground then
 			local pos = mobkit.get_stand_pos(self)
@@ -75,7 +75,7 @@ function petz.is_pos_in_box(self, pos,bpos,box)
 end
 
 function petz.hq_attack(self,prty,tgtobj)
-	local func = function(self)
+	local func = function()
 		if not mobkit.is_alive(tgtobj) then return true end
 		if mobkit.is_queue_empty_low(self) then
 			local pos = mobkit.get_stand_pos(self)
@@ -100,7 +100,7 @@ end
 
 function petz.lq_jumpattack(self,height,target)
 	local phase=1
-	local func=function(self)
+	local func=function()
 		if not mobkit.is_alive(target) then return true end
 		if self.isonground then
 			if phase==1 then	-- collision bug workaround
@@ -148,7 +148,7 @@ end
 ---
 
 function mobkit.hq_flyhunt(self, prty, tgtobj)
-	local func = function(self)
+	local func = function()
 		if not mobkit.is_alive(tgtobj) then return true end
 		if mobkit.is_queue_empty_low(self) then
 			local pos = mobkit.get_stand_pos(self)
@@ -168,7 +168,7 @@ function mobkit.hq_flyhunt(self, prty, tgtobj)
 end
 
 function mobkit.hq_flyattack(self, prty, tgtobj)
-	local func = function(self)
+	local func = function()
 		if not mobkit.is_alive(tgtobj) then
 			return true
 		end
@@ -187,7 +187,7 @@ function mobkit.hq_flyattack(self, prty, tgtobj)
 end
 
 function mobkit.lq_flyattack(self, target)
-	local func = function(self)
+	local func = function()
 		if not mobkit.is_alive(target) then
 			return true
 		end

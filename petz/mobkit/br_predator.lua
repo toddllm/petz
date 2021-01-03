@@ -24,8 +24,6 @@ function petz.predator_brain(self)
 			return
 		end
 
-		local pos = self.object:get_pos() --pos of the petz
-
 		local player = mobkit.get_nearby_player(self) --get the player close
 
 		if prty < 30 then

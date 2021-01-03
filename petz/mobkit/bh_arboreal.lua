@@ -50,7 +50,7 @@ function petz.bh_climb(self, pos, prty)
 end
 
 function mobkit.hq_climb(self, prty)
-	local func=function(self)
+	local func=function()
 		if not petz.check_tree(self) then
 			self.status = nil
 			mobkit.clear_queue_high(self)
@@ -66,7 +66,7 @@ function mobkit.hq_climb(self, prty)
 end
 
 function mobkit.lq_climb(self)
-	local func = function(self)
+	local func = function()
 		local pos = self.object:get_pos()
 		pos.y = pos.y + 1
 		local node_top = minetest.get_node_or_nil(pos)

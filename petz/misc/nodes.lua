@@ -373,12 +373,12 @@ minetest.register_node("petz:beehive", {
 		if placer:is_player() then
 			honey_count = 0
 			bee_count = 0
-			minetest.after(petz.settings.worker_bee_delay, function(beehive_pos)
-				local node =minetest.get_node_or_nil(beehive_pos)
+			minetest.after(petz.settings.worker_bee_delay, function()
+				local node =minetest.get_node_or_nil(pos)
 				if not(node and node.name == "petz:beehive") then
 					return
 				end
-				meta = minetest.get_meta(beehive_pos)
+				meta = minetest.get_meta(pos)
 				local total_bees = meta:get_int("total_bees") or petz.settings.max_bees_behive
 				if total_bees < petz.settings.max_bees_behive then
 					bee_count = meta:get_int("bee_count")

@@ -14,6 +14,7 @@ for i=1, 3 do
 	local lay_eggs
 	local parents
 	local aggressive
+	local is_baby
 	if i == 1 then
 		pet_name = "hen"
 		description = "Hen"
@@ -29,6 +30,7 @@ for i=1, 3 do
 		}
 		parents = nil
 		aggressive = false
+		is_baby = false
 	elseif i == 2 then
 		pet_name = "rooster"
 		description = "Rooster"
@@ -44,6 +46,7 @@ for i=1, 3 do
 		}
 		parents = nil
 		aggressive = true
+		is_baby = false
 	else
 		pet_name = "chicken"
 		description = "Chicken"
@@ -59,8 +62,9 @@ for i=1, 3 do
 		}
 		parents = {"petz:hen", "petz:rooster"}
 		aggressive = false
+		is_baby = true
 	end
-	local collisionbox, collisionbox_baby = petz.get_collisionbox(p1, p2, scale_model, nil)
+	local collisionbox = petz.get_collisionbox(p1, p2, scale_model, nil)
 
 	minetest.register_entity("petz:"..pet_name,{
 		--Petz specifics

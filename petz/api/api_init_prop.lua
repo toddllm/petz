@@ -1,5 +1,3 @@
-local modpath, S = ...
-
 --
 --'set_initial_properties' is call by 'on_activate' for each pet
 --
@@ -337,13 +335,13 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 		petz.set_properties(self, {textures = {texture}})
 	end
 	if self.type == "bee" and self.queen then --delay to create beehive
-		minetest.after(math.random(120, 150), function(self)
+		minetest.after(math.random(120, 150), function()
 			if mobkit.is_alive(self.object) then
 				self.create_beehive = mobkit.remember(self, "create_beehive", true)
 			end
 		end, self)
 	elseif self.type == "ant" and self.ant_type == "queen" then
-		minetest.after(math.random(120, 150), function(self)
+		minetest.after(math.random(120, 150), function()
 			if mobkit.is_alive(self.object) then
 				self.create_anthill = mobkit.remember(self, "create_anthill", true)
 			end

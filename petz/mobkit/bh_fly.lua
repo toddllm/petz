@@ -3,7 +3,7 @@
 --
 
 function mobkit.hq_wanderfly(self, prty)
-	local func=function(self)
+	local func=function()
 		if mobkit.is_queue_empty_low(self) then
 			mobkit.lq_dumbfly(self, 0.6)
 		end
@@ -21,7 +21,7 @@ end
 --than descend, cos this does the mobs stand on air, and climb mountains and trees.
 
 function mobkit.lq_turn2yaw(self, yaw)
-	local func = function(self)
+	local func = function()
 		if mobkit.turn2yaw(self, yaw) then
 			return true
 		end
@@ -33,7 +33,7 @@ function mobkit.lq_dumbfly(self, speed_factor)
 	local timer = petz.settings.fly_check_time
 	local fly_status = "ascend"
 	speed_factor = speed_factor or 1
-	local func = function(self)
+	local func = function()
 		timer = timer - self.dtime
 		if timer < 0 then
 			--minetest.chat_send_player("singleplayer", tostring(timer))
@@ -136,7 +136,7 @@ end
 --
 
 function mobkit.hq_fly(self, prty)
-	local func=function(self)
+	local func=function()
 		mobkit.animate(self, "fly")
 		mobkit.lq_fly(self)
 		mobkit.clear_queue_high(self)
@@ -145,7 +145,7 @@ function mobkit.hq_fly(self, prty)
 end
 
 function mobkit.lq_fly(self)
-	local func=function(self)
+	local func=function()
 		self.object:set_acceleration({ x = 0, y = 1, z = 0 })
 	end
 	mobkit.queue_low(self,func)
@@ -154,7 +154,7 @@ end
 -- Function to recover flying mobs from water
 
 function mobkit.hq_liquid_recovery_flying(self, prty)
-	local func=function(self)
+	local func=function()
 		self.object:set_acceleration({ x = 0.0, y = 0.125, z = 0.0 })
 		self.object:set_velocity({ x = 1.0, y = 1.0, z = 1.0 })
 		if not(petz.isinliquid(self)) then
@@ -170,7 +170,7 @@ end
 --
 
 function mobkit.hq_alight(self, prty)
-	local func = function(self)
+	local func = function()
 		local node_name = mobkit.node_name_in(self, "below")
 		if node_name == "air" then
 			mobkit.lq_alight(self)
@@ -189,7 +189,7 @@ function mobkit.hq_alight(self, prty)
 end
 
 function mobkit.lq_alight(self)
-	local func=function(self)
+	local func=function()
 		--minetest.chat_send_player("singleplayer", "alight")
 		self.object:set_acceleration({ x = 0, y = -1, z = 0 })
 		return true
