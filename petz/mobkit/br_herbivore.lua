@@ -119,6 +119,17 @@ function petz.herbivore_brain(self)
 			--end
 		--end
 
+		if prty < 8 then
+			if (self.can_jump) and not(self.status== "jump") then
+				local random_number = math.random(1, self.jump_ratio)
+				if random_number == 1 then
+					--minetest.chat_send_player("singleplayer", "jump")
+					mobkit.clear_queue_high(self)
+					mobkit.hq_terrestial_jump(self, 8)
+				end
+			end
+		end
+
 		--Poop
 		if prty < 7 then
 			petz.poop(self, pos)
