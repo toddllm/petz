@@ -120,7 +120,7 @@ function petz.herbivore_brain(self)
 		--end
 
 		if prty < 8 then
-			if (self.can_jump) and not(self.status== "jump") then
+			if (self.can_jump) and not(self.status== "stand") and not(self.status== "sleep") and not(self.status== "jump") then
 				local random_number = math.random(1, self.jump_ratio)
 				if random_number == 1 then
 					--minetest.chat_send_player("singleplayer", "jump")
