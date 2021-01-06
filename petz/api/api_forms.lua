@@ -270,7 +270,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			mobkit.clear_queue_low(pet)
 			mobkit.clear_queue_high(pet)
 			pet.status = nil
-			mobkit.hq_fly(pet, 0)
+			petz.hq_fly(pet, 0)
 			minetest.after(2.5, function()
 				if mobkit.is_alive(pet) then
 					mobkit.clear_queue_low(pet)

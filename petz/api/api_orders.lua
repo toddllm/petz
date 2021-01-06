@@ -20,7 +20,7 @@ petz.standhere = function(self)
 	mobkit.clear_queue_high(self)
 	mobkit.clear_queue_low(self)
 	if self.can_fly == true then
-		if mobkit.node_name_in(self, "below") == "air" then
+		if petz.node_name_in(self, "below") == "air" then
 			mobkit.animate(self, "fly")
 		else
 			mobkit.animate(self, "stand")
@@ -63,7 +63,7 @@ end
 petz.alight = function(self)
 	mobkit.clear_queue_low(self)
 	mobkit.clear_queue_high(self)
-	if not(mobkit.node_name_in(self, "below") == "air") then
+	if not(petz.node_name_in(self, "below") == "air") then
 		mobkit.animate(self, "fly")
 	end
 	petz.hq_alight(self, 0)
