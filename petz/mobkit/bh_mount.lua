@@ -55,20 +55,20 @@ local function get_v(v)
 	return math.sqrt(v.x * v.x + v.z * v.z)
 end
 
-function mobkit.hq_mountdriver(self, prty)
+function petz.hq_mountdriver(self, prty)
 	local func=function()
 		if not(self.driver) then
 			return true
 		else
 			if mobkit.is_queue_empty_low(self) then
-				mobkit.lq_mountdriver(self)
+				petz.lq_mountdriver(self)
 			end
 		end
 	end
 	mobkit.queue_high(self,func,prty)
 end
 
-function mobkit.lq_mountdriver(self)
+function petz.lq_mountdriver(self)
 	local auto_drive = false
 	local func = function()
 		if not(self.driver) then return true end

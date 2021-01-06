@@ -1,4 +1,4 @@
-function mobkit.hq_terrestial_jump(self, prty)
+function petz.hq_terrestial_jump(self, prty)
 	local func = function()
 		local velocity = {
 			x = self.max_speed * (self.jump_impulse/3),

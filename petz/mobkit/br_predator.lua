@@ -13,7 +13,7 @@ function petz.predator_brain(self)
 		return
 	end
 
-	mobkit.check_ground_suffocation(self, pos)
+	petz.check_ground_suffocation(self, pos)
 
 	if mobkit.timer(self, 1) then
 

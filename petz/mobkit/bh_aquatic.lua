@@ -2,7 +2,7 @@
 --- Aquatic Behaviours
 ---
 
-function mobkit.hq_aqua_jump(self, prty)
+function petz.hq_aqua_jump(self, prty)
 	local func = function()
 		local vel_impulse = 2.5
 		local velocity = {
