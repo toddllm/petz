@@ -63,6 +63,10 @@ minetest.register_entity("petz:"..pet_name,{
 		petz.set_initial_properties(self, staticdata, dtime_s)
 	end,
 
+	on_deactivate = function(self)
+		petz.on_deactivate(self)
+	end,
+
 	on_step = function(self, dtime)
 		mobkit.stepfunc(self, dtime) -- required
 		petz.on_step(self, dtime)

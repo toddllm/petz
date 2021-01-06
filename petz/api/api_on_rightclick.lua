@@ -29,7 +29,7 @@ petz.on_rightclick = function(self, clicker)
 	local wielded_item = clicker:get_wielded_item()
 	local wielded_item_name = wielded_item:get_name()
 	local show_form = false
-	local context = {}
+	local buy
 
 	if ((self.is_pet == true) and is_owner and (self.can_be_brushed == true)) -- If brushing or spread beaver oil
 		and ((wielded_item_name == "petz:hairbrush") or (wielded_item_name == "petz:beaver_oil")) then
@@ -107,17 +107,16 @@ petz.on_rightclick = function(self, clicker)
 			show_form = true
 		end
 	elseif petz.settings.selling and not(minetest.is_singleplayer()) and self.for_sale and self.owner and not(self.owner == player_name) then --Buy Form
-		context.buy = true
+		buy = true
 		show_form = true
 	else --Else open the Form
 		if (self.is_pet == true) and ((self.tamed == true) and (self.owner == player_name)) then
-			context.buy = false
+			buy = false
 			show_form = true
 		end
 	end
 	if show_form then
-		context.tab_id = 1
 		petz.pet[player_name]= self
-		minetest.show_formspec(player_name, "petz:form_orders", petz.create_form(player_name, context))
+		minetest.show_formspec(player_name, "petz:form_orders", petz.create_form(player_name, buy))
 	end
 end

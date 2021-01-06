@@ -79,7 +79,7 @@ minetest.register_entity("petz:"..pet_name, {
 			{range={x=47, y=59}, speed=5, loop=true},
 			{range={x=82, y=94}, speed=5, loop=true},
 		},
-		sit = {range={x=60, y=65}, speed=5, loop=false},
+		sit = {range={x=60, y=73}, speed=10, loop=false},
 		sleep = {range={x=94, y=113}, speed=10, loop=false},
 		jump = {range={x=114, y=117}, speed=5, loop=false},
 	},
@@ -93,6 +93,10 @@ minetest.register_entity("petz:"..pet_name, {
 	on_activate = function(self, staticdata, dtime_s) --on_activate, required
 		mobkit.actfunc(self, staticdata, dtime_s)
 		petz.set_initial_properties(self, staticdata, dtime_s)
+	end,
+
+	on_deactivate = function(self)
+		petz.on_deactivate(self)
 	end,
 
 	on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, dir)

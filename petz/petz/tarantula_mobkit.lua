@@ -71,6 +71,10 @@ minetest.register_entity("petz:"..pet_name, {
 		petz.on_punch(self, puncher, time_from_last_punch, tool_capabilities, dir)
 	end,
 
+	on_deactivate = function(self)
+		petz.on_deactivate(self)
+	end,
+
 	on_rightclick = function(self, clicker)
 		petz.on_rightclick(self, clicker)
 	end,

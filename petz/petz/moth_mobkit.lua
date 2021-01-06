@@ -73,6 +73,10 @@ minetest.register_entity("petz:"..pet_name,{
 		petz.init_lay_eggs(self)
 	end,
 
+	on_deactivate = function(self)
+		petz.on_deactivate(self)
+	end,
+
 	on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, dir)
 		petz.on_punch(self, puncher, time_from_last_punch, tool_capabilities, dir)
 	end,

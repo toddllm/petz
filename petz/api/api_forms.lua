@@ -1,6 +1,12 @@
 local S = ...
 
-petz.create_form = function(player_name, context)
+local _context = {}
+
+minetest.register_on_leaveplayer(function(player)
+	_context[player:get_player_name()] = nil
+end)
+
+petz.create_form = function(player_name, buy)
     local pet = petz.pet[player_name]
     local form_size = {w = 4, h = 3}
     local buttonexit_pos = {x = 1, y = 6}
@@ -11,12 +17,13 @@ petz.create_form = function(player_name, context)
     local form_orders = ''
     local more_form_orders = ''
     local tab_form = ''
-    if not context then
-		context = {}
-		context.tab_id = 1
+    if not _context[player_name] then
+		_context[player_name] = {}
+		_context[player_name].tab_id = 1
     end
+    local tab_id = _context[player_name].tab_id
     local pet_icon = "petz_spawnegg_"..pet.type..".png"
-	if context.tab_id == 1 and not(context.buy) then
+	if tab_id == 1 and not(buy) then
 		local pet_image_icon = "image[0.375,0.375;1,1;"..pet_icon.."]"
 		if pet.affinity == nil then
 			pet.affinity = 0
@@ -158,7 +165,7 @@ petz.create_form = function(player_name, context)
 			form_orders =	form_orders .. "button_exit[3.375,5.5;2,1;btn_guard;"..S("Guard").."]"
 		end
 		tab_form = tamagochi_form_stuff.. form_orders
-	elseif context.tab_id == 1 and context.buy then
+	elseif tab_id == 1 and buy then
 		form_size.w = form_size.w + 1
 		form_size.h = form_size.h + 2
 		buttonexit_pos.x = buttonexit_pos.x + 1
@@ -174,7 +181,7 @@ petz.create_form = function(player_name, context)
 			"label[2,2.5;"..tostring(item_amount).."]"..
 			"style_type[button_exit;bgcolor=#333600;textcolor=white]"..
 			"button_exit[2,3.25;2,1;btn_buy;"..S("Buy").."]"
-	elseif context.tab_id == 2 and not(context.buy) then
+	elseif tab_id == 2 and not(buy) then
 		form_size.w = form_size.w + 1
 		form_size.h = form_size.h + 2
 		buttonexit_pos.y = buttonexit_pos.y - 2
@@ -187,7 +194,7 @@ petz.create_form = function(player_name, context)
 				tab_form = tab_form .. "image[2,0.375;1,1;petz_lifetime.png]" .. "label[3,0.75;"..S("Lifetime").."]".."label[3,1;"..tostring(pet.lifetime).."]"
 			end
 		end
-	elseif context.tab_id == 3 and petz.settings.selling and not(context.buy) then
+	elseif tab_id == 3 and petz.settings.selling and not(buy) then
 		form_size.w = form_size.w + 1
 		form_size.h = form_size.h + 2
 		buttonexit_pos.y = buttonexit_pos.y - 2
@@ -213,16 +220,21 @@ petz.create_form = function(player_name, context)
 		"field[4,1.25;1,0.45;fld_exchange_item_amount;;"..tostring(pet.exchange_item_amount).."]"
 		--"scrollbaroptions[min=1;max=99;arrows=show;smallstep=1;largestep=1]"..
 		--"scrollbar[4,1.0;0.45,0.45;vertical;scrbar_exchange_item_amount;10]"
+	--elseif tab_id == 4 and not(buy) then
 	end
 	--Tab Header
 	local tab_main = S("Main")
 	local tab_other = S("Other")
 	local tab_shop = S("Shop")
+	--local tab_home = S("Home")
 	local tab_header
-	if context.buy then
+	if buy then
 		tab_header = tab_shop
 	else
-		tab_header =tab_main..","..tab_other
+		tab_header = tab_main..","..tab_other
+		--if pet.dreamcatcher then
+			--tab_header = tab_header..","..tab_home
+		--end
 		if not(minetest.is_singleplayer()) then
 			tab_header = tab_header..","..tab_shop
 		end
@@ -231,7 +243,7 @@ petz.create_form = function(player_name, context)
 	local final_form =
 		"size["..(form_size.w+0.875)..","..(form_size.h+1)..";]"..
 		"real_coordinates[true]"..
-		"tabheader[0,0;tabheader;"..tab_header..";"..tostring(context.tab_id)..";true;false]"..
+		"tabheader[0,0;tabheader;"..tab_header..";"..tostring(tab_id)..";true;false]"..
 		tab_form..
 		"style_type[button_exit;bgcolor=#006699;textcolor=white]"..
 		"button_exit["..(buttonexit_pos.x+0.5)..","..(buttonexit_pos.y+0.75)..";1,1;btn_close;"..S("Close").."]"
@@ -247,9 +259,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if fields.tabheader then
 		local tab_id = tonumber(fields.tabheader)
 		if tab_id > 0 then
-			local context = {}
-			context.tab_id = tab_id
-			minetest.show_formspec(player_name, "petz:form_orders", petz.create_form(player_name, context))
+			_context[player_name].tab_id = tab_id
+			minetest.show_formspec(player_name, "petz:form_orders", petz.create_form(player_name, false))
 		end
 		return
 	end
@@ -484,9 +495,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local player_name = player:get_player_name()
 	local pet = petz.pet[player_name]
 	if pet and (mobkit.is_alive(pet)) then
-		local context = {}
-		context.tab_id = 1
-		minetest.show_formspec(player_name, "petz:form_orders", petz.create_form(player_name, context))
+		_context[player_name].tab_id = 1
+		minetest.show_formspec(player_name, "petz:form_orders", petz.create_form(player_name, false))
 	end
 	return true
 end)
@@ -516,9 +526,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			petz.abandon_pet(pet, msg)
 		end
 	else
-		local context = {}
-		context.tab_id = 2
-		minetest.show_formspec(player_name, "petz:form_orders", petz.create_form(player_name, context))
+		_context[player_name].tab_id = 2
+		minetest.show_formspec(player_name, "petz:form_orders", petz.create_form(player_name, false))
 	end
 	return true
 end)
