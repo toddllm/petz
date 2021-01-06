@@ -1,11 +1,13 @@
 local modpath, S = ...
 
+--[[
 local tree = minetest.serialize_schematic(modpath .. "/schematics/petz_anthill.mts", "lua", {})
 local file = io.open(modpath .. "/schematics/petz_anthill.lua", "w")
 if file then
 	file:write(tree)
 	file:close()
 end
+]]
 
 --Material for Pet's House
 
