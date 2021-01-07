@@ -32,7 +32,7 @@ minetest.register_entity("petz:"..pet_name, {
 	jump_impulse = 1.2,
 	breed = true,
 	mutation = 1,
-	capture_item = "lasso",
+	capture_item = "net",
 	follow = petz.settings.bunny_follow,
 	drops = {
 		{name = "petz:raw_rabbit", chance = 1, min = 1, max = 1,},
