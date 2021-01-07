@@ -199,14 +199,16 @@ petz.create_form = function(player_name, buy)
 			end
 		end
 	elseif (tab_id == 3 and not(buy) and pet.dreamcatcher) then
-		form_size.w = form_size.w + 1
+		form_size.w = form_size.w + 2
 		form_size.h = form_size.h + 1
+		buttonexit_pos.y = buttonexit_pos.y - 3
 		tab_form = tab_form ..
-		"checkbox[1.5,0.75;btn_back_home;"..S("Automatic Go back home")..";"..petz.vartostring(pet.back_home).."]"..
+		"checkbox[0.25,1.5;btn_back_home;"..S("Automatic Go back home")..";"..petz.vartostring(pet.back_home).."]"..
+		"label[1.3,0.75;<< "..S("Click to set the home").."]"..
 		"image_button_exit[0.25,0.25;1,1;petz_kennel.png;btn_set_home;"..S("Set").."\n"..S("Home").."]"
 		if pet.home_pos then
 			tab_form = tab_form ..
-			"label[0.25,1.5;"..S("Home Pos")..": x="..tostring(petz.truncate(pet.home_pos.x,1))
+			"label[0.25,2.0;"..S("Home Pos")..": x="..tostring(petz.truncate(pet.home_pos.x,1))
 			..", y="..petz.truncate(pet.home_pos.y,1)..", z="..petz.truncate(pet.home_pos.z,1).."]"
 		end
 	elseif (tab_id ==3 or tab_id ==4) and petz.settings.selling and not(buy) then
