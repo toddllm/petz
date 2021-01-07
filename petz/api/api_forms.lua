@@ -198,7 +198,7 @@ petz.create_form = function(player_name, buy)
 				tab_form = tab_form .. "image[2,0.375;1,1;petz_lifetime.png]" .. "label[3,0.75;"..S("Lifetime").."]".."label[3,1;"..tostring(pet.lifetime).."]"
 			end
 		end
-	elseif tab_id == 3 and not(buy) then
+	elseif (tab_id == 3 and not(buy) and pet.dreamcatcher) then
 		form_size.w = form_size.w + 1
 		form_size.h = form_size.h + 1
 		tab_form = tab_form ..
@@ -209,7 +209,7 @@ petz.create_form = function(player_name, buy)
 			"label[0.25,1.5;"..S("Home Pos")..": x="..tostring(petz.truncate(pet.home_pos.x,1))
 			..", y="..petz.truncate(pet.home_pos.y,1)..", z="..petz.truncate(pet.home_pos.z,1).."]"
 		end
-	elseif (tab_id == 3 or tab_id ==4) and petz.settings.selling and not(buy) then
+	elseif (tab_id ==3 or tab_id ==4) and petz.settings.selling and not(buy) then
 		form_size.w = form_size.w + 1
 		form_size.h = form_size.h + 2
 		buttonexit_pos.y = buttonexit_pos.y - 2
