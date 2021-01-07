@@ -19,6 +19,9 @@ petz.on_step = function(self, dtime)
 		if lifetime then
 			petz.lifetime_timer(self, lifetime, on_step_time)
 		end
+		if self.dreamcatcher and self.back_home then
+			petz.back_home(self)
+		end
 		--Tamagochi
 		--Check the hungry
 		if petz.settings.tamagochi_mode == true and self.owner and self.is_pet and petz.settings.tamagochi_hungry_warning > 0 and not(self.status=="sleep") and petz.settings[self.type.."_follow"] then

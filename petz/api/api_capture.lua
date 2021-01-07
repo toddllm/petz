@@ -90,9 +90,10 @@ petz.capture = function(self, clicker, put_in_inventory)
 			if what_type == "boolean" or what_type == "number" then
 				value = tostring(value)
 			elseif what_type == "table" then
-				if key == "saddlebag_inventory" or key == "genes" or key == "father_genes" or key == "father_veloc_stats" then --only this tables to save serialized
-					value = minetest.serialize(value)
-					--minetest.chat_send_player("singleplayer", value)
+				if key == "saddlebag_inventory" or key == "genes" or key == "father_genes" or key == "father_veloc_stats"
+					or key == "home_pos" then --only this tables to save serialized
+						value = minetest.serialize(value)
+						--minetest.chat_send_player("singleplayer", value)
 				end
 			end
 			stack_meta:set_string(key, value)

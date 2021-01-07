@@ -6,6 +6,11 @@ minetest.register_on_leaveplayer(function(player)
 	_context[player:get_player_name()] = nil
 end)
 
+local function create_context(player_name, tab_id)
+	_context[player_name] = {}
+	_context[player_name].tab_id = tab_id
+end
+
 petz.create_form = function(player_name, buy)
     local pet = petz.pet[player_name]
     local form_size = {w = 4, h = 3}
@@ -18,8 +23,7 @@ petz.create_form = function(player_name, buy)
     local more_form_orders = ''
     local tab_form = ''
     if not _context[player_name] then
-		_context[player_name] = {}
-		_context[player_name].tab_id = 1
+		create_context(player_name, 1)
     end
     local tab_id = _context[player_name].tab_id
     local pet_icon = "petz_spawnegg_"..pet.type..".png"
@@ -194,7 +198,18 @@ petz.create_form = function(player_name, buy)
 				tab_form = tab_form .. "image[2,0.375;1,1;petz_lifetime.png]" .. "label[3,0.75;"..S("Lifetime").."]".."label[3,1;"..tostring(pet.lifetime).."]"
 			end
 		end
-	elseif tab_id == 3 and petz.settings.selling and not(buy) then
+	elseif tab_id == 3 and not(buy) then
+		form_size.w = form_size.w + 1
+		form_size.h = form_size.h + 1
+		tab_form = tab_form ..
+		"checkbox[1.5,0.75;btn_back_home;"..S("Automatic Go back home")..";"..petz.vartostring(pet.back_home).."]"..
+		"image_button_exit[0.25,0.25;1,1;petz_kennel.png;btn_set_home;"..S("Set").."\n"..S("Home").."]"
+		if pet.home_pos then
+			tab_form = tab_form ..
+			"label[0.25,1.5;"..S("Home Pos")..": x="..tostring(petz.truncate(pet.home_pos.x,1))
+			..", y="..petz.truncate(pet.home_pos.y,1)..", z="..petz.truncate(pet.home_pos.z,1).."]"
+		end
+	elseif (tab_id == 3 or tab_id ==4) and petz.settings.selling and not(buy) then
 		form_size.w = form_size.w + 1
 		form_size.h = form_size.h + 2
 		buttonexit_pos.y = buttonexit_pos.y - 2
@@ -220,21 +235,20 @@ petz.create_form = function(player_name, buy)
 		"field[4,1.25;1,0.45;fld_exchange_item_amount;;"..tostring(pet.exchange_item_amount).."]"
 		--"scrollbaroptions[min=1;max=99;arrows=show;smallstep=1;largestep=1]"..
 		--"scrollbar[4,1.0;0.45,0.45;vertical;scrbar_exchange_item_amount;10]"
-	--elseif tab_id == 4 and not(buy) then
 	end
 	--Tab Header
 	local tab_main = S("Main")
 	local tab_other = S("Other")
 	local tab_shop = S("Shop")
-	--local tab_home = S("Home")
+	local tab_home = S("Home")
 	local tab_header
 	if buy then
 		tab_header = tab_shop
 	else
 		tab_header = tab_main..","..tab_other
-		--if pet.dreamcatcher then
-			--tab_header = tab_header..","..tab_home
-		--end
+		if pet.dreamcatcher then
+			tab_header = tab_header..","..tab_home
+		end
 		if not(minetest.is_singleplayer()) then
 			tab_header = tab_header..","..tab_shop
 		end
@@ -259,7 +273,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if fields.tabheader then
 		local tab_id = tonumber(fields.tabheader)
 		if tab_id > 0 then
-			_context[player_name].tab_id = tab_id
+			create_context(player_name, tab_id)
 			minetest.show_formspec(player_name, "petz:form_orders", petz.create_form(player_name, false))
 		end
 		return
@@ -349,6 +363,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			pet.exchange_item_amount = mobkit.remember(pet, "exchange_item_amount", mokapi.delimit_number( tonumber(fields.fld_exchange_item_amount), {min=1, max=99}) or 1)
 		elseif fields.btn_buy then
 			petz.buy(pet, player)
+		elseif fields.btn_back_home then
+			pet.back_home= mobkit.remember(pet, "back_home", minetest.is_yes(fields.btn_back_home))
+		elseif fields.btn_set_home then
+			pet.home_pos= mobkit.remember(pet, "home_pos", pet.object:get_pos())
+			create_context(player_name, 3)
+			minetest.show_formspec(player_name, "petz:form_orders", petz.create_form(player_name, false))
 		end
 		if fields.ipt_name then
 			pet.tag = minetest.formspec_escape(string.sub(fields.ipt_name, 1 , 12))
@@ -360,8 +380,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			end
 		end
 		petz.update_nametag(pet)
+		_context[player_name] = nil
 		return true
 	else
+		_context[player_name] = nil
 		return false
 	end
 end)
@@ -495,7 +517,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local player_name = player:get_player_name()
 	local pet = petz.pet[player_name]
 	if pet and (mobkit.is_alive(pet)) then
-		_context[player_name].tab_id = 1
+		create_context(player_name, 1)
 		minetest.show_formspec(player_name, "petz:form_orders", petz.create_form(player_name, false))
 	end
 	return true
@@ -526,7 +548,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			petz.abandon_pet(pet, msg)
 		end
 	else
-		_context[player_name].tab_id = 2
+		create_context(player_name, 2)
 		minetest.show_formspec(player_name, "petz:form_orders", petz.create_form(player_name, false))
 	end
 	return true

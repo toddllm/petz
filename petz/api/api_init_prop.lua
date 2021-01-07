@@ -6,8 +6,9 @@ petz.dyn_prop = {
 	accel = {type= "int", default = 1},
 	affinity = {type= "int", default = 100},
 	anthill_founded = {type= "boolean", default = false},
+	back_home = {type= "boolean", default = false},
 	beaver_oil_applied = {type= "boolean", default = false},
-	behive = {type= "pos", default = false},
+	behive = {type= "pos", default = nil},
 	brushed = {type= "boolean", default = false},
 	child = {type= "boolean", default = false},
 	colorized = {type= "string", default = nil},
@@ -31,6 +32,7 @@ petz.dyn_prop = {
 	genes = {type= "table", default = {}},
 	growth_time = {type= "int", default = 0},
 	herding = {type= "boolean", default = false},
+	home_pos = {type= "table", default = nil},
 	horseshoes = {type= "int", default = 0},
 	is_baby = {type= "boolean", default = false},
 	is_male = {type= "boolean", default = false},
@@ -267,6 +269,8 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 		self.colorized = mobkit.remember(self, "colorized", nil)
 		self.convert = mobkit.remember(self, "convert", nil)
 		self.muted = mobkit.remember(self, "muted", false)
+		self.back_home = mobkit.remember(self, "back_home", false)
+		self.home_pos = mobkit.remember(self, "home_pos", nil)
 		if petz.settings[self.type.."_convert_count"] then
 			self.convert_count = mobkit.remember(self, "convert_count", petz.settings[self.type.."_convert_count"])
 		end
