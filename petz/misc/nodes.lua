@@ -151,6 +151,7 @@ minetest.register_node("petz:ducky_nest_egg", {
     inventory_image = "petz_ducky_nest_egg_inv.png",
     wield_image = "petz_ducky_nest_egg_inv.png",
     tiles = {"petz_ducky_nest_egg.png"},
+	use_texture_alpha = true,
     groups = {snappy=1, bendy=2, cracky=1},
     sounds = default.node_sound_wood_defaults(),
     paramtype = "light",
@@ -196,6 +197,7 @@ minetest.register_node("petz:chicken_nest_egg", {
     mesh = 'petz_ducky_nest_egg.b3d',
     visual_size = {x = 1.3, y = 1.3},
     tiles = {"petz_chicken_nest_egg.png"},
+    use_texture_alpha = true,
     collision_box = {
         type = "fixed",
         fixed= {-0.25, -0.75, -0.25, 0.25, -0.25, 0.25},
@@ -607,6 +609,7 @@ minetest.register_node("petz:cat_basket", {
 		"petz_cat_basket_side.png",
 		"petz_cat_basket_side.png"
 	},
+	use_texture_alpha = true,
 	drawtype = "nodebox",
 	paramtype = "light",
 	groups = {snappy=1, bendy=2, cracky=1},
