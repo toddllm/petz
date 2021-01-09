@@ -15,6 +15,7 @@ for i=1, 3 do
 	local parents
 	local aggressive
 	local is_baby
+	local is_male
 	if i == 1 then
 		pet_name = "hen"
 		description = "Hen"
@@ -31,6 +32,7 @@ for i=1, 3 do
 		parents = nil
 		aggressive = false
 		is_baby = false
+		is_male = false
 	elseif i == 2 then
 		pet_name = "rooster"
 		description = "Rooster"
@@ -47,6 +49,7 @@ for i=1, 3 do
 		parents = nil
 		aggressive = true
 		is_baby = false
+		is_male = true
 	else
 		pet_name = "chicken"
 		description = "Chicken"
@@ -73,6 +76,7 @@ for i=1, 3 do
 		is_pet = true,
 		has_affinity = false,
 		is_wild = false,
+		is_male = is_male,
 		is_baby = is_baby,
 		parents = parents,
 		aggressive = aggressive,

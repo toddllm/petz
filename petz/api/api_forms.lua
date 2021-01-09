@@ -82,15 +82,15 @@ petz.create_form = function(player_name, buy)
 				"checkbox[3.5,1.75;btn_muted;"..S("Muted")..";"..petz.vartostring(pet.muted).."]"..
 				"checkbox[3.5,2.25;btn_show_tag;"..S("Show tag")..";"..petz.vartostring(pet.show_tag).."]"
 		end
+		local gender
+		if pet.is_male == true then
+			gender = S("Male")
+		else
+			gender = S("Female")
+		end
+		tamagochi_form_stuff = tamagochi_form_stuff..
+			"label[3,0.875;"..gender.."]"
 		if pet.breed == true then --Show the Gender
-			local gender
-			if pet.is_male == true then
-				gender = S("Male")
-			else
-				gender = S("Female")
-			end
-			tamagochi_form_stuff = tamagochi_form_stuff..
-				"label[3,0.875;"..gender.."]"
 			local pregnant_icon_x
 			local pregnant_icon_y
 			local pregnant_text_x
