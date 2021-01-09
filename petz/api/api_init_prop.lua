@@ -67,6 +67,29 @@ petz.dyn_prop = {
 	was_killed_by_player = {type= "boolean", default = false},
 }
 
+petz.compose_texture= function(self)
+	local texture
+	if self.type == "lamb" then
+		local shaved_string = ""
+		if self.shaved == true then
+			shaved_string = "_shaved"
+		end
+		texture = "petz_lamb".. shaved_string .."_"..self.skin_colors[self.texture_no]..".png"
+	elseif self.is_mountable == true then
+		if self.saddle then
+			texture = "petz_"..self.type.."_"..self.skin_colors[self.texture_no]..".png" .. "^petz_"..self.type.."_saddle.png"
+		else
+			texture = "petz_"..self.type.."_"..self.skin_colors[self.texture_no]..".png"
+		end
+		if self.saddlebag then
+			texture = texture .. "^petz_"..self.type.."_saddlebag.png"
+		end
+	else
+		texture = self.textures[self.texture_no]
+	end
+	return texture
+end
+
 petz.cleanup_prop= function(self)
 	self.warn_attack = false --reset the warn attack
 	self.driver = nil --no driver
@@ -160,7 +183,7 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 			self[key] = value["default"]
 		end
 		--Define some settings ->
-		--Set a random gender for all the mobs (not yet defined in the entity definition)
+		--Set a random gender for all the mobs (not defined in the entity definition)
 		if self.is_male == nil then
 			self.is_male = petz.set_random_gender() --set a random gender
 		end
@@ -266,27 +289,7 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 
 	--Custom textures
 	if captured_mob == true or self.breed == true then
-		local texture
-		--Mob Specific
-		--Lamb
-		if self.type == "lamb" then
-			local shaved_string = ""
-			if self.shaved == true then
-				shaved_string = "_shaved"
-			end
-			texture = "petz_lamb".. shaved_string .."_"..self.skin_colors[self.texture_no]..".png"
-		elseif self.is_mountable == true then
-			if self.saddle then
-				texture = "petz_"..self.type.."_"..self.skin_colors[self.texture_no]..".png" .. "^petz_"..self.type.."_saddle.png"
-			else
-				texture = "petz_"..self.type.."_"..self.skin_colors[self.texture_no]..".png"
-			end
-			if self.saddlebag then
-				texture = texture .. "^petz_"..self.type.."_saddlebag.png"
-			end
-		else
-			texture = self.textures[self.texture_no]
-		end
+		local texture= petz.compose_texture(self)	--compose the texture
 		mobkit.remember(self, "texture_no", self.texture_no)
 		petz.set_properties(self, {textures = {texture}})
 	end
