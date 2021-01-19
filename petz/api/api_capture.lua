@@ -60,7 +60,7 @@ petz.check_capture_items = function(self, wielded_item_name, clicker, check_inv_
 		return false
 	end
 	if capture_item_type == self.capture_item then
-		if check_inv_room == true then
+		if check_inv_room then
 			--check for room in inventory
 			local inv = clicker:get_inventory()
 			if inv:room_for_item("main", ItemStack("air")) then
@@ -119,7 +119,7 @@ petz.capture = function(self, clicker, put_in_inventory)
 		description = self.type
 	end
 	stack_meta:set_string("description", S(petz.first_to_upper(description)).." ("..S("Tamed")..")"..info_text)
-	if put_in_inventory == true then
+	if put_in_inventory then
 		local inv = clicker:get_inventory()
 		if inv:room_for_item("main", new_stack) then
 			inv:add_item("main", new_stack)

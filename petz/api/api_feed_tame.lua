@@ -14,7 +14,7 @@ petz.insert_tamed_by_owner = function(self)
 			break
 		end
 	end
-	if insert == true then --if not yet
+	if insert then --if not yet
 		table.insert(petz.tamed_by_owner[self.owner], {["pet"] = self, metadata = {["tag"] = self.tag, ["type"] = self.type, ["last_pos"] = nil}})
 	end
 end
@@ -51,7 +51,7 @@ end
 
 petz.after_tame = function(self)
 	petz.insert_tamed_by_owner(self)
-	if petz.settings.tamagochi_mode == true then
+	if petz.settings.tamagochi_mode then
 		self.init_tamagochi_timer = true
 	end
 end
@@ -83,7 +83,7 @@ petz.tame_whip= function(self, hitter)
 					mobkit.clear_queue_high(self) -- do not attack
 				end
 			else
-				if (petz.settings.tamagochi_mode == true) and (self.owner == hitter:get_player_name()) then
+				if (petz.settings.tamagochi_mode) and (self.owner == hitter:get_player_name()) then
 					petz.do_lashing(self)
 				end
 			end

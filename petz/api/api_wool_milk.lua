@@ -5,7 +5,7 @@
 petz.refill = function(self)
 	if self.type == "lamb" then
 		petz.lamb_wool_regrow(self)
-	elseif self.milkable == true then
+	elseif self.milkable then
 		petz.milk_refill(self)
 	end
 end

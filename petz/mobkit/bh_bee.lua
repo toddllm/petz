@@ -32,7 +32,7 @@ end
 
 function petz.hq_gotopollen(self, prty, tpos)
 	local func = function()
-		if self.pollen == true then
+		if self.pollen then
 			--mobkit.clear_queue_low(self)
 			--mobkit.clear_queue_high(self)
 			return true

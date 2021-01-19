@@ -1,7 +1,7 @@
 local S = ...
 
 petz.brush = function(self, wielded_item_name, pet_name)
-    if petz.settings.tamagochi_mode == true then
+    if petz.settings.tamagochi_mode then
         if wielded_item_name == "petz:hairbrush" then
             if self.brushed == false then
                 petz.set_affinity(self, petz.settings.tamagochi_brush_rate)

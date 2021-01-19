@@ -104,7 +104,7 @@ petz.pregnant_timer = function(self, dtime)
 	self.pregnant_time = mobkit.remember(self, "pregnant_time", self.pregnant_time + dtime)
 	if self.pregnant_time >= petz.settings.pregnancy_time then
 		local baby_entity = petz.childbirth(self)
-		if self.is_mountable == true then
+		if self.is_mountable then
 			--Set the genetics accordingly the father and the mother
 			local speedup = (self.horseshoes or 0) * petz.settings.horseshoe_speedup
 			local random_number = math.random(-1, 1)
