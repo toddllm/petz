@@ -15,7 +15,7 @@ end
 --
 
 petz.lamb_wool_regrow = function(self)
-	if self.shaved == false then --only count if the lamb is shaved
+	if not self.shaved then --only count if the lamb is shaved
 		return
 	end
 	local food_count_wool = self.food_count_wool + 1

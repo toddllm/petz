@@ -163,7 +163,7 @@ petz.spawn_mob = function(spawn_pos, limit_max_mobs, abr, liquidflag)
 				end
 			end
 		end
-		if (limit_max_mobs) == false or (mob_count < petz.settings.max_mobs) then --check for bigger mobs:
+		if not(limit_max_mobs) or (mob_count < petz.settings.max_mobs) then --check for bigger mobs:
 			local spawn_herd = petz.settings[random_mob.."_spawn_herd"]
 			if spawn_herd then
 				--minetest.chat_send_player("singleplayer", tonumber(spawn_herd))

@@ -45,7 +45,7 @@ petz.timer = function(self)
     minetest.after(petz.settings.tamagochi_check_time, function()
         if mobkit.is_alive(self) then
 			if (not(minetest.is_singleplayer())) and (petz.settings.tamagochi_check_if_player_online) then
-				if minetest.player_exists(self.owner) == false then --if pet owner is not online
+				if not minetest.player_exists(self.owner) then --if pet owner is not online
 					return
 				end
 			end
@@ -71,7 +71,7 @@ petz.timer = function(self)
                 return
             end
             --Decrease health if pet has not fed
-            if self.fed == false then
+            if not self.fed then
 				mokapi.set_health(self, -petz.settings.tamagochi_feed_hunger_rate)
 				petz.update_nametag(self)
                 if (self.hp > 0)  and self.has_affinity then
@@ -94,7 +94,7 @@ petz.timer = function(self)
 			end
             --If the petz is a lion had to been lashed
             if self.type== "lion" then
-                if self.lashed == false then
+                if not self.lashed then
                     petz.set_affinity(self, -petz.settings.tamagochi_lashing_rate)
                 else
                     self.lashed = false

@@ -1,7 +1,7 @@
 local S = ...
 
 petz.breed = function(self, clicker, wielded_item, wielded_item_name)
-	if self.is_rut == false and self.is_pregnant == false then
+	if not(self.is_rut) and not(self.is_pregnant) then
 		wielded_item:take_item()
 		clicker:set_wielded_item(wielded_item)
 		self.is_rut = true

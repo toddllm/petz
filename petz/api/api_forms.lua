@@ -53,7 +53,7 @@ petz.create_form = function(player_name, buy)
 				affinity_stuff
 			local health_label = S("Health").." = "..tostring(pet.hp)
 			local hungry_label
-			if pet.fed == false then
+			if not pet.fed then
 				hungry_label = S("Hungry")
 			else
 				hungry_label = S("Satiated")
@@ -117,7 +117,7 @@ petz.create_form = function(player_name, buy)
 				tamagochi_form_stuff = tamagochi_form_stuff..
 					"image["..(pregnant_icon_x+0.375)..","..(pregnant_icon_y+0.5)..";1,1;petz_"..pet.type.."_pregnant_icon.png]"..
 					"label["..(pregnant_text_x+0.375)..","..(pregnant_text_y+1)..";"..S("Pregnant").." ("..tostring(pregnant_remain_time).."s)]"
-			elseif pet.is_male == false and pet.pregnant_count and pet.pregnant_count <= 0 then
+			elseif not(pet.is_male) and pet.pregnant_count and pet.pregnant_count <= 0 then
 				tamagochi_form_stuff = tamagochi_form_stuff..
 					"label["..(infertile_text_x+0.5)..","..(infertile_text_y+1)..";"..S("Infertile").."]"
 			end

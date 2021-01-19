@@ -9,7 +9,7 @@ petz.create_pet = function(placer, itemstack, pet_name, pos)
 	local staticdata = meta:get_string("staticdata")
 	local mob = minetest.add_entity(pos, pet_name, staticdata)
 	local self = mob:get_luaentity()
-	if self.is_wild == false and not(self.owner) then --not monster and not owner
+	if not(self.is_wild) and not(self.owner) then --not monster and not owner
 		mokapi.set_owner(self, placer:get_player_name()) --set owner
 		petz.after_tame(self)
 	end

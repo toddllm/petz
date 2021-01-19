@@ -63,7 +63,7 @@ end
 -- Whip/lashing behaviour
 
 petz.do_lashing = function(self)
-    if self.lashed == false then
+    if not self.lashed then
         self.lashed = mobkit.remember(self, "lashed", true)
     end
     mokapi.make_sound("object", self.object, "petz_"..self.type.."_moaning", petz.settings.max_hear_distance)
@@ -72,7 +72,7 @@ end
 petz.tame_whip= function(self, hitter)
 		local wielded_item_name= hitter:get_wielded_item():get_name()
 		if (wielded_item_name == "petz:whip") then
-			if self.tamed == false then
+			if not self.tamed then
 				--The mob can be tamed lashed with a whip
 				self.lashing_count = self.lashing_count + 1
 				if self.lashing_count >= petz.settings.lashing_tame_count then
@@ -94,7 +94,7 @@ end
 --Ants
 petz_feed_queen_ant= function(self, clicker, player_name, wielded_item)
 	local creative_mode = minetest.settings:get_bool("creative_mode")
-	if creative_mode == false then -- if not in creative, take item
+	if not creative_mode then -- if not in creative, take item
 		wielded_item:take_item()
 		clicker:set_wielded_item(wielded_item)
 	end

@@ -22,7 +22,7 @@ function petz.herbivore_brain(self)
 		end
 	end
 
-	if die == true then
+	if die then
 		petz.on_die(self)
 		return
 	end
@@ -65,31 +65,31 @@ function petz.herbivore_brain(self)
 
 		--Runaway from predator
 		if prty < 18  then
-			if petz.bh_runaway_from_predator(self, pos) == true then
+			if petz.bh_runaway_from_predator(self, pos) then
 				return
 			end
 		end
 
 		--Follow Behaviour
 		if prty < 16 then
-			if petz.bh_start_follow(self, pos, player, 16) == true then
+			if petz.bh_start_follow(self, pos, player, 16) then
 				return
 			end
 		end
 
 		if prty == 16 then
-			if petz.bh_stop_follow(self, player) == true then
+			if petz.bh_stop_follow(self, player) then
 				return
 			end
 		end
 
 		--Runaway from Player
 		if prty < 14 then
-			if not(self.can_fly) and self.tamed == false then --if no tamed
+			if not(self.can_fly) and not(self.tamed) then --if no tamed
 				if player then
 					local player_pos = player:get_pos()
 					local wielded_item_name = player:get_wielded_item():get_name()
-					if self.is_pet == false and self.follow ~= wielded_item_name and vector.distance(pos, player_pos) <= self.view_range then
+					if not(self.is_pet) and self.follow ~= wielded_item_name and vector.distance(pos, player_pos) <= self.view_range then
 						mobkit.hq_runfrom(self, 14, player)
 						return
 					end
