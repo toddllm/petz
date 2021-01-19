@@ -237,7 +237,7 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 		end
 		--ALL the mobs
 		--Get a texture
-		if not(self.texture_no) then
+		if not self.texture_no then
 			if self.skin_colors then
 				local textures_count
 				if self.mutation and (self.mutation > 0) then
@@ -304,7 +304,7 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 		end, self)
 	end
 	if self.colorized then
-		if not(self.shaved) then
+		if not self.shaved then
 			petz.colorize(self, self.colorized)
 		end
 	end
