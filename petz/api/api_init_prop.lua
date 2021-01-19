@@ -177,7 +177,7 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 	--1. NEW MOBS
 	--
 	--dtime_s == 0 differenciates between loaded and new created mobs
-	if dtime_s == 0 and captured_mob == false then	--set some vars
+	if dtime_s == 0 and not captured_mob then	--set some vars
 		--Load default settings ->
 		for key, value in pairs(petz.dyn_prop) do
 			self[key] = value["default"]
@@ -202,8 +202,8 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 			if self.mutation and (self.mutation > 0) and math.random(1, 200) == 1 then
 				genes_mutation = true
 			end
-			if genes_mutation == false then
-				if baby_born == false then
+			if not genes_mutation then
+				if not baby_born then
 					self.genes["gen1"] = petz.get_gen(self)
 					self.genes["gen2"] = petz.get_gen(self)
 					--minetest.chat_send_player("singleplayer", tostring(self.genes["gen1"]))
@@ -260,7 +260,7 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 	--
 	--2. ALREADY EXISTING MOBS
 	--
-	elseif captured_mob == false then
+	elseif not captured_mob then
 		petz.load_vars(self) --Load memory variables
 	--
 	--3. CAPTURED MOBS
@@ -315,7 +315,7 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 		petz.set_properties(self, {textures = {self.textures[1]}})
 	end
 	--<<<
-	if self.horseshoes and captured_mob == false then
+	if self.horseshoes and not captured_mob then
 		petz.horseshoes_speedup(self)
 	end
 	if self.breed then
