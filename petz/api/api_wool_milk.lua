@@ -67,11 +67,11 @@ end
 
 petz.milk_milk = function(self, clicker)
 	local inv = clicker:get_inventory()
+	local wielded_item = clicker:get_wielded_item()
+	wielded_item:take_item()
+	clicker:set_wielded_item(wielded_item)
 	if inv:room_for_item("main", "petz:bucket_milk") then
-		local wielded_item = clicker:get_wielded_item()
-		wielded_item:take_item()
-		clicker:set_wielded_item("petz:bucket_milk")
-		inv:add_item("main", wielded_item)
+		inv:add_item("main","petz:bucket_milk")
 		mokapi.make_sound("object", self.object, "petz_"..self.type.."_moaning", petz.settings.max_hear_distance)
 	else
 		minetest.add_item(self.object:get_pos(), "petz:bucket_milk")
