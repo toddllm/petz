@@ -2,6 +2,8 @@
 ---Refill lamb or milk
 ---
 
+local S = ...
+
 petz.refill = function(self)
 	if self.type == "lamb" then
 		petz.lamb_wool_regrow(self)
@@ -66,6 +68,10 @@ petz.milk_refill = function(self)
 end
 
 petz.milk_milk = function(self, clicker)
+	if not self.is_male then
+		minetest.chat_send_player(clicker:get_player_name(), S("Milk only female animals!"))
+		return
+	end
 	local inv = clicker:get_inventory()
 	local wielded_item = clicker:get_wielded_item()
 	wielded_item:take_item()
