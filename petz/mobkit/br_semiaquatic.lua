@@ -48,6 +48,11 @@ function petz.semiaquatic_brain(self)
 			end
 		end
 
+		-- hunt a prey (frogs)
+		if prty < 12 then -- if not busy with anything important
+			 petz.bh_hunt(self, 12, false)
+		end
+
 		if prty < 10 then
 			if player then
 				if not(self.tamed) or (self.tamed and self.status == "guard" and player:get_player_name() ~= self.owner) then
