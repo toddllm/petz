@@ -68,7 +68,7 @@ petz.milk_refill = function(self)
 end
 
 petz.milk_milk = function(self, clicker)
-	if not self.is_male then
+	if self.is_male then
 		minetest.chat_send_player(clicker:get_player_name(), S("Milk only female animals!"))
 		return
 	end
