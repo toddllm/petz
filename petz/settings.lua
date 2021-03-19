@@ -84,6 +84,12 @@ local settings_def = {
 	type = "number",
 	default = 1,
 	},
+	--Nametag Background
+	{
+	name = "tag_background",
+	type = "boolean",
+	default = false,
+	},
 	--Capture Mobs
 	{
 	name = "lasso",
