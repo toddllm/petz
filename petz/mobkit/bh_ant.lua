@@ -51,7 +51,7 @@ function petz.bh_lay_antegg(self, pos)
 	--Lay in front (air node) and above a Ant Bed Node
 	local node_name_front, egg_pos = petz.node_name_in(self, "front")
 	local node_name_front_below = petz.node_name_in(self, "front_below")
-	if node_name_front == "air" and node_name_front_below == "petz:antbed" then
+	if egg_pos and node_name_front == "air" and node_name_front_below == "petz:antbed" then
 		minetest.place_node(egg_pos, {name="petz:antegg"})
 		petz.increase_egg_count(self)
 		return true

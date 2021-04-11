@@ -174,9 +174,16 @@ petz.create_form = function(player_name, buy)
 		form_size.h = form_size.h + 2
 		buttonexit_pos.x = buttonexit_pos.x + 1
 		buttonexit_pos.y = buttonexit_pos.y - 2
-		local item_description = petz.settings.selling_exchange_items_list[pet.exchange_item_index].description or ""
+		local item_description
+		local item_inventory_image
+		if petz.settings.selling_exchange_items_list[pet.exchange_item_index] then
+			item_description = petz.settings.selling_exchange_items_list[pet.exchange_item_index].description or ""
+			item_inventory_image = petz.settings.selling_exchange_items_list[pet.exchange_item_index].inventory_image or ""
+		else
+			item_description = ""
+			item_inventory_image  = ""
+		end
 		local item_amount = pet.exchange_item_amount or 1
-		local item_inventory_image = petz.settings.selling_exchange_items_list[pet.exchange_item_index].inventory_image or ""
 		tab_form = tab_form ..
 			"label[0.375,1.85;"..S("Cost")..": ]"..
 			"label[2,1.85;"..item_description.."]"..
