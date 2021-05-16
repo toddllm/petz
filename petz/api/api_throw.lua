@@ -61,8 +61,9 @@ function petz.throw(self, dtime, damage, effect, particles, sound)
 							z = node_pos.z,
 						}
 						local node_above = minetest.get_node(pos_above)
-						if minetest.get_item_group(node_name, "flammable") > 1 then
-							minetest.set_node(node_pos, {name = "fire:basic_flame"})
+						if minetest.get_item_group(node_name, "flammable") > 1
+							and not minetest.is_protected(node_pos, "") then
+								minetest.set_node(node_pos, {name = "fire:basic_flame"})
 						end
 						if node_above.name == "air" then
 							--if minetest.get_node(pos_above).name == "air" then
