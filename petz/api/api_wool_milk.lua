@@ -21,7 +21,7 @@ petz.lamb_wool_regrow = function(self)
 		return
 	end
 	local food_count_wool = self.food_count_wool + 1
-	mobkit.remember(self, "food_count_wool", food_count_wool)
+	self.food_count_wool = mobkit.remember(self, "food_count_wool", food_count_wool)
 	if self.food_count_wool >= 5 then -- if lamb replaces 5x grass then it regrows wool
 		self.food_count_wool = mobkit.remember(self, "food_count_wool", 0)
 		self.shaved = mobkit.remember(self, "shaved", false)
