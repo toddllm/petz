@@ -372,6 +372,7 @@ minetest.register_craftitem("petz:elephant_tusk", {
 })
 
 for i=1, 2 do
+	local bottled_mob
 	if i == 1 then
 		bottled_mob = "moth"
 	else

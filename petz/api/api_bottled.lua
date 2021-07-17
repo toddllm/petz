@@ -9,6 +9,7 @@ petz.bottled = function(self, clicker)
 	local inv = clicker:get_inventory()
 	if inv:room_for_item("main", new_stack) then
 		inv:add_item("main", new_stack)
+		inv:remove_item("main", "vessels:glass_bottle")
 	else
 		minetest.add_item(clicker:get_pos(), new_stack)
 	end
