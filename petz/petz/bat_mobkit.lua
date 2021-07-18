@@ -16,7 +16,6 @@ minetest.register_entity("petz:"..pet_name,{
 	can_fly = true,
 	spawn_at_night = true,
 	max_height = 3,
-	max_daylight_level = 10,
 	has_affinity = false,
 	is_wild = false,
 	give_orders = false,
