@@ -222,7 +222,7 @@ function petz.herbivore_brain(self)
 		end
 
 		--Roam default
-		if mobkit.is_queue_empty_high(self) and not(self.status) then
+		if mobkit.is_queue_empty_high(self) and not(self.status) and not(self.wagon) then
 			mobkit.hq_roam(self, 0)
 		end
 

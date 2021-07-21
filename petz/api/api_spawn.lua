@@ -79,7 +79,7 @@ petz.spawn_mob = function(spawn_pos, limit_max_mobs, abr, liquidflag)
 				if spawn_pos.y < ent.spawn_min_height then
 					can_spawn = false
 				end
-			end			
+			end
 			if can_spawn and ent.min_daylight_level then --check min_light
 				local daylight_level = minetest.get_node_light(spawn_pos, 0.5)
 				if not(daylight_level) or (daylight_level < ent.min_daylight_level) then

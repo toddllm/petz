@@ -505,9 +505,7 @@ minetest.register_craft({
 --Halloween Update
 
 if minetest.get_modpath("farming") ~= nil and farming.mod == "redo" then
-
-   minetest.register_alias("petz:jack_o_lantern", "farming:jackolantern")
-   
+	minetest.register_alias("petz:jack_o_lantern", "farming:jackolantern")
 	minetest.register_craft({
 		type = "shapeless",
 		output = "petz:jack_o_lantern",
@@ -518,9 +516,7 @@ if minetest.get_modpath("farming") ~= nil and farming.mod == "redo" then
 		output = "petz:jack_o_lantern",
 		recipe = {"farming:pumpkin", "default:torch"},
 	})
-
 else
-
    minetest.register_node("petz:jack_o_lantern", {
 	description = S("Jack-o'-lantern"),
 	groups = { snappy=3, flammable=3, oddly_breakable_by_hand=2 },
@@ -538,7 +534,6 @@ else
 		"petz_jackolantern_back.png", "petz_jackolantern_front.png"
     },
    })
-   
 end
 
 if minetest.get_modpath("crops") ~= nil then

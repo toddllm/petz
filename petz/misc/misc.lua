@@ -5,8 +5,9 @@ assert(loadfile(modpath .. "/misc/nodes.lua"))(modpath, S) --Load the nodes
 assert(loadfile(modpath .. "/misc/items.lua"))(S) --Load the items
 assert(loadfile(modpath .. "/misc/chests.lua"))(S) --Load the chests
 assert(loadfile(modpath .. "/misc/food.lua"))(S) --Load the food items
-assert(loadfile(modpath .. "/misc/hunger.lua"))(modpath, S) --Load the food items
-assert(loadfile(modpath .. "/misc/tools.lua"))(S) --Load the food items
+assert(loadfile(modpath .. "/misc/hunger.lua"))(modpath, S)
+assert(loadfile(modpath .. "/misc/tools.lua"))(S)
+assert(loadfile(modpath .. "/misc/wagon.lua"))(S) --Wagon
 --assert(loadfile(modpath .. "/misc/parchment.lua"))(S) --Load the food items
 if petz.settings["lycanthropy"] then
 	assert(loadfile(modpath .. "/misc/lycanthropy.lua"))(S) --Load the food items

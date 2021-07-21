@@ -40,7 +40,9 @@ minetest.register_entity("petz:"..pet_name, {
 	scale_baby =scale_baby,
 	driver_scale = {x = 1/visual_size.x, y = 1/visual_size.y},
 	driver_attach_at = {x = -0.0325, y = -0.125, z = -0.2},
+	driver_wagon_attach_at = {x = -0.0325, y = -0.125, z = -0.625},
 	driver_eye_offset = {x = 0, y = 0, z = 0},
+	driver_wagon_eye_offset = {x = 0, y = 0, z = -20},
 	pregnant_count = 5,
 	follow = petz.settings.pony_follow,
 	drops = {
@@ -79,6 +81,7 @@ minetest.register_entity("petz:"..pet_name, {
 	},
 
 	animation = {
+		still={range={x=1, y=1}, speed=0, loop=true},
 		walk={range={x=1, y=12}, speed=25, loop=true},
 		run={range={x=13, y=25}, speed=25, loop=true},
 		stand={
@@ -117,6 +120,16 @@ minetest.register_entity("petz:"..pet_name, {
 	on_step = function(self, dtime)
 		mobkit.stepfunc(self, dtime) -- required
 		petz.on_step(self, dtime)
+	end,
+
+	on_detach_child = function(self, child)
+		if self.wagon and not(child:is_player()) then
+			local child_ent = child:get_luaentity()
+			self.wagon:set_properties({
+				visual_size = child_ent.visual_size
+			})
+			self.wagon = nil
+		end
 	end,
 })
 

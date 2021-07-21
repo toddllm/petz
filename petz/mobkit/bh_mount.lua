@@ -109,7 +109,10 @@ function petz.lq_mountdriver(self)
 			velo.y = velo.y + (self.jump_height)*4
 			acce_y = acce_y *1.5
 		else --stand
-			mobkit.animate(self, "stand")
+			mobkit.animate(self, "still")
+			if self.wagon then
+				petz.animate_wagon(self, "stand")
+			end
 			return
 		end
 		--Gallop
@@ -142,6 +145,9 @@ function petz.lq_mountdriver(self)
 			mobkit.animate(self, "walk")	-- set animation
 		else
 			mobkit.animate(self, "run")
+		end
+		if self.wagon then
+			petz.animate_wagon(self, "roll")
 		end
 		new_acce.y = new_acce.y + acce_y
 		--minetest.chat_send_player("singleplayer", tostring(new_acce.y))

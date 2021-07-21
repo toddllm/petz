@@ -38,8 +38,18 @@ function petz.attach(entity, player)
 	if entity.player_rotation.y == 90 then
 		rot_view = math.pi/2
 	end
-	local attach_at = entity.driver_attach_at
-	local eye_offset = entity.driver_eye_offset
+	local attach_at
+	if not(entity.wagon) then
+		attach_at = entity.driver_attach_at
+	else
+		attach_at = entity.driver_wagon_attach_at
+	end
+	local eye_offset
+	if not(entity.wagon) then
+		eye_offset = entity.driver_eye_offset
+	else
+		eye_offset = entity.driver_wagon_eye_offset
+	end
 	player:set_attach(entity.object, "", attach_at, entity.player_rotation)
 	entity.driver = player --this goes after petz.force_detach!
 	local player_name = player:get_player_name()
@@ -52,7 +62,7 @@ function petz.attach(entity, player)
 				y = petz.truncate(entity.driver_scale.y, 2)
 			},
 		pointable = petz.settings.pointable_driver
-		})
+	})
 	minetest.after(0.3, function()
 		player_api.set_animation(player, "sit" , 30)
 	end)
@@ -66,6 +76,11 @@ petz.force_detach = function(player)
 	end
 	if entity.driver and entity.driver == player then
 		entity.driver = nil
+	end
+	if entity.waggon then
+		mobkit.clear_queue_low(entity)
+		mobkit.clear_queue_high(entity)
+		mobkit.animate(entity, "still")
 	end
 	player:set_detach()
 	player_api.player_attached[player:get_player_name()] = false

@@ -98,6 +98,8 @@ petz.on_rightclick = function(self, clicker)
 		petz.bottled(self, clicker)
 	elseif (self.type == "pony") and (wielded_item_name == "petz:horseshoe") and (self.owner == player_name) then
 		petz.put_horseshoe(self, clicker)
+	elseif (self.type == "pony") and (wielded_item_name == "petz:wagon") and (self.owner == player_name) then
+		petz.put_wagon(self, clicker)
 	elseif self.is_mountable and is_owner then
 		show_form = petz.mount(self, clicker, wielded_item, wielded_item_name)
 	elseif self.feathered and is_owner then

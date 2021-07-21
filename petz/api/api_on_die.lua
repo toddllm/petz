@@ -38,6 +38,10 @@ petz.on_die = function(self)
 		if self.driver then
 			petz.force_detach(self.driver)
 		end
+		--If wagon, detach-->
+		if self.wagon then
+			self.wagon:set_detach()
+		end
 	elseif self.type == "puppy" then
 		if self.square_ball_attached and self.attached_squared_ball then
 			self.attached_squared_ball.object:set_detach()

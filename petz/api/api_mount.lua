@@ -12,9 +12,19 @@ petz.mount = function(self, clicker, wielded_item, wielded_item_name)
 	if self.tamed and self.owner == clicker:get_player_name() then
 		if self.driver and clicker == self.driver then -- detatch player already riding horse
 			petz.detach(clicker, {x = 1, y = 0, z = 1})
+			if self.wagon then
+				petz.animate_wagon(self, "stand")
+			end
 			mobkit.clear_queue_low(self)
+			mobkit.clear_queue_high(self)
+			mobkit.animate(self, "still")
 			return false
-		elseif (self.saddle or self.saddlebag) and wielded_item_name == petz.settings.shears then
+		elseif (self.saddle or self.saddlebag or self.wagon) and wielded_item_name == petz.settings.shears then
+			if self.wagon then
+				self.wagon:remove()
+				mokapi.drop_item(self, "petz:wagon", 1)
+				self.wagon = nil
+			end
 			if self.saddle then
 				minetest.add_item(self.object:get_pos(), "petz:saddle")
 				mokapi.make_sound("object", self.object, "petz_pop_sound", petz.settings.max_hear_distance)
@@ -40,7 +50,7 @@ petz.mount = function(self, clicker, wielded_item, wielded_item_name)
 				petz.put_saddle(self, clicker, wielded_item, wielded_item_name)
 				return false
 			end
-		elseif not(self.driver) and self.saddle then -- Mount petz
+		elseif not(self.driver) and (self.saddle or self.wagon) then -- Mount petz
 			petz.set_properties(self, {stepheight = 1.1})
 			petz.attach(self, clicker)
 			return false
