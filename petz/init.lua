@@ -42,6 +42,22 @@ petz.file_exists = function(name)
 	end
 end
 
+if petz.settings["remove_list"] then
+	for i = 1, #petz.settings["remove_list"] do
+		local file_name = modpath .. "/petz/"..petz.settings["remove_list"][i].."_mobkit"..".lua"
+		if petz.file_exists(file_name) then
+			assert(loadfile(file_name))(S)
+		end
+		--Override the petz_list
+		for j = 1, #petz.settings["petz_list"] do --load all the petz.lua files
+			if petz.settings["remove_list"][i] == petz.settings["petz_list"][j] then
+				table.remove(petz.settings["petz_list"], j)
+				--mokapi.remove_table_by_key(petz.settings["petz_list"], j)
+			end
+		end
+	end
+end
+
 for i = 1, #petz.settings["petz_list"] do --load all the petz.lua files
 	local file_name = modpath .. "/petz/"..petz.settings["petz_list"][i].."_mobkit"..".lua"
 	if petz.file_exists(file_name) then

@@ -261,6 +261,19 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 	--2. ALREADY EXISTING MOBS
 	--
 	elseif not captured_mob then
+		--Check if the petz was removed from the petz list in the settings
+		local remove_petz = true
+		for key, value in pairs(petz.settings["petz_list"]) do
+			if value == self.type then
+				minetest.chat_send_all(value)
+				remove_petz = false
+				break
+			end
+		end
+		if remove_petz then
+			self.object:remove()
+			return
+		end
 		petz.load_vars(self) --Load memory variables
 	--
 	--3. CAPTURED MOBS

@@ -13,5 +13,3 @@ Cute kawaii mobs for Minetest.
 There are in a separate github repository:
 
 [Petz RAW](https://github.com/runsy/petz_raw)
-
-

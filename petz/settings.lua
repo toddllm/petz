@@ -12,6 +12,12 @@ local settings_def = {
 	default = "",
 	},
 	{
+	name = "remove_list",
+	type = "string",
+	split = true,
+	default = "",
+	},
+	{
 	name = "disable_monsters",
 	type = "boolean",
 	default = false,
@@ -441,7 +447,7 @@ for key, value in ipairs(settings_def) do
 			value.default = ''
 		end
 		local str = user:get(value.name) or settings:get(value.name, value.default)
-		if value.split then
+		if str and value.split then
 			str = string.split(str)
 		end
 		petz.settings[value.name] = str
