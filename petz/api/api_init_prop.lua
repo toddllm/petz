@@ -265,7 +265,6 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 		local remove_petz = true
 		for key, value in pairs(petz.settings["petz_list"]) do
 			if value == self.type then
-				minetest.chat_send_all(value)
 				remove_petz = false
 				break
 			end
