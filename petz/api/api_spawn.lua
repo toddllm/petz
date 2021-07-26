@@ -154,18 +154,28 @@ petz.spawn_mob = function(spawn_pos, limit_max_mobs, abr, liquidflag)
 			end
 		end
 		local mob_count = 0
+		local same_species_count = 0
 		if limit_max_mobs then
 			local objs = minetest.get_objects_inside_radius(spawn_pos, abr*16 + 5)
-			for _, obj in ipairs(objs) do		-- count mobs in abrange
+			for _, obj in ipairs(objs) do -- count mobs in abrange
 				if not obj:is_player() then
 					local luaent = obj:get_luaentity()
 					if luaent then
-						mob_count = mob_count + 1
+						for i = 1, #petz.settings["petz_list"] do
+							if luaent.type and luaent.type == petz.settings["petz_list"][i] then
+								mob_count = mob_count + 1
+							end
+						end
+						if luaent.type and luaent.type == random_mob then
+							same_species_count = same_species_count + 1
+						end
 					end
 				end
 			end
+			--minetest.chat_send_all(tostring("mob count="..mob_count))
+			--minetest.chat_send_all(tostring("same species count="..same_species_count))
 		end
-		if not(limit_max_mobs) or (mob_count < petz.settings.max_mobs) then --check for bigger mobs:
+		if not(limit_max_mobs) or ((mob_count < petz.settings.max_mobs) and (same_species_count < petz.settings.max_per_species)) then --check for bigger mobs:
 			local spawn_herd = petz.settings[random_mob.."_spawn_herd"]
 			if spawn_herd then
 				--minetest.chat_send_player("singleplayer", tonumber(spawn_herd))

@@ -150,6 +150,11 @@ local settings_def = {
 	default = 60,
 	},
 	{
+	name = "max_per_species",
+	type = "number",
+	default = 10,
+	},
+	{
 	name = "spawn_peaceful_monsters_ratio",
 	type = "number",
 	default = 0.7,
