@@ -12,11 +12,6 @@ petz.on_step = function(self, dtime)
 		if self.gallop then
 			petz.gallop(self, on_step_time)
 		end
-		--DELETE WHEN UPDATING TO 5.4-->
-		if not(self.on_deactivate) then
-			petz.dreamcatcher_save_metadata(self)
-		end
-		--<
 		local lifetime = petz.check_lifetime(self)
 		if lifetime then
 			petz.lifetime_timer(self, lifetime, on_step_time)

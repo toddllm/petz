@@ -194,7 +194,7 @@ minetest.register_node("petz:fishtank", {
 	paramtype2 = "glasslikeliquidlevel",
 	param2 = 50,
 	sunlight_propagates = true,
-	use_texture_alpha = true,
+	use_texture_alpha = "blend",
 	light_source = default.LIGHT_MAX - 1,
 	sounds = default.node_sound_glass_defaults(),
 	selection_box = {
@@ -391,7 +391,7 @@ for i=1, 2 do
 		paramtype2 = "glasslikeliquidlevel",
 		param2 = 50,
 		sunlight_propagates = true,
-		use_texture_alpha = true,
+		use_texture_alpha = "blend",
 		light_source = default.LIGHT_MAX - 1,
 		sounds = default.node_sound_glass_defaults(),
 		selection_box = {
