@@ -20,8 +20,8 @@ end
 --
 --Functions
 --
-function mokapi.drop_item(self, item, num)
-	if not item then
+function mokapi.drop_item(self, item_stack)
+	if not item_stack then
 		return
 	end
 	if not num then
@@ -33,7 +33,7 @@ function mokapi.drop_item(self, item, num)
 	else --player
 		pos = self:get_pos()
 	end
-	local obj = minetest.add_item(pos, ItemStack(item .. " " .. num))
+	local obj = minetest.add_item(pos, item_stack)
 	mokapi.drop_object(obj)
 end
 
