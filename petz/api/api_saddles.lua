@@ -1,12 +1,10 @@
 -- Saddlebag API functions
 
 local function free_saddlebag(self)
-	local pos = self.object:get_pos()
 	mokapi.drop_item(self, ItemStack("petz:saddlebag"))
 	--Drop the items from petz inventory
 	local inv = self.saddlebag_inventory
 	for key, value in pairs(inv) do
-		mokapi.drop_object(obj)
 		mokapi.drop_item(self, ItemStack(value))
 	end
 	self.saddlebag = mobkit.remember(self, "saddlebag", false)

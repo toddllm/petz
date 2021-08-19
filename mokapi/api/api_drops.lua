@@ -24,9 +24,6 @@ function mokapi.drop_item(self, item_stack)
 	if not item_stack then
 		return
 	end
-	if not num then
-		num = 1
-	end
 	local pos
 	if type(self) == 'table' then --entity
 		pos = self.object:get_pos()

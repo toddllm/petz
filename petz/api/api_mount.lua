@@ -22,7 +22,7 @@ petz.mount = function(self, clicker, wielded_item, wielded_item_name)
 		elseif (self.saddle or self.saddlebag or self.wagon) and wielded_item_name == petz.settings.shears then
 			if self.wagon then
 				self.wagon:remove()
-				mokapi.drop_item(self, Itemstack("petz:wagon 1"))
+				mokapi.drop_item(self, ItemStack("petz:wagon 1"))
 				self.wagon = nil
 			end
 			petz.free_saddles(self)
