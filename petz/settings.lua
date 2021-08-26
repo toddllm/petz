@@ -79,6 +79,17 @@ local settings_def = {
 	split = true,
 	default = "",
 	},
+	--Damage Engine
+	{
+	name = "check_enable_damage",
+	type = "boolean",
+	default = false,
+	},
+	{
+	name = "no_damage_in_protected",
+	type = "boolean",
+	default = false,
+	},
 	--Enviromental Damage
 	{
 	name = "air_damage",
