@@ -256,6 +256,11 @@ local settings_def = {
 	type = "number",
 	default = 1200,
 	},
+	{
+	name = "seed_only_owners",
+	type = "boolean",
+	default = true,
+	},
 	--Punch Effect
 	{
 	name = "colorize_punch",
