@@ -107,10 +107,10 @@ petz.childbirth = function(self)
 			baby_entity.owner = self.owner
 			mobkit.remember(baby_entity, "owner", baby_entity.owner)
 		end
+		return baby_entity
 	else
 		return nil
 	end
-	return baby_entity
 end
 
 petz.pregnant_timer = function(self, dtime)
