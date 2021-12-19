@@ -28,6 +28,11 @@ petz.breed = function(self, clicker, wielded_item, wielded_item_name)
 	end
 end
 
+local end_pregnancy = function(self)
+	self.is_pregnant = mobkit.remember(self, "is_pregnant", false)
+	self.pregnant_time = mobkit.remember(self, "pregnant_time", 0.0)
+end
+
 petz.pony_breed = function(self, clicker, wielded_item, wielded_item_name)
 	if wielded_item_name == "petz:glass_syringe" and self.is_male then
 		local new_wielded_item = ItemStack("petz:glass_syringe_sperm")
@@ -96,8 +101,7 @@ petz.childbirth = function(self)
 	pos.y = pos.y + 1.01 -- birth a litte up
 	local baby = minetest.add_entity(pos, baby_type, minetest.serialize(baby_properties))
 	if baby then
-		self.is_pregnant = mobkit.remember(self, "is_pregnant", false)
-		self.pregnant_time = mobkit.remember(self, "pregnant_time", 0.0)
+		end_pregnancy(self)
 		mokapi.make_sound("object", baby, "petz_pop_sound", petz.settings.max_hear_distance)
 		local baby_entity = baby:get_luaentity()
 		baby_entity.is_baby = mobkit.remember(baby_entity, "is_baby", true)
@@ -118,6 +122,8 @@ petz.pregnant_timer = function(self, dtime)
 	if self.pregnant_time >= petz.settings.pregnancy_time then
 		local baby_entity = petz.childbirth(self)
 		if not baby_entity then
+			minetest.chat_send_player(self.owner or "", self.type.." ".."has an abortion!")
+			end_pregnancy(self)
 			return
 		end
 		if self.is_mountable then
