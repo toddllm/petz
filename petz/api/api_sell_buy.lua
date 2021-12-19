@@ -1,8 +1,8 @@
 local S = ...
 
 petz.buy = function(self, buyer)
-	local buyer_name= buyer:get_player_name()
-	local inv_buyer= buyer:get_inventory()
+	local buyer_name = buyer:get_player_name()
+	local inv_buyer = buyer:get_inventory()
 	local seller_name = self.owner
 	if not seller_name then
 		return
@@ -29,6 +29,9 @@ petz.buy = function(self, buyer)
 	else
 		local seller_pos = seller:get_pos()
 		minetest.item_drop(item_stack, seller, seller_pos)
+	end
+	if self.is_mountable and self.driver and self.driver == buyer then
+		petz.force_detach(buyer)
 	end
 	petz.abandon_pet(self, S("You have sold your").." "..self.type.." "..S("to").." "..buyer_name..".")
 	mokapi.set_owner(self, buyer_name)
