@@ -47,7 +47,7 @@ function mokapi.drop_items(self, killed_by_player)
 		if math.random(1, self.drops[n].chance) == 1 then
 			num = math.random(self.drops[n].min or 0, self.drops[n].max or 1)
 			item = self.drops[n].name
-			if killed_by_player then	-- only drop rare items (drops.min=0) if killed by player
+			if killed_by_player then --only drop rare items (drops.min=0) if killed by player
 				obj = minetest.add_item(pos, ItemStack(item .. " " .. num))
 			elseif self.drops[n].min ~= 0 then
 				obj = minetest.add_item(pos, ItemStack(item .. " " .. num))
