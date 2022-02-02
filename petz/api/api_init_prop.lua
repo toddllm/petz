@@ -184,7 +184,9 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 		end
 		--Define some settings ->
 		--Set a random gender for all the mobs (not defined in the entity definition)
-		self.is_male = mobkit.remember(self, "is_male", petz.set_random_gender())
+		if (self.is_male == nil) then
+			self.is_male = mobkit.remember(self, "is_male", petz.set_random_gender())
+		end
 		if self.is_mountable then
 			if not(baby_born) then
 				self.max_speed_forward= mobkit.remember(self, "max_speed_forward", math.random(2, 4)) --set a random velocity for walk and run
