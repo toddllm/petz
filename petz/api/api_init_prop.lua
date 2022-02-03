@@ -38,7 +38,7 @@ petz.dyn_prop = {
 	home_pos = {type= "table", default = nil},
 	horseshoes = {type= "int", default = 0},
 	is_baby = {type= "boolean", default = false},
-	is_male = {type= "boolean", default = false},
+	is_male = {type= "boolean", default = nil},
 	is_pregnant = {type= "boolean", default = false},
 	is_rut = {type= "boolean", default = false},
 	lashed = {type= "boolean", default = false},
@@ -152,7 +152,7 @@ petz.load_vars = function(self)
 		petz.calculate_sleep_times(self)
 	end
 	petz.insert_tamed_by_owner(self)
-	petz.cleanup_prop(self)	 --Reset some vars
+	petz.cleanup_prop(self)  --Reset some vars
 end
 
 function petz.set_initial_properties(self, staticdata, dtime_s)
