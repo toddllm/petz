@@ -18,10 +18,9 @@ function petz.check_tree(self)
 end
 
 function petz.is_tree_like(node)
-	if minetest.registered_nodes[node].groups.wood
-			or minetest.registered_nodes[node].groups.leaves
-				or minetest.registered_nodes[node].groups.tree then
-					return true
+	if minetest.registered_nodes[node].groups.leaves
+			or minetest.registered_nodes[node].groups.tree then
+				return true
 	else
 		return false
 	end
