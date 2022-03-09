@@ -69,7 +69,8 @@ petz.put_saddle = function(self, clicker, wielded_item, wielded_item_name)
 			another_saddle = "^petz_"..self.type.."_saddle.png"
 		end
 	end
-	local texture = "petz_"..self.type.."_"..self.skin_colors[self.texture_no]..".png" .. "^petz_"..self.type.."_"..saddle_type..".png"..another_saddle
+	local texture = "petz_"..self.type.."_"..self.skin_colors[self.texture_no]..".png"
+		.. "^petz_"..self.type.."_"..saddle_type..".png"..another_saddle
 	petz.set_properties(self, {textures = {texture}})
 	wielded_item:take_item()
 	clicker:set_wielded_item(wielded_item)

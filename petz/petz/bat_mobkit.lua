@@ -37,7 +37,7 @@ minetest.register_entity("petz:"..pet_name,{
 	-- api props
 	springiness= 0,
 	buoyancy = 0.5, -- portion of hitbox submerged
-	max_speed = 2.5,
+	max_speed = 3.5,
 	jump_height = 2.0,
 	view_range = 10,
 	lung_capacity = 10, -- seconds
@@ -61,7 +61,7 @@ minetest.register_entity("petz:"..pet_name,{
 		moaning = "petz_bat_moaning",
 	},
 
-	logic = petz.herbivore_brain,
+	logic = petz.flying_brain,
 
 	on_activate = function(self, staticdata, dtime_s) --on_activate, required
 		mobkit.actfunc(self, staticdata, dtime_s)

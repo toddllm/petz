@@ -48,7 +48,8 @@ end
 local function get_velocity(v, yaw, y)
 	local x = -math.sin(yaw) * v
 	local z =  math.cos(yaw) * v
-	return {x = x, y = y, z = z}
+	local vel = vector.new(x, y, z)
+	return vel
 end
 
 local function get_v(v)
@@ -77,11 +78,11 @@ function petz.lq_mountdriver(self)
 			rot_view = math.pi/2
 		end
 		local acce_y = 0
-		local velo= {
-			x= self.max_speed_forward/3,
-			y= 0,
-			z= self.max_speed_forward/3,
-		}
+		local velo = vector.new(
+			self.max_speed_forward/3,
+			0,
+			self.max_speed_forward/3
+		)
 		local velocity = get_v(velo)
 		--minetest.chat_send_player("singleplayer", tostring(velocity))
 		-- process controls
@@ -139,7 +140,7 @@ function petz.lq_mountdriver(self)
 		end
 		-- Set position, velocity and acceleration
 		local new_velo = get_velocity(velocity, self.object:get_yaw() - rot_view, velo.y)
-		local new_acce = {x = 0, y = mobkit.gravity, z = 0}
+		local new_acce = vector.new(0, mobkit.gravity, 0)
 		self.object:set_velocity(new_velo)
 		if not(self.gallop) then
 			mobkit.animate(self, "walk")	-- set animation

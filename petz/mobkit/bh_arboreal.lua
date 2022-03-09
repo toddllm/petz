@@ -32,7 +32,7 @@ function petz.bh_climb(self, pos, prty)
 		mobkit.animate(self, 'climb')
 		return true
 	else --search for a tree
-		if mobkit.timer(self, 10) then
+		if mobkit.timer(self, 60) then
 			local view_range = self.view_range
 			local nearby_wood = minetest.find_nodes_in_area(
 				{x = pos.x - view_range, y = pos.y - view_range, z = pos.z - view_range},
