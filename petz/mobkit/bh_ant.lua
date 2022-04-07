@@ -10,6 +10,9 @@ function petz.bh_create_anthill(self, pos)
 		return false
 	end
 	local node_name, pos_below = petz.node_name_in(self, "below")
+	if not(node_name) or not(pos_below) then
+		return false
+	end
 	if minetest.is_protected(pos_below, "") then --check for a non-protected node
 		return false
 	end
