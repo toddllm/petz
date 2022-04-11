@@ -149,12 +149,13 @@ function petz.herbivore_brain(self)
 				end
 			end
 		end
+
 		--search for a petz:pet_bowl or a bale
 		if prty < 4 and self.tamed then
 			local view_range = self.view_range
 			local nearby_nodes = minetest.find_nodes_in_area(
-				{x = pos.x - view_range, y = pos.y - 1, z = pos.z - view_range},
-				{x = pos.x + view_range, y = pos.y + 1, z = pos.z + view_range},
+				{x = pos.x - (view_range/2), y = pos.y - 1, z = pos.z - (view_range/2)},
+				{x = pos.x + (view_range/2), y = pos.y + 1, z = pos.z + (view_range/2)},
 				{"group:feeder"})
 			if #nearby_nodes >= 1 then
 				local tpos = nearby_nodes[1] --the first match

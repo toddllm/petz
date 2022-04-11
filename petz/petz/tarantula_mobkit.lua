@@ -24,7 +24,7 @@ minetest.register_entity("petz:"..pet_name, {
 	attack_player = true,
 	give_orders = false,
 	can_be_brushed = false,
-	capture_item = nil,
+	capture_item = "net",
 	follow = petz.settings.tarantula_follow,
 	drops = {
 		{name = "farming:string", chance = 3, min = 1, max = 1,},
