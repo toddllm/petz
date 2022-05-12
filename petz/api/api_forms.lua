@@ -41,7 +41,7 @@ petz.create_form = function(player_name, buy)
 					"image_button[3.5,3.5;1,1;petz_affinity_heart.png;btn_affinity;]"..
 					"label[4.5,4;".. tostring(pet.affinity).."%]"
 			else
-				form_size.w= form_size.w
+				--form_size.w= form_size.w
 				form_size.h= form_size.h + 1
 				form_title = S("Status")
 				hungrystuff_pos = {x= 1, y = 3}
@@ -192,6 +192,8 @@ petz.create_form = function(player_name, buy)
 			"label[2,2.5;"..tostring(item_amount).."]"..
 			"style_type[button_exit;bgcolor=#333600;textcolor=white]"..
 			"button_exit[2,3.25;2,1;btn_buy;"..S("Buy").."]"
+		--save the seller
+		_context[player_name].seller = pet.owner
 	elseif tab_id == 2 and not(buy) then
 		form_size.w = form_size.w + 1
 		form_size.h = form_size.h + 2
@@ -371,7 +373,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			end
 			pet.exchange_item_amount = mobkit.remember(pet, "exchange_item_amount", mokapi.delimit_number( tonumber(fields.fld_exchange_item_amount), {min=1, max=99}) or 1)
 		elseif fields.btn_buy then
-			petz.buy(pet, player)
+			petz.buy(pet, player, _context[player_name].seller)
 		elseif fields.btn_back_home then
 			pet.back_home= mobkit.remember(pet, "back_home", minetest.is_yes(fields.btn_back_home))
 		elseif fields.btn_set_home then

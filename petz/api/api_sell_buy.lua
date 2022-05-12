@@ -1,10 +1,10 @@
 local S = ...
 
-petz.buy = function(self, buyer)
+petz.buy = function(self, buyer, _seller_name)
 	local buyer_name = buyer:get_player_name()
 	local inv_buyer = buyer:get_inventory()
 	local seller_name = self.owner
-	if not seller_name then
+	if not seller_name or not(seller_name == _seller_name) then
 		return
 	end
 	local seller = minetest.get_player_by_name(seller_name)
