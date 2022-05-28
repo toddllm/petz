@@ -640,29 +640,6 @@ local function execute_queues(self)
 	end
 end
 
-local function sensors()
-	local timer = 2
-	local pulse = 1
-	return function(self)
-		timer=timer-self.dtime
-		if timer < 0 then
-
-			pulse = pulse + 1				-- do full range every fifteenth scan
-			local range = self.view_range
-			if pulse > 15 then
-				pulse = 1
-			else
-				range = self.view_range*0.5
-			end
-
-			local pos = self.object:get_pos()
-			--local tim = minetest.get_us_time()
-			--minetest.chat_send_all(minetest.get_us_time()-tim)
-			timer=2
-		end
-	end
-end
-
 ------------
 -- CALLBACKS
 ------------
@@ -822,7 +799,6 @@ function kitz.actfunc(self, staticdata, dtime_s)
 	self.buoyancy = self.buoyancy or 0
 	self.oxygen = self.oxygen or self.lung_capacity
 	self.lastvelocity = {x=0,y=0,z=0}
-	self.sensefunc=sensors()
 end
 
 function kitz.stepfunc(self,dtime,colinfo)	-- not intended to be modified
@@ -846,7 +822,6 @@ function kitz.stepfunc(self,dtime,colinfo)	-- not intended to be modified
 	self:physics()
 
 	if self.logic then
-		if self.view_range then self:sensefunc() end
 		self:logic()
 		execute_queues(self)
 	end
