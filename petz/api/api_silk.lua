@@ -163,7 +163,7 @@ minetest.register_craft({
 
 petz.init_convert_to_chrysalis = function(self)
 	minetest.after(math.random(1200, 1500), function()
-		if not(mobkit.is_alive(self)) then
+		if not(kitz.is_alive(self)) then
 			return
 		end
 		local pos = self.object:get_pos()
@@ -171,13 +171,13 @@ petz.init_convert_to_chrysalis = function(self)
 			return
 		end
 		minetest.set_node(pos, {name= "petz:cocoon"})
-		mokapi.remove_mob(self)
+		kitz.remove_mob(self)
 	end, self)
 end
 
 petz.init_lay_eggs = function(self)
 	minetest.after(math.random(150, 240), function()
-		if not(mobkit.is_alive(self)) then
+		if not(kitz.is_alive(self)) then
 			return
 		end
 		if self.eggs_count > 0 then
@@ -185,7 +185,7 @@ petz.init_lay_eggs = function(self)
 		end
 		petz.alight(self, 0, "stand")
 		minetest.after(10.0, function()
-			if not(mobkit.is_alive(self)) then
+			if not(kitz.is_alive(self)) then
 				return
 			end
 			local pos = self.object:get_pos()
@@ -206,7 +206,7 @@ petz.init_lay_eggs = function(self)
 			end
 			if spawn_egg then
 				minetest.set_node(pos, {name= "petz:silkworm_eggs"})
-				self.eggs_count = mobkit.remember(self, "eggs_count", (self.eggs_count+1)) --increase the count of eggs
+				self.eggs_count = kitz.remember(self, "eggs_count", (self.eggs_count+1)) --increase the count of eggs
 			else
 				petz.init_lay_eggs(self) --reinit the timer, to try to lay eggs later
 			end

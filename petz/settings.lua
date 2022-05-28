@@ -478,7 +478,7 @@ for key, value in ipairs(settings_def) do
 		end
 		local number = tonumber(user:get(value.name) or settings:get(value.name, value.default))
 		if value.delimit then
-			number = mokapi.delimit_number(number, {min=value.delimit.min, max=value.delimit.max})
+			number = kitz.delimit_number(number, {min=value.delimit.min, max=value.delimit.max})
 		end
 		petz.settings[value.name] = number
 	elseif value.type == "boolean" then

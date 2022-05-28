@@ -13,9 +13,9 @@ petz.breed = function(self, clicker, wielded_item, wielded_item_name)
 		wielded_item:take_item()
 		clicker:set_wielded_item(wielded_item)
 		self.is_rut = true
-		mobkit.remember(self, "is_rut", self.is_rut)
+		kitz.remember(self, "is_rut", self.is_rut)
 		petz.do_particles_effect(self.object, self.object:get_pos(), "heart")
-		mokapi.make_sound("object", self.object, "petz_"..self.type.."_moaning", petz.settings.max_hear_distance)
+		kitz.make_sound("object", self.object, "petz_"..self.type.."_moaning", petz.settings.max_hear_distance)
 	else
 		local player_name = clicker:get_player_name()
 		if self.is_rut then
@@ -29,8 +29,8 @@ petz.breed = function(self, clicker, wielded_item, wielded_item_name)
 end
 
 local end_pregnancy = function(self)
-	self.is_pregnant = mobkit.remember(self, "is_pregnant", false)
-	self.pregnant_time = mobkit.remember(self, "pregnant_time", 0.0)
+	self.is_pregnant = kitz.remember(self, "is_pregnant", false)
+	self.pregnant_time = kitz.remember(self, "pregnant_time", 0.0)
 end
 
 petz.pony_breed = function(self, clicker, wielded_item, wielded_item_name)
@@ -58,8 +58,8 @@ petz.pony_breed = function(self, clicker, wielded_item, wielded_item_name)
 		local meta = wielded_item:get_meta()
 		local petz_type = meta:get_string("petz_type")
 		if not(self.is_pregnant) and self.pregnant_count > 0 and self.type == petz_type then
-			self.is_pregnant = mobkit.remember(self, "is_pregnant", true)
-			self.pregnant_count = mobkit.remember(self, "pregnant_count", self.pregnant_count - 1)
+			self.is_pregnant = kitz.remember(self, "is_pregnant", true)
+			self.pregnant_count = kitz.remember(self, "pregnant_count", self.pregnant_count - 1)
 			local max_speed_forward = meta:get_int("max_speed_forward")
 			local max_speed_reverse = meta:get_int("max_speed_reverse")
 			local accel = meta:get_int("accel")
@@ -67,7 +67,7 @@ petz.pony_breed = function(self, clicker, wielded_item, wielded_item_name)
 			father_veloc_stats["max_speed_forward"] = max_speed_forward
 			father_veloc_stats["max_speed_reverse"] = max_speed_reverse
 			father_veloc_stats["accel"] = accel
-			self.father_veloc_stats = mobkit.remember(self, "father_veloc_stats", father_veloc_stats)
+			self.father_veloc_stats = kitz.remember(self, "father_veloc_stats", father_veloc_stats)
 			petz.do_particles_effect(self.object, self.object:get_pos(), "pregnant".."_"..self.type)
 			clicker:set_wielded_item("petz:glass_syringe")
 		end
@@ -102,14 +102,14 @@ petz.childbirth = function(self)
 	local baby = minetest.add_entity(pos, baby_type, minetest.serialize(baby_properties))
 	if baby then
 		end_pregnancy(self)
-		mokapi.make_sound("object", baby, "petz_pop_sound", petz.settings.max_hear_distance)
+		kitz.make_sound("object", baby, "petz_pop_sound", petz.settings.max_hear_distance)
 		local baby_entity = baby:get_luaentity()
-		baby_entity.is_baby = mobkit.remember(baby_entity, "is_baby", true)
+		baby_entity.is_baby = kitz.remember(baby_entity, "is_baby", true)
 		if not(self.owner== nil) and not(self.owner== "") then
 			baby_entity.tamed = true
-			mobkit.remember(baby_entity, "tamed", baby_entity.tamed)
+			kitz.remember(baby_entity, "tamed", baby_entity.tamed)
 			baby_entity.owner = self.owner
-			mobkit.remember(baby_entity, "owner", baby_entity.owner)
+			kitz.remember(baby_entity, "owner", baby_entity.owner)
 		end
 		return baby_entity
 	else
@@ -118,7 +118,7 @@ petz.childbirth = function(self)
 end
 
 petz.pregnant_timer = function(self, dtime)
-	self.pregnant_time = mobkit.remember(self, "pregnant_time", self.pregnant_time + dtime)
+	self.pregnant_time = kitz.remember(self, "pregnant_time", self.pregnant_time + dtime)
 	if self.pregnant_time >= petz.settings.pregnancy_time then
 		local baby_entity = petz.childbirth(self)
 		if not baby_entity then
@@ -151,25 +151,25 @@ petz.pregnant_timer = function(self, dtime)
 				new_accel = 10
 			end
 			baby_entity.max_speed_forward = new_max_speed_forward
-			mobkit.remember(baby_entity, "max_speed_forward", baby_entity.max_speed_forward)
+			kitz.remember(baby_entity, "max_speed_forward", baby_entity.max_speed_forward)
 			baby_entity.max_speed_reverse = new_max_speed_reverse
-			mobkit.remember(baby_entity, "max_speed_reverse", baby_entity.max_speed_reverse)
+			kitz.remember(baby_entity, "max_speed_reverse", baby_entity.max_speed_reverse)
 			baby_entity.accel = new_accel
-			mobkit.remember(baby_entity, "accel", baby_entity.accel)
+			kitz.remember(baby_entity, "accel", baby_entity.accel)
 		end
 	end
 end
 
 petz.growth_timer = function(self, dtime)
-	self.growth_time = mobkit.remember(self, "growth_time", (self.growth_time or 0) + dtime)
+	self.growth_time = kitz.remember(self, "growth_time", (self.growth_time or 0) + dtime)
 	if self.growth_time >= petz.settings.growth_time then
-		self.is_baby = mobkit.remember(self, "is_baby", false)
+		self.is_baby = kitz.remember(self, "is_baby", false)
 		local pos = self.object:get_pos()
 		pos.y = pos.y + 1.01 -- grows a litte up
 		self.object:set_pos(pos)
 		local obj
 		if self.parents then -- for chicken only
-			mokapi.remove_mob(self)
+			kitz.remove_mob(self)
 			obj = minetest.add_entity(pos, self.parents[math.random(1, #self.parents)])
 		else
 			obj = self.object
@@ -183,6 +183,6 @@ petz.growth_timer = function(self, dtime)
 		local vel = obj:get_velocity()
 		vel.y=vel.y + 4.0
 		obj:set_velocity(vel)
-		mokapi.make_sound("object", obj, "petz_pop_sound", petz.settings.max_hear_distance)
+		kitz.make_sound("object", obj, "petz_pop_sound", petz.settings.max_hear_distance)
 	end
 end

@@ -1,6 +1,6 @@
 petz.on_step = function(self, dtime)
 	local on_step_time = 1
-	if mobkit.timer(self, on_step_time) and not(self.dead) then --Only check every 1 sec, not every step!
+	if kitz.timer(self, on_step_time) and not(self.dead) then --Only check every 1 sec, not every step!
 		if self.init_tamagochi_timer then
 			petz.init_tamagochi_timer(self)
 		end
@@ -33,7 +33,7 @@ petz.on_step = function(self, dtime)
 				end
 				self.tmp_follow_texture = follow_texture --temporary property
 			end
-			if mobkit.timer(self, 2) then
+			if kitz.timer(self, 2) then
 				if (self.hp / self.max_hp) <= petz.settings.tamagochi_hungry_warning then
 					petz.do_particles_effect(self.object, self.object:get_pos(), "hungry", self.tmp_follow_texture)
 				end

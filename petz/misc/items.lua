@@ -85,7 +85,7 @@ minetest.register_craftitem("petz:whip", {
     inventory_image = "petz_whip.png",
     wield_image = "petz_whip.png",
     after_use = function(itemstack, user, node, digparams)
-        mokapi.make_sound("player", user, "petz_whip", petz.settings.max_hear_distance)
+        kitz.make_sound("player", user, "petz_whip", petz.settings.max_hear_distance)
     end,
 })
 

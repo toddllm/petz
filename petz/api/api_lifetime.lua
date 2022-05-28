@@ -22,11 +22,11 @@ petz.lifetime_timer = function(self, lifetime, on_step_time)
 		if math.random(1, 2) == 1 then
 			variability = -variability
 		end
-		lifetime = mokapi.round(lifetime - variability)
-		self.lifetime = mobkit.remember(self, "lifetime", lifetime)
+		lifetime = kitz.round(lifetime - variability)
+		self.lifetime = kitz.remember(self, "lifetime", lifetime)
 	end
 	--minetest.chat_send_all(tostring(self.lifetime))
-	self.lifetime = mobkit.remember(self, "lifetime", self.lifetime - on_step_time)
+	self.lifetime = kitz.remember(self, "lifetime", self.lifetime - on_step_time)
 	if self.lifetime <= 0 then
 		petz.on_die(self)
 	end

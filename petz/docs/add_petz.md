@@ -36,9 +36,9 @@ kitty_preys = petz:mouse
 
 But it is better to take an old already created one as template.
 The better for mouse is piggy: no tamagochi, no orders.
-Open 'piggy_mobkit.lua' and save as 'mouse_mobkit.lua'
+Open 'piggy_kitz.lua' and save as 'mouse_kitz.lua'
 
-3. Edit the 'mouse_mobkit.lua'.
+3. Edit the 'mouse_kitz.lua'.
 
 - Firstly you have to replace all the 'piggy' coincidences to 'mouse'
 With the aid of you text editor replace:
@@ -50,15 +50,15 @@ PIGGY -> MOUSE
 
 - scale_model, mesh, textures, collisionbox, etc.
 
-4. Save the 'mouse_mobkit.lua'
+4. Save the 'mouse_kitz.lua'
 
 5. ¡DONE!
 
 ###Extra
 
-####If you have to create a bird use 'parrot_mobkit.lua' as template.
-####If you want to create a domestic pet use 'kitty_mobkit.lua' as template.
-####If you want to create a wild animal use 'lion_mobkit.lua' as template.
+####If you have to create a bird use 'parrot_kitz.lua' as template.
+####If you want to create a domestic pet use 'kitty_kitz.lua' as template.
+####If you want to create a wild animal use 'lion_kitz.lua' as template.
 
 ###Tamagochi mode
 

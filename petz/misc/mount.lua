@@ -78,9 +78,9 @@ petz.force_detach = function(player)
 		entity.driver = nil
 	end
 	if entity.waggon then
-		mobkit.clear_queue_low(entity)
-		mobkit.clear_queue_high(entity)
-		mobkit.animate(entity, "still")
+		kitz.clear_queue_low(entity)
+		kitz.clear_queue_high(entity)
+		kitz.animate(entity, "still")
 	end
 	player:set_detach()
 	player_api.player_attached[player:get_player_name()] = false
@@ -115,7 +115,7 @@ function petz.gallop(self, dtime)
 		self.gallop_time = 0
 		self.gallop_exhausted = true
 		minetest.after(petz.settings.gallop_recover_time, function()
-			if mobkit.is_alive(self) then
+			if kitz.is_alive(self) then
 				self.gallop_exhausted = false
 			end
 		end, self)

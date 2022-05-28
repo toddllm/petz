@@ -23,7 +23,7 @@ petz.set_affinity = function(self, rate)
     elseif new_affinity < 0 then
         new_affinity = 0
     end
-    self.affinity = mobkit.remember(self, "affinity", new_affinity)
+    self.affinity = kitz.remember(self, "affinity", new_affinity)
 end
 
 --The Tamagochi Timer
@@ -43,7 +43,7 @@ end
 
 petz.timer = function(self)
     minetest.after(petz.settings.tamagochi_check_time, function()
-        if mobkit.is_alive(self) then
+        if kitz.is_alive(self) then
 			if (not(minetest.is_singleplayer())) and (petz.settings.tamagochi_check_if_player_online) then
 				if not minetest.player_exists(self.owner) then --if pet owner is not online
 					return
@@ -61,25 +61,25 @@ petz.timer = function(self)
                 for i = 1, #petz.settings.tamagochi_safe_nodes do --loop  thru all safe nodes
                     if node and (node.name == petz.settings.tamagochi_safe_nodes[i]) then
 						self.init_tamagochi_timer = true
-						mobkit.remember(self, "init_tamagochi_timer", self.init_tamagochi_timer)
+						kitz.remember(self, "init_tamagochi_timer", self.init_tamagochi_timer)
                         return
                     end
                 end
             else  --if the pos is nil, it means that the pet died before 'minetest.after_effect'
                 self.init_tamagochi_timer = false
-                mobkit.remember(self, "init_tamagochi_timer", self.init_tamagochi_timer)   --so no more timer
+                kitz.remember(self, "init_tamagochi_timer", self.init_tamagochi_timer)   --so no more timer
                 return
             end
             --Decrease health if pet has not fed
             if not self.fed then
-				mokapi.set_health(self, -petz.settings.tamagochi_feed_hunger_rate)
+				kitz.set_health(self, -petz.settings.tamagochi_feed_hunger_rate)
 				petz.update_nametag(self)
                 if (self.hp > 0)  and self.has_affinity then
 					petz.set_affinity(self, -petz.settings.tamagochi_feed_hunger_rate)
 				end
             else
                 self.fed = false
-                mobkit.remember(self, "fed", self.fed) --Reset the variable
+                kitz.remember(self, "fed", self.fed) --Reset the variable
             end
             --If the pet has not brushed
             if self.can_be_brushed then
@@ -89,7 +89,7 @@ petz.timer = function(self)
 					end
 				else
 					self.brushed = false
-					mobkit.remember(self, "brushed", self.brushed) --Reset the variable
+					kitz.remember(self, "brushed", self.brushed) --Reset the variable
 				end
 			end
             --If the petz is a lion had to been lashed
@@ -98,7 +98,7 @@ petz.timer = function(self)
                     petz.set_affinity(self, -petz.settings.tamagochi_lashing_rate)
                 else
                     self.lashed = false
-                    mobkit.remember(self, "lashed", self.lashed)
+                    kitz.remember(self, "lashed", self.lashed)
                 end
             end
             --If the pet starves to death
@@ -122,7 +122,7 @@ petz.abandon_pet = function(self, msg)
 		minetest.chat_send_player(self.owner, msg)
 	end
 	petz.delete_nametag(self)
-	mokapi.remove_owner(self) --the pet abandon you
+	kitz.remove_owner(self) --the pet abandon you
 	petz.remove_tamed_by_owner(self, true)
 	petz.drop_dreamcatcher(self)
 	self.init_tamagochi_timer = false -- no more timing

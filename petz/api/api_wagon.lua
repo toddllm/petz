@@ -10,7 +10,7 @@ petz.put_wagon = function(self, clicker)
 	local rotation = self.object:get_rotation()
 	local wagon_obj = minetest.add_entity(pos, "petz:wagon", nil)
 	wagon_obj:set_attach(self.object, "", {x = 0, y = 0.0, z = 0}, rotation)
-	mokapi.make_sound("object", self.object, "petz_pop_sound", petz.settings.max_hear_distance)
+	kitz.make_sound("object", self.object, "petz_pop_sound", petz.settings.max_hear_distance)
 	wagon_obj:set_properties({
 		visual_size = {
 				x =1,

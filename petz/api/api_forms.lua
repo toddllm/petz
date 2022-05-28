@@ -298,25 +298,25 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		elseif fields.btn_guard then
 			petz.guard(pet)
 		elseif fields.btn_ownthing then
-			mobkit.clear_queue_low(pet)
+			kitz.clear_queue_low(pet)
 			petz.ownthing(pet)
 		elseif fields.btn_alight then
 			petz.alight(pet, 0, "stand")
 		elseif fields.btn_fly then
-			mobkit.clear_queue_low(pet)
-			mobkit.clear_queue_high(pet)
+			kitz.clear_queue_low(pet)
+			kitz.clear_queue_high(pet)
 			pet.status = nil
 			petz.hq_fly(pet, 0)
 			minetest.after(2.5, function()
-				if mobkit.is_alive(pet) then
-					mobkit.clear_queue_low(pet)
+				if kitz.is_alive(pet) then
+					kitz.clear_queue_low(pet)
 					pet.object:set_acceleration({ x = 0, y = 0, z = 0 })
 					pet.object:set_velocity({ x = 0, y = 0, z = 0 })
 				end
 			end, pet)
 		elseif fields.btn_perch_shoulder then
 			petz.standhere(pet)
-			mobkit.animate(pet, "stand")
+			kitz.animate(pet, "stand")
 			local shoulder_pos
 			if pet.type == "parrot" then
 				shoulder_pos = {x= 0.5, y= -6.25, z=0}
@@ -326,15 +326,15 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			pet.object:set_attach(player, "Arm_Left", shoulder_pos, {x=0, y=0, z=180})
 			pet.object:set_properties({physical = false,})
 			minetest.after(120.0, function()
-				if mobkit.is_alive(pet) then
+				if kitz.is_alive(pet) then
 					pet.object:set_detach()
 					pet.object:set_properties({physical = true,})
 				end
 			end, pet)
 		elseif fields.btn_muted then
-			pet.muted= mobkit.remember(pet, "muted", minetest.is_yes(fields.btn_muted))
+			pet.muted= kitz.remember(pet, "muted", minetest.is_yes(fields.btn_muted))
 		elseif fields.btn_show_tag then
-			pet.show_tag = mobkit.remember(pet, "show_tag", minetest.is_yes(fields.btn_show_tag))
+			pet.show_tag = kitz.remember(pet, "show_tag", minetest.is_yes(fields.btn_show_tag))
 		elseif fields.btn_dreamcatcher then
 			petz.drop_dreamcatcher(pet)
 		elseif fields.btn_saddlebag then
@@ -362,28 +362,28 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		elseif fields.btn_abandon then
 			minetest.show_formspec(player_name, "petz:abandon_form", petz.get_abandon_confirmation())
 		elseif fields.btn_herding then
-			pet.herding = mobkit.remember(pet, "herding", minetest.is_yes(fields.btn_herding))
+			pet.herding = kitz.remember(pet, "herding", minetest.is_yes(fields.btn_herding))
 		elseif fields.chk_for_sale then
-			pet.for_sale = mobkit.remember(pet, "for_sale", minetest.is_yes(fields.chk_for_sale))
+			pet.for_sale = kitz.remember(pet, "for_sale", minetest.is_yes(fields.chk_for_sale))
 		elseif fields.fld_exchange_item_amount or fields.txtlst_exchange_items then
 			local event = minetest.explode_textlist_event(fields.txtlst_exchange_items)
 			if event.type == "CHG" then
 				--minetest.chat_send_all(event.index)
-				pet.exchange_item_index = mobkit.remember(pet, "exchange_item_index", event.index)
+				pet.exchange_item_index = kitz.remember(pet, "exchange_item_index", event.index)
 			end
-			pet.exchange_item_amount = mobkit.remember(pet, "exchange_item_amount", mokapi.delimit_number( tonumber(fields.fld_exchange_item_amount), {min=1, max=99}) or 1)
+			pet.exchange_item_amount = kitz.remember(pet, "exchange_item_amount", kitz.delimit_number( tonumber(fields.fld_exchange_item_amount), {min=1, max=99}) or 1)
 		elseif fields.btn_buy then
 			petz.buy(pet, player, _context[player_name].seller)
 		elseif fields.btn_back_home then
-			pet.back_home= mobkit.remember(pet, "back_home", minetest.is_yes(fields.btn_back_home))
+			pet.back_home= kitz.remember(pet, "back_home", minetest.is_yes(fields.btn_back_home))
 		elseif fields.btn_set_home then
-			pet.home_pos= mobkit.remember(pet, "home_pos", pet.object:get_pos())
+			pet.home_pos= kitz.remember(pet, "home_pos", pet.object:get_pos())
 			create_context(player_name, 3)
 			minetest.show_formspec(player_name, "petz:form_orders", petz.create_form(player_name, false))
 		end
 		if fields.ipt_name then
 			pet.tag = minetest.formspec_escape(string.sub(fields.ipt_name, 1 , 12))
-			mobkit.remember(pet, "tag", pet.tag)
+			kitz.remember(pet, "tag", pet.tag)
 			if not(pet.tag == "") then
 				petz.insert_tamed_by_owner(pet)
 			else
@@ -416,7 +416,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 				itemstacks_table[i] = inv:get_stack("saddlebag", i):to_table()
 			end
 			ent.saddlebag_inventory = itemstacks_table
-			mobkit.remember(ent, "saddlebag_inventory", itemstacks_table)
+			kitz.remember(ent, "saddlebag_inventory", itemstacks_table)
 		end
 	end
 	return true
@@ -527,7 +527,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 	local player_name = player:get_player_name()
 	local pet = petz.pet[player_name]
-	if pet and (mobkit.is_alive(pet)) then
+	if pet and (kitz.is_alive(pet)) then
 		create_context(player_name, 1)
 		minetest.show_formspec(player_name, "petz:form_orders", petz.create_form(player_name, false))
 	end
@@ -554,7 +554,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local player_name = player:get_player_name()
 	if fields.btn_yes then
 		local pet = petz.pet[player_name]
-		if pet and (mobkit.is_alive(pet)) then
+		if pet and (kitz.is_alive(pet)) then
 			local msg = S("You've abandoned your").." "..pet.type
 			petz.abandon_pet(pet, msg)
 		end

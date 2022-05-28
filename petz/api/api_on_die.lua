@@ -3,7 +3,7 @@
 --
 
 petz.on_die = function(self)
-	self.dead = mobkit.remember(self, "dead", true) --a variable, useful to avoid functions
+	self.dead = kitz.remember(self, "dead", true) --a variable, useful to avoid functions
 	if self.object:get_hp() > 0 then --you can call this function directally
 		self.object:set_hp(0)
 	end
@@ -13,7 +13,7 @@ petz.on_die = function(self)
 		petz.free_saddles(self)
 		 --Drop horseshoes-->
 		if self.horseshoes and self.horseshoes > 0 then
-			mokapi.drop_item(self, ItemStack("petz:horseshoe".." "..tostring(self.horseshoes)))
+			kitz.drop_item(self, ItemStack("petz:horseshoe".." "..tostring(self.horseshoes)))
 		end
 		--If mounted, force unmount-->
 		if self.driver then
@@ -43,8 +43,8 @@ petz.on_die = function(self)
     props.collisionbox[2] = props.collisionbox[1] - 0.0625
     self.object:set_properties({collisionbox=props.collisionbox})
     --Drop Items-->
-	mokapi.drop_items(self, self.was_killed_by_player or nil)
-	mobkit.clear_queue_high(self)
+	kitz.drop_items(self, self.was_killed_by_player or nil)
+	kitz.clear_queue_high(self)
 	--Remove the owner entry for right_click formspec and close the formspec (it could be opened)-->
 	if petz.pet[self.owner] then
 		petz.pet[self.owner]= nil
@@ -55,7 +55,7 @@ petz.on_die = function(self)
 		petz.remove_tamed_by_owner(self, false)
 	end
 	--Make Sound-->
-	mobkit.make_sound(self, 'die')
+	kitz.make_sound(self, 'die')
 	--Particles Effect
 	if petz.settings.death_effect then
 		minetest.add_particlespawner({
@@ -76,8 +76,8 @@ petz.on_die = function(self)
 			texture = "petz_smoke.png",
 		})
 	end
-	--To finish, the Mobkit Die Function-->
-	mobkit.hq_die(self)
+	--To finish, the Kitz Die Function-->
+	kitz.hq_die(self)
 end
 
 petz.was_killed_by_player = function(self, puncher)

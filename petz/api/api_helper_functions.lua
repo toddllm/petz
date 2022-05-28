@@ -25,7 +25,7 @@ end
 function petz.isinliquid(self)
 	local pos = self.object:get_pos()
 	pos.y = pos.y - 0.5
-	local node = mobkit.nodeatpos(pos)
+	local node = kitz.nodeatpos(pos)
 	if node and node.drawtype == 'liquid' then
 		return true
 	else

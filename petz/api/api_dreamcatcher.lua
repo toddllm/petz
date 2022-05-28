@@ -35,17 +35,17 @@ petz.put_dreamcatcher = function(self, clicker, wielded_item, wielded_item_name)
 	wielded_item:take_item() --quit one from player's inventory
 	clicker:set_wielded_item(wielded_item)
 	self.dreamcatcher = true
-	mobkit.remember(self, "dreamcatcher", self.dreamcatcher)
-	mokapi.make_sound("object", self.object, "petz_magical_chime", petz.settings.max_hear_distance)
+	kitz.remember(self, "dreamcatcher", self.dreamcatcher)
+	kitz.make_sound("object", self.object, "petz_magical_chime", petz.settings.max_hear_distance)
 	petz.do_particles_effect(self.object, self.object:get_pos(), "dreamcatcher")
 end
 
 petz.drop_dreamcatcher = function(self)
 	if self.dreamcatcher then --drop the dreamcatcher
 		minetest.add_item(self.object:get_pos(), "petz:dreamcatcher")
-		mokapi.make_sound("object", self.object, "petz_pop_sound", petz.settings.max_hear_distance)
+		kitz.make_sound("object", self.object, "petz_pop_sound", petz.settings.max_hear_distance)
 		self.dreamcatcher = false
-		mobkit.remember(self, "dreamcatcher", self.dreamcatcher)
+		kitz.remember(self, "dreamcatcher", self.dreamcatcher)
 	end
 end
 
@@ -84,7 +84,7 @@ petz.create_form_list_by_owner_dreamcatcher = function(user_name, user_pos)
 			local pet_pos
 			local pet_tag
 			local list_pet = false
-			if mobkit.is_alive(pet) and pet.dreamcatcher then -- check if alive and has a dreamcatcher
+			if kitz.is_alive(pet) and pet.dreamcatcher then -- check if alive and has a dreamcatcher
 				pet_tag = pet.tag
 				pet_type =  pet.type
 				pet_pos =  pet.object:get_pos()

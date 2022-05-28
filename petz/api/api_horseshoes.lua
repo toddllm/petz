@@ -9,8 +9,8 @@ petz.put_horseshoe = function(self, clicker)
 	wielded_item:take_item()
 	clicker:set_wielded_item(wielded_item)
 	petz.horseshoes_inc_speed(self)
-	mokapi.make_sound("object", self.object, "petz_put_sound", petz.settings.max_hear_distance)
-	mokapi.make_sound("object", self.object, "petz_"..self.type.."_moaning", petz.settings.max_hear_distance)
+	kitz.make_sound("object", self.object, "petz_put_sound", petz.settings.max_hear_distance)
+	kitz.make_sound("object", self.object, "petz_"..self.type.."_moaning", petz.settings.max_hear_distance)
 end
 
 petz.speedup_change = function(self, speedup)
@@ -33,7 +33,7 @@ petz.horseshoes_inc_speed = function(self)
 		speedup = self.horseshoes * petz.settings.horseshoe_speedup
 		petz.speedup_change(self, -speedup)
 	end
-	self.horseshoes = mobkit.remember(self, "horseshoes", (self.horseshoes+1)) --now inc the horseshoes
+	self.horseshoes = kitz.remember(self, "horseshoes", (self.horseshoes+1)) --now inc the horseshoes
 	speedup = self.horseshoes * petz.settings.horseshoe_speedup --new speedup
 	petz.speedup_change(self, speedup)
 end
@@ -48,9 +48,9 @@ petz.horseshoes_reset = function(self)
 	local pos = self.object:get_pos()
 	for i = 1, self.horseshoes do
 		obj = minetest.add_item(pos, "petz:horseshoe")
-		mokapi.drop_velocity(obj)
+		kitz.drop_velocity(obj)
 	end
-	self.horseshoes = mobkit.remember(self, "horseshoes", 0)
-	mokapi.make_sound("object", self.object, "petz_pop_sound", petz.settings.max_hear_distance)
+	self.horseshoes = kitz.remember(self, "horseshoes", 0)
+	kitz.make_sound("object", self.object, "petz_pop_sound", petz.settings.max_hear_distance)
 end
 

@@ -10,7 +10,7 @@ petz.create_pet = function(placer, itemstack, pet_name, pos)
 	local mob = minetest.add_entity(pos, pet_name, staticdata)
 	local self = mob:get_luaentity()
 	if not(self.is_wild) and not(self.owner) then --not monster and not owner
-		mokapi.set_owner(self, placer:get_player_name()) --set owner
+		kitz.set_owner(self, placer:get_player_name()) --set owner
 		petz.after_tame(self)
 	end
 	itemstack:take_item() -- since mob is unique we remove egg once spawned
@@ -79,7 +79,7 @@ end
 
 petz.capture = function(self, clicker, put_in_inventory)
 
-	self.captured = mobkit.remember(self, "captured", true) --IMPORTANT! mark as captured
+	self.captured = kitz.remember(self, "captured", true) --IMPORTANT! mark as captured
 
 	local new_stack = ItemStack(self.name .. "_set") 	-- add special mob egg with all mob information
 
@@ -133,6 +133,6 @@ petz.capture = function(self, clicker, put_in_inventory)
 		petz.set_infotext_behive(meta, honey_count, bee_count)
 	end
 	petz.remove_tamed_by_owner(self, false)
-	mokapi.remove_mob(self)
+	kitz.remove_mob(self)
 	return stack_meta
 end

@@ -26,13 +26,13 @@ function petz.throw(self, dtime, damage, effect, particles, sound)
 					thing.ref:punch(thing.ref, 1.0, {full_punch_interval = 1.0, damage_groups = {fleshy=damage}}, nil)
 					ent_pos = thing.ref:get_pos()
 					if sound then
-						mokapi.make_sound("player", thing.ref, sound, petz.settings.max_hear_distance)
+						kitz.make_sound("player", thing.ref, sound, petz.settings.max_hear_distance)
 					end
 				else
-					mobkit.hurt(thing_ent, damage)
+					kitz.hurt(thing_ent, damage)
 					ent_pos = thing.ref:get_pos()
 					if sound then
-						mokapi.make_sound("object", thing.ref, sound, petz.settings.max_hear_distance)
+						kitz.make_sound("object", thing.ref, sound, petz.settings.max_hear_distance)
 					end
 				end
 				if effect then
@@ -70,7 +70,7 @@ function petz.throw(self, dtime, damage, effect, particles, sound)
 							petz.do_particles_effect(nil, pos_above, "fire")
 							--end
 						end
-						mokapi.make_sound("pos", node_pos, "petz_firecracker", petz.settings.max_hear_distance)
+						kitz.make_sound("pos", node_pos, "petz_firecracker", petz.settings.max_hear_distance)
 					elseif effect == "cobweb" then
 						local pos_above = {
 							x = node_pos.x,

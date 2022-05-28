@@ -219,8 +219,8 @@ minetest.register_node("petz:chicken_nest_egg", {
 				return
 			end
 			local entity = minetest.add_entity(pos_above, "petz:chicken"):get_luaentity()
-			entity.is_baby = mobkit.remember(entity, "is_baby", true) --it is a baby
-			entity.growth_time = mobkit.remember(entity, "growth_time", 0.0) --the chicken to grow
+			entity.is_baby = kitz.remember(entity, "is_baby", true) --it is a baby
+			entity.growth_time = kitz.remember(entity, "growth_time", 0.0) --the chicken to grow
 			minetest.set_node(pos, {name= "petz:ducky_nest"})
 			return true
 		end
@@ -407,7 +407,7 @@ minetest.register_node("petz:beehive", {
 	end,
 	on_destruct = function(pos)
 		minetest.add_entity(pos, "petz:queen_bee")
-		mokapi.node_drop_items(pos)
+		kitz.node_drop_items(pos)
 	end,
 	on_timer = function(pos)
 		local meta, honey_count, bee_count = petz.get_behive_stats(pos)
@@ -441,7 +441,7 @@ minetest.register_node("petz:beehive", {
 				if spawn_bee_pos then
 					local bee = minetest.add_entity(spawn_bee_pos, "petz:bee")
 					local bee_entity = bee:get_luaentity()
-					bee_entity.behive = mobkit.remember(bee_entity, "behive", pos)
+					bee_entity.behive = kitz.remember(bee_entity, "behive", pos)
 					bee_count = bee_count - 1
 					meta:set_int("bee_count", bee_count)
 					petz.set_infotext_behive(meta, honey_count, bee_count)
@@ -665,8 +665,8 @@ minetest.register_node("petz:cat_basket", {
 			end
 			if not minetest.is_protected(pos, player_name) then
 				local ent = petz.create_pet(player, itemstack, itemstack_name:sub(1, -5) , pos_kitty)
-				mobkit.clear_queue_low(ent)
-				mobkit.clear_queue_high(ent)
+				kitz.clear_queue_low(ent)
+				kitz.clear_queue_high(ent)
 				petz.sleep(ent, 2, true)
 			end
 			return itemstack
@@ -787,7 +787,7 @@ minetest.register_node("petz:anthill_entrance", {
 
 			local player_near = false
 			for _, obj in ipairs(nearby_objects) do
-				if obj:is_player() and mobkit.is_alive(obj) then
+				if obj:is_player() and kitz.is_alive(obj) then
 					player_near = true
 					break
 				end

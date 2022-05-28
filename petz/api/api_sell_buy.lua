@@ -34,6 +34,6 @@ petz.buy = function(self, buyer, _seller_name)
 		petz.force_detach(self.driver)
 	end
 	petz.abandon_pet(self, S("You have sold your").." "..self.type.." "..S("to").." "..buyer_name..".")
-	mokapi.set_owner(self, buyer_name)
+	kitz.set_owner(self, buyer_name)
 	minetest.chat_send_player(buyer_name, S("Congratulations, you've bought a").." "..self.type)
 end

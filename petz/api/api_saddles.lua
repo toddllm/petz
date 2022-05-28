@@ -1,21 +1,21 @@
 -- Saddlebag API functions
 
 local function free_saddlebag(self)
-	mokapi.drop_item(self, ItemStack("petz:saddlebag"))
+	kitz.drop_item(self, ItemStack("petz:saddlebag"))
 	--Drop the items from petz inventory
 	local inv = self.saddlebag_inventory
 	for key, value in pairs(inv) do
-		mokapi.drop_item(self, ItemStack(value))
+		kitz.drop_item(self, ItemStack(value))
 	end
-	self.saddlebag = mobkit.remember(self, "saddlebag", false)
+	self.saddlebag = kitz.remember(self, "saddlebag", false)
 	self.saddlebag_inventory = {} --clear inventory
-	mokapi.make_sound("object", self.object, "petz_pop_sound", petz.settings.max_hear_distance)
+	kitz.make_sound("object", self.object, "petz_pop_sound", petz.settings.max_hear_distance)
 end
 
 local function free_saddle(self)
-	mokapi.drop_item(self, ItemStack("petz:saddle"))
-	self.saddle = mobkit.remember(self, "saddle", false)
-	mokapi.make_sound("object", self.object, "petz_pop_sound", petz.settings.max_hear_distance)
+	kitz.drop_item(self, ItemStack("petz:saddle"))
+	self.saddle = kitz.remember(self, "saddle", false)
+	kitz.make_sound("object", self.object, "petz_pop_sound", petz.settings.max_hear_distance)
 end
 
 function petz.free_saddles(self)

@@ -47,7 +47,7 @@ end
 
 function petz.on_punch(self, puncher, time_from_last_punch, tool_capabilities, dir)
 	local pos = self.object:get_pos() --pos of the petz
-	if not(mobkit.is_alive(self)) then --is petz is died
+	if not(kitz.is_alive(self)) then --is petz is died
 		return
 	end
 	--Do not punch when you are mounted on it!!!-->
@@ -86,7 +86,7 @@ function petz.on_punch(self, puncher, time_from_last_punch, tool_capabilities, d
 	end
 	--Do Hurt-->
 	local damage = petz.calculate_damage(self, time_from_last_punch, tool_capabilities)
-	mobkit.hurt(self, damage)
+	kitz.hurt(self, damage)
 	--Tamagochi Mode?-->
 	petz.punch_tamagochi(self, puncher) --decrease affinity when in Tamagochi mode
 	--Check if killed by player and save it-->
@@ -96,7 +96,7 @@ function petz.on_punch(self, puncher, time_from_last_punch, tool_capabilities, d
 	--Kickback-->
 	petz.kick_back(self, dir)
 	--Sound-->
-	mokapi.make_sound("object", self.object, "petz_default_punch", petz.settings.max_hear_distance)
+	kitz.make_sound("object", self.object, "petz_default_punch", petz.settings.max_hear_distance)
 	--Blood-->
 	petz.blood(self)
 	--Unmount?-->
@@ -110,7 +110,7 @@ function petz.on_punch(self, puncher, time_from_last_punch, tool_capabilities, d
 	--Warn Attack?-->
 	if self.is_wild and not(self.tamed) and not(self.attack_player) then --if you hit it, will attack player
 		self.warn_attack = true
-		mobkit.clear_queue_high(self)
+		kitz.clear_queue_high(self)
 	end
 	--Monster Specific-->
 	if self.type == "mr_pumpkin" then --teleport to player's back
@@ -119,7 +119,7 @@ function petz.on_punch(self, puncher, time_from_last_punch, tool_capabilities, d
 			if (self.hp <= self.max_hp / 2) then
 				petz.bh_teleport(self, pos, puncher, puncher:get_pos())
 			else
-				mokapi.make_sound("object", self.object, "petz_fireball", petz.settings.max_hear_distance)
+				kitz.make_sound("object", self.object, "petz_fireball", petz.settings.max_hear_distance)
 				petz.spawn_throw_object(self.object, 20, "petz:ent_jack_o_lantern_grenade")
 			end
 		end

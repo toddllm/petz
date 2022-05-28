@@ -56,13 +56,13 @@ petz.attach_squareball = function(self, thing_ent, thing_ref, shooter_name)
 	self.object:set_attach(thing_ref, "head", {x=-0.0, y=0.5, z=-0.45}, {x=0, y=0, z=0})
 	thing_ent.square_ball_attached = true
 	thing_ent.attached_squared_ball = self
-	mobkit.remember(thing_ent, "square_ball_attached", thing_ent.square_ball_attached)
-	mobkit.make_sound(thing_ent, "moaning")
+	kitz.remember(thing_ent, "square_ball_attached", thing_ent.square_ball_attached)
+	kitz.make_sound(thing_ent, "moaning")
 	if shooter_name then
 		local player = minetest.get_player_by_name(shooter_name)
 		if player then
-			mobkit.clear_queue_low(thing_ent)
-			mobkit.hq_follow(thing_ent, 15, player)
+			kitz.clear_queue_low(thing_ent)
+			kitz.hq_follow(thing_ent, 15, player)
 			self.shooter_name = "" --disable de 'on_step' event
 		end
 	end
@@ -103,10 +103,10 @@ minetest.register_entity("petz:ent_square_ball", {
 			local parent_ent = attach:get_luaentity()
 			parent_ent.square_ball_attached = false
 			parent_ent.attached_squared_ball = nil
-			mobkit.clear_queue_low(parent_ent)
+			kitz.clear_queue_low(parent_ent)
 			petz.ownthing(parent_ent)
 			self.object:remove()	--remove the square ball
-			mobkit.clear_queue_low(parent_ent)
+			kitz.clear_queue_low(parent_ent)
 			petz.ownthing(parent_ent)
 		end
 	end,

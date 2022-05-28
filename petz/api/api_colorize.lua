@@ -17,5 +17,5 @@ petz.colorize = function(self, color)
 	local overlay_texture = "(petz_"..self.type.."_overlay.png^[colorize:"..color..":125)"
 	local colorized_texture = background_texture .."^"..overlay_texture
 	petz.set_properties(self, {textures = {colorized_texture}})
-	self.colorized = mobkit.remember(self, "colorized", color)
+	self.colorized = kitz.remember(self, "colorized", color)
 end

@@ -21,10 +21,10 @@ petz.lamb_wool_regrow = function(self)
 		return
 	end
 	local food_count_wool = self.food_count_wool + 1
-	self.food_count_wool = mobkit.remember(self, "food_count_wool", food_count_wool)
+	self.food_count_wool = kitz.remember(self, "food_count_wool", food_count_wool)
 	if self.food_count_wool >= 5 then -- if lamb replaces 5x grass then it regrows wool
-		self.food_count_wool = mobkit.remember(self, "food_count_wool", 0)
-		self.shaved = mobkit.remember(self, "shaved", false)
+		self.food_count_wool = kitz.remember(self, "food_count_wool", 0)
+		self.shaved = kitz.remember(self, "shaved", false)
 		local lamb_texture = "petz_lamb_"..self.skin_colors[self.texture_no]..".png"
 		petz.set_properties(self, {textures = {lamb_texture}})
 	end
@@ -37,7 +37,7 @@ petz.lamb_wool_shave = function(self, clicker)
 		color = self.skin_colors[self.texture_no]
 	else
 		color = self.colorized
-		self.colorized = mobkit.remember(self, "colorized", nil) --reset the color
+		self.colorized = kitz.remember(self, "colorized", nil) --reset the color
 	end
 	local new_stack = "wool:".. color
 	if inv:room_for_item("main", new_stack) then
@@ -45,13 +45,13 @@ petz.lamb_wool_shave = function(self, clicker)
 	else
 		minetest.add_item(self.object:get_pos(), new_stack)
 	end
-    mokapi.make_sound("object", self.object, "petz_lamb_moaning", petz.settings.max_hear_distance)
+    kitz.make_sound("object", self.object, "petz_lamb_moaning", petz.settings.max_hear_distance)
     local lamb_texture = "petz_lamb_shaved_"..self.skin_colors[self.texture_no]..".png"
 	petz.set_properties(self, {textures = {lamb_texture}})
-	self.shaved = mobkit.remember(self, "shaved", true)
-	self.food_count_wool = mobkit.remember(self, "food_count_wool", 0)
+	self.shaved = kitz.remember(self, "shaved", true)
+	self.food_count_wool = kitz.remember(self, "food_count_wool", 0)
 	petz.bh_afraid(self, clicker:get_pos())
-	mokapi.make_sound("object", self.object, "petz_pop_sound", petz.settings.max_hear_distance)
+	kitz.make_sound("object", self.object, "petz_pop_sound", petz.settings.max_hear_distance)
 end
 
 ---
@@ -60,7 +60,7 @@ end
 
 petz.milk_refill = function(self)
 	if self.food_count >= 5 then -- if calf replaces 5x grass then it refill milk
-		self.milked = mobkit.remember(self, "milked", false)
+		self.milked = kitz.remember(self, "milked", false)
 	end
 end
 
@@ -78,11 +78,11 @@ petz.milk_milk = function(self, clicker)
 	clicker:set_wielded_item(wielded_item)
 	if inv:room_for_item("main", "petz:bucket_milk") then
 		inv:add_item("main","petz:bucket_milk")
-		mokapi.make_sound("object", self.object, "petz_"..self.type.."_moaning", petz.settings.max_hear_distance)
+		kitz.make_sound("object", self.object, "petz_"..self.type.."_moaning", petz.settings.max_hear_distance)
 	else
 		minetest.add_item(self.object:get_pos(), "petz:bucket_milk")
 	end
-	self.milked = mobkit.remember(self, "milked", true)
+	self.milked = kitz.remember(self, "milked", true)
 end
 
 ---
@@ -96,6 +96,6 @@ petz.cut_feather = function(self, clicker)
 	else
 		minetest.add_item(self.object:get_pos(), item_stack)
 	end
-    mokapi.make_sound("object", self.object, "petz_"..self.type.."_moaning", petz.settings.max_hear_distance)
+    kitz.make_sound("object", self.object, "petz_"..self.type.."_moaning", petz.settings.max_hear_distance)
 	petz.bh_afraid(self, clicker:get_pos())
 end

@@ -1,5 +1,5 @@
 petz.increase_egg_count = function(self)
-	self.eggs_count = mobkit.remember(self, "eggs_count", self.eggs_count+1)
+	self.eggs_count = kitz.remember(self, "eggs_count", self.eggs_count+1)
 end
 
 --Lay Egg
@@ -13,7 +13,7 @@ petz.lay_egg = function(self)
 	local pos = self.object:get_pos()
 	if self.type_of_egg == "item" then
 		local lay_egg_timing = petz.settings.lay_egg_timing
-		if mobkit.timer(self, math.random(lay_egg_timing - (lay_egg_timing*0.2), lay_egg_timing+ (lay_egg_timing*0.2))) then
+		if kitz.timer(self, math.random(lay_egg_timing - (lay_egg_timing*0.2), lay_egg_timing+ (lay_egg_timing*0.2))) then
 			minetest.add_item(pos, "petz:"..self.type.."_egg") --chicken/duck/penguin egg!
 			petz.increase_egg_count(self)
 		end

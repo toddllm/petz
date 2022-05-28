@@ -56,7 +56,7 @@ for i=1, 2 do
 		textures = textures,
 		visual_size = {x=petz.settings.visual_size.x*scale_model, y=petz.settings.visual_size.y*scale_model},
 		static_save = true,
-		get_staticdata = mobkit.statfunc,
+		get_staticdata = kitz.statfunc,
 		-- api props
 		springiness= 0,
 		buoyancy = 0.5, -- portion of hitbox submerged
@@ -90,7 +90,7 @@ for i=1, 2 do
 		logic = petz.bee_brain,
 
 		on_activate = function(self, staticdata, dtime_s) --on_activate, required
-			mobkit.actfunc(self, staticdata, dtime_s)
+			kitz.actfunc(self, staticdata, dtime_s)
 			petz.set_initial_properties(self, staticdata, dtime_s)
 		end,
 
@@ -107,7 +107,7 @@ for i=1, 2 do
 		end,
 
 		on_step = function(self, dtime)
-			mobkit.stepfunc(self, dtime) -- required
+			kitz.stepfunc(self, dtime) -- required
 			petz.on_step(self, dtime)
 		end,
 	})
