@@ -403,7 +403,7 @@ for i=1, 2 do
 			local meta = minetest.get_meta(pos)
 			--meta = meta_itemstack
 			local placer_name = ""
-			if placer:is_player() then
+			if minetest.is_player(placer) then
 				placer_name = placer:get_player_name()
 			end
 			meta:set_string("owner", placer_name)
