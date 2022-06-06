@@ -11,9 +11,7 @@ function petz.bh_breed(self, pos)
 		local couple_obj = kitz.get_closest_entity(self, couple_name)	-- look for a couple
 		if couple_obj then
 			local couple = couple_obj:get_luaentity()
-			minetest.chat_send_all(tostring(couple.is_male))
 			if couple and couple.is_rut and not(couple.is_pregnant) and not(couple.is_male) then --if couple and female and is not pregnant and is rut
-
 				local couple_pos = couple.object:get_pos() --get couple pos
 				local copulation_distance = petz.settings[self.type.."_copulation_distance"] or 1
 				if vector.distance(pos, couple_pos) <= copulation_distance then --if close
