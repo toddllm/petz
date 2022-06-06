@@ -582,7 +582,7 @@ function kitz.is_queue_empty_high(self)
 	else return false end
 end
 
-function kitz.get_nearby_player(self) -- returns random player if nearby or nil
+function kitz.get_nearby_player(self) --returns random player if nearby or nil
 	local pos = self.object:get_pos()
 	local range = self.view_range * 0.5
 	for _, obj in ipairs(minetest.get_connected_players()) do
@@ -597,9 +597,11 @@ function kitz.get_nearby_player(self) -- returns random player if nearby or nil
 	return
 end
 
-function kitz.get_nearby_entity(self,name)	-- returns random nearby entity of name or nil
+function kitz.get_nearby_entity(self, name)	-- returns random nearby entity of name or nil
 	for _,obj in ipairs(kitz.active_mobs) do
-		if kitz.is_alive(obj) and obj:get_luaentity().name == name then return obj end
+		if not(self.object == obj) and kitz.is_alive(obj) and obj:get_luaentity().name == name then
+			return obj
+		end
 	end
 	return
 end
@@ -610,7 +612,7 @@ function kitz.get_closest_entity(self, name) --returns closest entity of name or
 	local pos = self.object:get_pos()
 	for _, obj in ipairs(kitz.active_mobs) do
 		local luaent = obj:get_luaentity()
-		if kitz.is_alive(obj) and luaent and luaent.name == name then
+		if not(self.object == obj) and kitz.is_alive(obj) and luaent and luaent.name == name then
 			local opos = obj:get_pos()
 			local odist = abs(opos.x-pos.x) + abs(opos.z-pos.z)
 			if odist < dist then
@@ -801,7 +803,7 @@ function kitz.actfunc(self, staticdata, dtime_s)
 	self.lastvelocity = {x=0,y=0,z=0}
 end
 
-function kitz.stepfunc(self,dtime,colinfo)	-- not intended to be modified
+function kitz.stepfunc(self, dtime, colinfo)	-- not intended to be modified
 	self.dtime = min(dtime,0.2)
 	self.colinfo = colinfo
 	self.height = kitz.get_box_height(self)
@@ -827,22 +829,8 @@ function kitz.stepfunc(self,dtime,colinfo)	-- not intended to be modified
 	end
 
 	self.lastvelocity = self.object:get_velocity()
-	self.time_total=self.time_total+self.dtime
+	self.time_total = self.time_total + self.dtime
 end
 
 -- load example behaviors
 dofile(minetest.get_modpath("kitz") .. "/engine_behaviors.lua")
-
-minetest.register_on_mods_loaded(function()
-	local mbkfuns = ''
-	for n,f in pairs(kitz) do
-		if type(f) == 'function' then
-			mbkfuns = mbkfuns .. n .. string.split(minetest.serialize(f),'.lua')[2] or ''
-		end
-	end
-	local crc = minetest.sha1(mbkfuns)
---  dbg(crc)
---	if crc ~= 'a061770008fe9ecf8e1042a227dc3beabd10e481' then
---		minetest.log("error","Mobkit namespace inconsistent, has been modified by other mods.")
---	end
-end)

@@ -90,7 +90,7 @@ petz.on_rightclick = function(self, clicker)
 		else
 			minetest.chat_send_player(clicker:get_player_name(), S("This animal has already been milked."))
 		end
-	elseif (self.is_mountable) and (wielded_item_name == "petz:glass_syringe" or wielded_item_name == "petz:glass_syringe_sperm") then
+	elseif not(petz.settings.disable_syringe) and (self.is_mountable) and (wielded_item_name == "petz:glass_syringe" or wielded_item_name == "petz:glass_syringe_sperm") then
 		if not(self.is_baby) and is_owner then
 			petz.pony_breed(self, clicker, wielded_item, wielded_item_name)
 		end

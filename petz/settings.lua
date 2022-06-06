@@ -261,6 +261,11 @@ local settings_def = {
 	type = "boolean",
 	default = true,
 	},
+	{
+	name = "disable_syringe",
+	type = "boolean",
+	default = false,
+	},
 	--Punch Effect
 	{
 	name = "colorize_punch",
