@@ -162,16 +162,18 @@ minetest.register_craft({
 })
 
 petz.init_convert_to_chrysalis = function(self)
-	minetest.after(math.random(1200, 1500), function()
+	minetest.after(math.random(petz.settings.silkworm_chrysalis_min_time, petz.settings.silkworm_chrysalis_max_time), function()
 		if not(kitz.is_alive(self)) then
 			return
 		end
 		local pos = self.object:get_pos()
-		if minetest.get_node(pos) and minetest.get_node(pos).name ~= "air" then
-			return
+		local air_pos = minetest.find_node_near(pos, 1, {"air"}, true)
+		if air_pos then
+			minetest.set_node(air_pos, {name= "petz:cocoon"})
+			kitz.remove_mob(self)
+		else
+			petz.init_convert_to_chrysalis(self)
 		end
-		minetest.set_node(pos, {name= "petz:cocoon"})
-		kitz.remove_mob(self)
 	end, self)
 end
 

@@ -548,5 +548,7 @@ for i = 1, #petz.settings["petz_list"] do --load the settings
 		settings:get_bool(petz_type.."_create_dam", false)
 	elseif petz_type == "silkworm" then
 		petz.settings[petz_type.."_lay_egg_on_node"] = user:get(petz_type.."_lay_egg_on_node") or settings:get(petz_type.."_lay_egg_on_node") or ""
+		petz.settings[petz_type.."_chrysalis_min_time"] = tonumber(user:get(petz_type.."_chrysalis_min_time") or settings:get(petz_type.."_chrysalis_min_time")) or 1200
+		petz.settings[petz_type.."_chrysalis_max_time"] = tonumber(user:get(petz_type.."_chrysalis_max_time") or settings:get(petz_type.."_chrysalis_min_time")) or 1500
 	end
 end
