@@ -6,6 +6,7 @@ minetest.register_craftitem("petz:ducky_egg", {
     description = S("Ducky Egg"),
     inventory_image = "petz_ducky_egg.png",
     wield_image = "petz_ducky_egg.png",
+    stack_max = 64,
     on_use = minetest.item_eat(2),
     groups = {flammable = 2, food = 2, food_egg = 1},
 })
@@ -14,6 +15,7 @@ minetest.register_craftitem("petz:chicken_egg", {
     description = S("Chicken Egg"),
     inventory_image = "petz_chicken_egg.png",
     wield_image = "petz_chicken_egg.png",
+    stack_max = 64,
     on_use = minetest.item_eat(2),
     groups = {flammable = 2, food = 2, food_egg = 1},
 })

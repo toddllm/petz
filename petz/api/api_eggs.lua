@@ -42,8 +42,9 @@ end
 petz.extract_egg_from_nest = function(pos, player, itemstack, egg_type)
 	local inv = player:get_inventory()
 	if inv:room_for_item("main", egg_type) then
-		if itemstack:get_name() == egg_type or itemstack:get_name() == "" then
-			itemstack:add_item(egg_type)
+		if ((itemstack:get_name() == egg_type) and not(itemstack:get_count() >= itemstack:get_stack_max()))
+			or (itemstack:get_name() == "") then
+				itemstack:add_item(egg_type)
 		else
 			inv:add_item("main", egg_type) --add the egg to the player's inventory
 		end

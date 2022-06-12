@@ -1,5 +1,3 @@
-local _id = 0
-
 function kitz.logon_mob(self)
 	table.insert(kitz.active_mobs, self.object)
 end
