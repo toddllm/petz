@@ -290,7 +290,7 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 			elseif value["type"] == "boolean" then
 				prop_value = minetest.is_yes(static_data_table[static_table_name][key])
 			elseif value["type"] == "table" then
-				prop_value = minetest.deserialize(static_data_table[static_table_name][key])
+				prop_value = static_data_table[static_table_name][key]
 			elseif value["type"] == "player" then
 				prop_value = nil
 			end
