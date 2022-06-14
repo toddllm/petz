@@ -5,7 +5,7 @@
 petz.on_die = function(self)
 	self.dead = kitz.remember(self, "dead", true) --a variable, useful to avoid functions
 	if self.object:get_hp() > 0 then --you can call this function directally
-		self.object:set_hp(0)
+		--self.object:set_hp(0)
 	end
 	local pos = self.object:get_pos()
 	--Specific of each mob-->
@@ -41,7 +41,7 @@ petz.on_die = function(self)
 	--For all the mobs-->
     local props = self.object:get_properties()
     props.collisionbox[2] = props.collisionbox[1] - 0.0625
-    self.object:set_properties({collisionbox=props.collisionbox})
+	self.object:set_properties({collisionbox=props.collisionbox})
     --Drop Items-->
 	kitz.drop_items(self, self.was_killed_by_player or nil)
 	kitz.clear_queue_high(self)
