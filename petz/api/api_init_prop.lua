@@ -321,7 +321,7 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 	--DELETE THIS BLOCK IN A FUTURE UPDATE -- behive changed to beehive>>>
 	if self.behive then
 		self.beehive = kitz.remember(self, "beehive", self.behive)
-		self.behive = nil
+		self.behive = kitz.remember(self, "behive", nil)
 	end
 	--<<<
 	if self.horseshoes and not captured_mob then
