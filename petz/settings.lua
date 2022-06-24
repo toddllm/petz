@@ -388,6 +388,12 @@ local settings_def = {
 	type = "number",
 	default = 3,
 	},
+	--Spinning Wheel
+	{
+	name = "silk_to_bobbin",
+	type = "number",
+	default = 3,
+	},
 	--Bee Stuff
 	{
 	name = "initial_honey_beehive",

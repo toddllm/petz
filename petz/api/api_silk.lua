@@ -86,6 +86,7 @@ minetest.register_node("petz:silkworm_eggs", {
 })
 
 --Spinning Wheel
+
 minetest.register_node("petz:spinning_wheel", {
     description = S("Spinning Wheel"),
     groups = {snappy=1, bendy=2, cracky=1},
@@ -102,20 +103,22 @@ minetest.register_node("petz:spinning_wheel", {
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.25, 0.5, 0.3125, 0.1875},
 	},
+
 	after_place_node = function(pos, placer, itemstack, pointed_thing)
 		local meta = minetest.get_meta(pos)
 		meta:set_int("silk_count", 1)
 		meta:set_string("infotext", S("Silk Count").." = "..meta:get_int("silk_count"))
 	end,
+
 	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		local player_name = player:get_player_name()
 		--minetest.chat_send_player(player_name, "name="..itemstack:get_name())
 		local meta = minetest.get_meta(pos)
 		local silk_count = meta:get_int("silk_count")
 		if itemstack:get_name() == "petz:cocoon" then
-			if silk_count == 3 then
+			if silk_count == petz.settings.silk_to_bobbin then
 				minetest.chat_send_player(player_name, S("First, extract the silk bobbin from the spinning wheel."))
-			elseif silk_count == 2 then
+			elseif silk_count == (petz.settings.silk_to_bobbin - 1) then
 				silk_count = silk_count + 1
 				meta:set_int("silk_count", silk_count)
 				meta:set_string("infotext", S("Silk Count").." = "..tostring(silk_count))
@@ -127,21 +130,23 @@ minetest.register_node("petz:spinning_wheel", {
 				meta:set_int("silk_count", silk_count)
 				meta:set_string("infotext", S("Silk Count").." = "..tostring(silk_count))
 				itemstack:take_item()
-				minetest.chat_send_player(player_name, S("There are still").." ".. tostring(3-silk_count).." "..S("more to create the bobbin."))
+				minetest.chat_send_player(player_name, S("There are still").." "
+				..tostring(petz.settings.silk_to_bobbin - silk_count).." "..S("more to create the bobbin."))
 				return itemstack
 			end
-		elseif silk_count == 3 then --get the bobbin
+		elseif silk_count == petz.settings.silk_to_bobbin then --get the bobbin
 			local inv = player:get_inventory()
 			if inv:room_for_item("main", "petz:silk_bobbin") then --firstly check for room in the inventory
 				local itemstack_name = itemstack:get_name()
 				local stack = ItemStack("petz:silk_bobbin 1")
-				if (itemstack_name == "petz:silk_bobbin" or itemstack_name == "") and (itemstack:get_count() < itemstack:get_stack_max()) then
-					itemstack:add_item(stack)
+				if (itemstack_name == "petz:silk_bobbin" or itemstack_name == "")
+					and (itemstack:get_count() < itemstack:get_stack_max()) then
+						itemstack:add_item(stack)
 				else
 					inv:add_item("main", stack)
 				end
-				meta:set_int("silk_count", 0) --reset the silk count
-				meta:set_string("infotext", S("Silk Count").." = 0")
+				meta:set_int("silk_count", 1) --reset the silk count
+				meta:set_string("infotext", S("Silk Count").." = 1")
 				minetest.chat_send_player(player_name, S("You got the bobbin!"))
 				return itemstack
 			else
@@ -162,18 +167,19 @@ minetest.register_craft({
 })
 
 petz.init_convert_to_chrysalis = function(self)
-	minetest.after(math.random(petz.settings.silkworm_chrysalis_min_time, petz.settings.silkworm_chrysalis_max_time), function()
-		if not(kitz.is_alive(self)) then
-			return
-		end
-		local pos = self.object:get_pos()
-		local air_pos = minetest.find_node_near(pos, 1, {"air"}, true)
-		if air_pos then
-			minetest.set_node(air_pos, {name= "petz:cocoon"})
-			kitz.remove_mob(self)
-		else
-			petz.init_convert_to_chrysalis(self)
-		end
+	minetest.after(math.random(petz.settings.silkworm_chrysalis_min_time,
+		petz.settings.silkworm_chrysalis_max_time), function()
+			if not(kitz.is_alive(self)) then
+				return
+			end
+			local pos = self.object:get_pos()
+			local air_pos = minetest.find_node_near(pos, 1, {"air"}, true)
+			if air_pos then
+				minetest.set_node(air_pos, {name= "petz:cocoon"})
+				kitz.remove_mob(self)
+			else
+				petz.init_convert_to_chrysalis(self)
+			end
 	end, self)
 end
 
