@@ -390,17 +390,17 @@ local settings_def = {
 	},
 	--Bee Stuff
 	{
-	name = "initial_honey_behive",
+	name = "initial_honey_beehive",
 	type = "number",
 	default = 3,
 	},
 	{
-	name = "max_honey_behive",
+	name = "max_honey_beehive",
 	type = "number",
 	default = 10,
 	},
 	{
-	name = "max_bees_behive",
+	name = "max_bees_beehive",
 	type = "number",
 	default = 3,
 	},
@@ -413,6 +413,11 @@ local settings_def = {
 	name = "worker_bee_delay",
 	type = "number",
 	default = 300,
+	},
+	{
+	name = "protect_beehive",
+	type = "boolean",
+	default = false,
 	},
 	--Weapons
 	{

@@ -63,22 +63,22 @@ function petz.lq_search_flower(self, tpos)
 	kitz.queue_low(self, func)
 end
 
-function petz.hq_gotobehive(self, prty, pos)
+function petz.hq_gotobeehive(self, prty, pos)
 	local func = function()
-		if not(self.pollen) or not(self.behive) then
+		if not(self.pollen) or not(self.beehive) then
 			return true
 		end
 		kitz.animate(self, "fly")
-		petz.lq_search_behive(self)
+		petz.lq_search_beehive(self)
 	end
 	kitz.queue_high(self, func, prty)
 end
 
-function petz.lq_search_behive(self)
+function petz.lq_search_beehive(self)
 	local func = function()
 		local tpos
-		if self.behive then
-			tpos = self.behive
+		if self.beehive then
+			tpos = self.beehive
 		else
 			return true
 		end
@@ -89,14 +89,14 @@ function petz.lq_search_behive(self)
 			petz.set_velocity(self, {x= 0.0, y= y_distance, z= 0.0})
 		end
 		if kitz.drive_to_pos(self, tpos, 1.5, 6.28, 1.01)  then
-				if petz.behive_exists(self) then
+				if petz.beehive_exists(self) then
 					kitz.remove_mob(self)
-					local meta, honey_count, bee_count = petz.get_behive_stats(self.behive)
+					local meta, honey_count, bee_count, owner = petz.get_beehive_stats(self.beehive)
 					bee_count = bee_count + 1
 					meta:set_int("bee_count", bee_count)
 					honey_count = honey_count + 1
 					meta:set_int("honey_count", honey_count)
-					petz.set_infotext_behive(meta, honey_count, bee_count)
+					petz.set_infotext_beehive(meta, honey_count, bee_count)
 					self.pollen = false
 				end
 		end
@@ -104,23 +104,24 @@ function petz.lq_search_behive(self)
 	kitz.queue_low(self, func)
 end
 
-function petz.hq_approach_behive(self, pos, prty)
+function petz.hq_approach_beehive(self, pos, prty)
 	local func = function()
-		if math.abs(pos.x - self.behive.x) <= (self.view_range / 2) or math.abs(pos.z - self.behive.z) <= (self.view_range / 2) then
-			kitz.clear_queue_low(self)
-			kitz.clear_queue_high(self)
-			return true
+		if math.abs(pos.x - self.beehive.x) <= (self.view_range / 2)
+			or math.abs(pos.z - self.beehive.z) <= (self.view_range / 2) then
+				kitz.clear_queue_low(self)
+				kitz.clear_queue_high(self)
+				return true
 		end
-		petz.lq_approach_behive(self)
+		petz.lq_approach_beehive(self)
 	end
 	kitz.queue_high(self, func, prty)
 end
 
-function petz.lq_approach_behive(self)
+function petz.lq_approach_beehive(self)
 	local func = function()
 		local tpos
-		if self.behive then
-			tpos = self.behive
+		if self.beehive then
+			tpos = self.beehive
 		else
 			return true
 		end

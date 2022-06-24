@@ -9,28 +9,28 @@ function petz.bee_brain(self)
 
 	self.object:set_acceleration({x=0, y=0, z=0})
 
-	local behive_exists = petz.behive_exists(self)
+	local beehive_exists = petz.beehive_exists(self)
 	local meta, honey_count, bee_count
-	if behive_exists then
-		meta, honey_count, bee_count = petz.get_behive_stats(self.behive)
+	if beehive_exists then
+		meta, honey_count, bee_count, owner = petz.get_beehive_stats(self.beehive)
 	end
 
-	if (self.hp <= 0) or (not(self.queen) and not(petz.behive_exists(self))) then
-		if behive_exists then --decrease the total bee count
-			petz.decrease_total_bee_count(self.behive)
-			petz.set_infotext_behive(meta, honey_count, bee_count)
+	if (self.hp <= 0) or (not(self.queen) and not(petz.beehive_exists(self))) then
+		if beehive_exists then --decrease the total bee count
+			petz.decrease_total_bee_count(self.beehive)
+			petz.set_infotext_beehive(meta, honey_count, bee_count)
 		end
 		petz.on_die(self) -- Die Behaviour
 		return
 	elseif (petz.is_night() and not(self.queen)) then --all the bees sleep in their beehive
-		if behive_exists then
+		if beehive_exists then
 			bee_count = bee_count + 1
 			meta:set_int("bee_count", bee_count)
-			if self.pollen and (honey_count < petz.settings.max_honey_behive) then
+			if self.pollen and (honey_count < petz.settings.max_honey_beehive) then
 				honey_count = honey_count + 1
 				meta:set_int("honey_count", honey_count)
 			end
-			petz.set_infotext_behive(meta, honey_count, bee_count)
+			petz.set_infotext_beehive(meta, honey_count, bee_count)
 			kitz.remove_mob(self)
 			return
 		end
@@ -54,8 +54,8 @@ function petz.bee_brain(self)
 		end
 
 		--search for flowers
-		if prty < 20 and behive_exists then
-			if not(self.queen) and not(self.pollen) and (honey_count < petz.settings.max_honey_behive) then
+		if prty < 20 and beehive_exists then
+			if not(self.queen) and not(self.pollen) and (honey_count < petz.settings.max_honey_beehive) then
 				local view_range = self.view_range
 				local nearby_flowers = minetest.find_nodes_in_area(
 					{x = pos.x - view_range, y = pos.y - view_range, z = pos.z - view_range},
@@ -69,23 +69,24 @@ function petz.bee_brain(self)
 			end
 		end
 
-		--search for the bee behive when pollen
-		if prty < 18 and behive_exists then
-			if not(self.queen) and self.pollen and (honey_count < petz.settings.max_honey_behive) then
-				if vector.distance(pos, self.behive) <= self.view_range then
-					petz.hq_gotobehive(self, 18, pos)
+		--search for the bee beehive when pollen
+		if prty < 18 and beehive_exists then
+			if not(self.queen) and self.pollen and (honey_count < petz.settings.max_honey_beehive) then
+				if vector.distance(pos, self.beehive) <= self.view_range then
+					petz.hq_gotobeehive(self, 18, pos)
 					return
 				end
 			end
 		end
 
-		--stay close behive
-		if prty < 15 and behive_exists then
+		--stay close beehive
+		if prty < 15 and beehive_exists then
 			if not(self.queen) then
 			--minetest.chat_send_player("singleplayer", "testx")
-				if math.abs(pos.x - self.behive.x) > self.view_range and math.abs(pos.z - self.behive.z) > self.view_range then
-					petz.hq_approach_behive(self, pos, 15)
-					return
+				if math.abs(pos.x - self.beehive.x) > self.view_range
+					and math.abs(pos.z - self.beehive.z) > self.view_range then
+						petz.hq_approach_beehive(self, pos, 15)
+						return
 				end
 			end
 		end

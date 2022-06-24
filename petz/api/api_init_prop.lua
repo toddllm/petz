@@ -8,7 +8,10 @@ petz.dyn_prop = {
 	anthill_founded = {type= "boolean", default = false},
 	back_home = {type= "boolean", default = false},
 	beaver_oil_applied = {type= "boolean", default = false},
+	--DELETE THIS BLOCK IN A FUTURE UPDATE -- behive changed to beehive>>>
 	behive = {type= "pos", default = nil},
+	--<
+	beehive = {type= "pos", default = nil},
 	brushed = {type= "boolean", default = false},
 	captured = {type= "boolean", default = false},
 	child = {type= "boolean", default = false},
@@ -152,7 +155,7 @@ petz.load_vars = function(self)
 		petz.calculate_sleep_times(self)
 	end
 	petz.insert_tamed_by_owner(self)
-	petz.cleanup_prop(self)  --Reset some vars
+	petz.cleanup_prop(self) --Reset some vars
 end
 
 function petz.set_initial_properties(self, staticdata, dtime_s)
@@ -160,14 +163,6 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 	local static_data_table = minetest.deserialize(staticdata)
 	local captured_mob = false
 	local baby_born = false
-	--TO DELETE IN FUTURE VERSIONS-->
-	local static_table_name
-	if static_data_table and static_data_table["memory"] then
-		static_table_name = "memory"
-	else
-		static_table_name = "fields"
-	end
-	--<
 	if static_data_table and static_data_table[static_table_name] and static_data_table[static_table_name]["captured"] then
 		captured_mob = true
 	elseif static_data_table and static_data_table["baby_born"] then
@@ -322,11 +317,11 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 			petz.colorize(self, self.colorized)
 		end
 	end
-	--DELETE THIS BLOCK IN THE NEXT UPDATE -- FOR COMPATIBIITY PURPOSES FOR OLD CHICKENS ONLY>>>
-	if self.type == "chicken" then
-		self.is_baby = kitz.remember(self, "is_baby", true)
-		self.texture_no = kitz.remember(self, "texture_no", 1)
-		petz.set_properties(self, {textures = {self.textures[1]}})
+	--<<<
+	--DELETE THIS BLOCK IN A FUTURE UPDATE -- behive changed to beehive>>>
+	if self.behive then
+		self.beehive = kitz.remember(self, "beehive", self.behive)
+		self.behive = nil
 	end
 	--<<<
 	if self.horseshoes and not captured_mob then
