@@ -91,7 +91,7 @@ function petz.lq_search_beehive(self)
 		if kitz.drive_to_pos(self, tpos, 1.5, 6.28, 1.01)  then
 				if petz.beehive_exists(self) then
 					kitz.remove_mob(self)
-					local meta, honey_count, bee_count, owner = petz.get_beehive_stats(self.beehive)
+					local meta, honey_count, bee_count = petz.get_beehive_stats(self.beehive)
 					bee_count = bee_count + 1
 					meta:set_int("bee_count", bee_count)
 					honey_count = honey_count + 1

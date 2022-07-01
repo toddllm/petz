@@ -142,7 +142,7 @@ minetest.register_node("petz:beehive", {
 	end,
 
 	on_timer = function(pos)
-		local meta, honey_count, bee_count, owner = petz.get_beehive_stats(pos)
+		local meta, honey_count, bee_count = petz.get_beehive_stats(pos)
 		if bee_count > 0 then --if bee inside
 			local tpos = {
 				x = pos. x,
@@ -186,7 +186,7 @@ minetest.register_node("petz:beehive", {
 	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		local wielded_item = player:get_wielded_item()
 		local wielded_item_name = wielded_item:get_name()
-		local meta, honey_count, bee_count, owner = petz.get_beehive_stats(pos)
+		local meta, honey_count, bee_count = petz.get_beehive_stats(pos)
 		local player_name = player:get_player_name()
 		if petz.settings.protect_beehive then
 			local owner_name = meta:get_string("owner")

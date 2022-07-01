@@ -163,8 +163,9 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 	local static_data_table = minetest.deserialize(staticdata)
 	local captured_mob = false
 	local baby_born = false
-	if static_data_table and static_data_table[static_table_name] and static_data_table[static_table_name]["captured"] then
-		captured_mob = true
+	if static_data_table and static_data_table["memory"]
+		and static_data_table["memory"]["captured"] then
+			captured_mob = true
 	elseif static_data_table and static_data_table["baby_born"] then
 		baby_born = true
 	end
@@ -279,13 +280,13 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 		for key, value in pairs(petz.dyn_prop) do
 			local prop_value
 			if value["type"] == "string" then
-				prop_value = static_data_table[static_table_name][key]
+				prop_value = static_data_table["memory"][key]
 			elseif value["type"] == "int" then
-				prop_value = tonumber(static_data_table[static_table_name][key])
+				prop_value = tonumber(static_data_table["memory"][key])
 			elseif value["type"] == "boolean" then
-				prop_value = minetest.is_yes(static_data_table[static_table_name][key])
+				prop_value = minetest.is_yes(static_data_table["memory"][key])
 			elseif value["type"] == "table" then
-				prop_value = static_data_table[static_table_name][key]
+				prop_value = static_data_table["memory"][key]
 			elseif value["type"] == "player" then
 				prop_value = nil
 			end

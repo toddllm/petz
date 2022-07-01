@@ -105,9 +105,22 @@ minetest.register_node("petz:spinning_wheel", {
 	},
 
 	after_place_node = function(pos, placer, itemstack, pointed_thing)
+		local meta_itemstack = itemstack:get_meta()
+		local silk_count
+		if meta_itemstack:contains("silk_count") then
+			silk_count = meta_itemstack:get_int("silk_count")
+		else
+			silk_count = 1
+		end
 		local meta = minetest.get_meta(pos)
-		meta:set_int("silk_count", 1)
-		meta:set_string("infotext", S("Silk Count").." = "..meta:get_int("silk_count"))
+		meta:set_int("silk_count", silk_count)
+		meta:set_string("infotext", S("Silk Count").." = "..silk_count)
+	end,
+
+	preserve_metadata = function(pos, oldnode, oldmeta, drops)
+		if oldmeta then
+			drops[1]:get_meta():set_int("silk_count", minetest.get_meta(pos):get_int("silk_count"))
+		end
 	end,
 
 	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
@@ -131,7 +144,7 @@ minetest.register_node("petz:spinning_wheel", {
 				meta:set_string("infotext", S("Silk Count").." = "..tostring(silk_count))
 				itemstack:take_item()
 				minetest.chat_send_player(player_name, S("There are still").." "
-				..tostring(petz.settings.silk_to_bobbin - silk_count).." "..S("more to create the bobbin."))
+					..tostring(petz.settings.silk_to_bobbin - silk_count).." "..S("more to create the bobbin."))
 				return itemstack
 			end
 		elseif silk_count == petz.settings.silk_to_bobbin then --get the bobbin
@@ -145,8 +158,8 @@ minetest.register_node("petz:spinning_wheel", {
 				else
 					inv:add_item("main", stack)
 				end
-				meta:set_int("silk_count", 1) --reset the silk count
-				meta:set_string("infotext", S("Silk Count").." = 1")
+				meta:set_int("silk_count", 0) --reset the silk count
+				meta:set_string("infotext", S("Silk Count").." = 0")
 				minetest.chat_send_player(player_name, S("You got the bobbin!"))
 				return itemstack
 			else

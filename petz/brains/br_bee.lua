@@ -12,7 +12,7 @@ function petz.bee_brain(self)
 	local beehive_exists = petz.beehive_exists(self)
 	local meta, honey_count, bee_count
 	if beehive_exists then
-		meta, honey_count, bee_count, owner = petz.get_beehive_stats(self.beehive)
+		meta, honey_count, bee_count = petz.get_beehive_stats(self.beehive)
 	end
 
 	if (self.hp <= 0) or (not(self.queen) and not(petz.beehive_exists(self))) then

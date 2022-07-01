@@ -129,7 +129,7 @@ petz.capture = function(self, clicker, put_in_inventory)
 	end
 	if self.type == "bee" and self.beehive then
 		petz.decrease_total_bee_count(self.beehive)
-		local meta, honey_count, bee_count, owner = petz.get_beehive_stats(self.beehive)
+		local meta, honey_count, bee_count = petz.get_beehive_stats(self.beehive)
 		petz.set_infotext_beehive(meta, honey_count, bee_count)
 	end
 	petz.remove_tamed_by_owner(self, false)
