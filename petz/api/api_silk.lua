@@ -118,9 +118,7 @@ minetest.register_node("petz:spinning_wheel", {
 	end,
 
 	preserve_metadata = function(pos, oldnode, oldmeta, drops)
-		if oldmeta then
-			drops[1]:get_meta():set_int("silk_count", minetest.get_meta(pos):get_int("silk_count"))
-		end
+		drops[1]:get_meta():set_int("silk_count", minetest.get_meta(pos):get_int("silk_count"))
 	end,
 
 	on_rightclick = function(pos, node, player, itemstack, pointed_thing)

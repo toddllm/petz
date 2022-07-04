@@ -55,6 +55,7 @@ petz.bh_sleep = function(self, prty)
 		--minetest.chat_send_player("singleplayer", "time of day="..tostring(timeofday).."/sleep_start_time="..tostring(self.sleep_start_time).."/sleep_end_time="..tostring(self.sleep_end_time))
 		if (self.status ~= "sleep") and (timeofday > sleep_start_time and timeofday < sleep_end_time) then
 			--minetest.chat_send_player("singleplayer", "prueba")
+			self.previous_status = kitz.remember(self, "previous_status", self.status)
 			petz.sleep(self, prty, false)
 		end
 	end
@@ -90,7 +91,7 @@ function petz.hq_sleep(self, prty, force)
 						kitz.clear_queue_high(self) --awake
 						local texture = self.textures[self.texture_no]
 						self.object:set_properties(self, {textures = {texture}}) --quit sleeping eyes
-						self.status = kitz.remember(self, "status", nil)
+						self.status = kitz.remember(self, "status", self.previous_status)
 						return true
 				else
 					petz.do_particles_effect(self.object, self.object:get_pos(), "sleep")

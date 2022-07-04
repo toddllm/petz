@@ -54,6 +54,7 @@ petz.dyn_prop = {
 	owner = {type= "string", default = nil},
 	pregnant_count = {type= "int", default = petz.settings.pregnant_count},
 	pregnant_time = {type= "int", default = 0},
+	previous_status = {type= "string", default = nil},
 	saddle = {type= "boolean", default = false},
 	saddlebag = {type= "boolean", default = false},
 	saddlebag_inventory = {type= "table", default = {}},
