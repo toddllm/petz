@@ -4,32 +4,47 @@
 local S = ...
 
 local scale_model = 2.0
+local scale_baby = 0.5
+local visual_size = {x=petz.settings.visual_size.x*scale_model, y=petz.settings.visual_size.y*scale_model}
+local visual_size_baby = {x=petz.settings.visual_size.x*scale_model*scale_baby, y=petz.settings.visual_size.y*scale_model*scale_baby}
 local mesh = 'petz_leopard.b3d'
 local p1 = {x= -0.0625, y = -0.5, z = -0.375}
 local p2 = {x= 0.125, y = 0.0, z = 0.375}
-local collisionbox = petz.get_collisionbox(p1, p2, scale_model, nil)
+local collisionbox, collisionbox_baby = petz.get_collisionbox(p1, p2, scale_model, scale_baby)
 
-for i=1, 2 do
-	local type
+for i = 1, 2  do
+
+	local pet_name
 	local description
-	local textures
-	if i == 1 then --if male
-		type = "leopard"
+	local skin_colors = {}
+	local textures = {}
+	local mutation
+
+	if i == 1 then
+		pet_name = "leopard"
 		description = "Leopard"
-		textures = {"petz_leopard.png", "petz_leopard2.png"}
+		skin_colors = {"green_eyes", "blue_eyes", "black"}
+		mutation = 1
 	else
-		type = "snow_leopard"
+		pet_name = "snow_leopard"
 		description = "Snow Leopard"
-		textures = {"petz_snow_leopard.png", "petz_snow_leopard2.png"}
+		skin_colors = {"yellow_eyes", "orange_eyes"}
+		mutation = false
 	end
 
-	minetest.register_entity("petz:"..type, {
+	for n = 1, #skin_colors do
+		textures[n] = "petz_"..pet_name.."_"..skin_colors[n]..".png"
+	end
+
+	minetest.register_entity("petz:"..pet_name, {
 		--Petz specifics
-		type = type,
+		type = pet_name,
 		init_tamagochi_timer = true,
 		is_pet = true,
 		has_affinity = true,
 		is_wild = true,
+		breed = true,
+		mutation = mutation,
 		attack_player = true,
 		give_orders = true,
 		can_be_brushed = true,
@@ -42,12 +57,16 @@ for i=1, 2 do
 		rotate = petz.settings.rotate,
 		physical = true,
 		stepheight = 0.1,	--EVIL!
-		collide_with_objects = true,
-		collisionbox = collisionbox,
-		visual = petz.settings.visual,
 		mesh = mesh,
 		textures = textures,
-		visual_size = {x=petz.settings.visual_size.x*scale_model, y=petz.settings.visual_size.y*scale_model},
+		skin_colors = skin_colors,
+		visual = petz.settings.visual,
+		visual_size = visual_size,
+		visual_size_baby = visual_size_baby,
+		collisionbox = collisionbox,
+		collisionbox_baby = collisionbox_baby,
+		collide_with_objects = true,
+
 		static_save = true,
 		get_staticdata = kitz.statfunc,
 		-- api props
@@ -102,6 +121,6 @@ for i=1, 2 do
 		end,
 
 	})
-	petz:register_egg("petz:"..type, S(description), "petz_spawnegg_"..type..".png", true)
+	petz:register_egg("petz:"..pet_name, S(description), "petz_spawnegg_"..pet_name..".png", true)
 end
 
