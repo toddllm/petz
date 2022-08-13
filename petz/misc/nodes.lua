@@ -737,7 +737,7 @@ minetest.register_craft({
 	output = "petz:grain_packet",
 	recipe = {
 		"farming:seed_wheat", "farming:seed_wheat", "farming:seed_wheat",
-		"farming:seed_wheat", "farming:seed_wheat", "farming:seed_wheat",
+		"farming:seed_wheat",                   "", "farming:seed_wheat",
 		"farming:seed_wheat", "farming:seed_wheat", "farming:seed_wheat"
 	}
 })
