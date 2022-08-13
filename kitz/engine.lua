@@ -230,7 +230,7 @@ function kitz.get_spawn_pos_abr(dtime,intrvl,radius,chance,reduction)
 
 	if random()<dtime*(intrvl*#plyrs) then
 		local plyr = plyrs[random(#plyrs)]		-- choose random player
-		local vel = plyr:get_player_velocity()
+		local vel = plyr:get_velocity()
 		local spd = vector.length(vel)
 		chance = (1-chance) * 1/(spd*0.75+1)
 
