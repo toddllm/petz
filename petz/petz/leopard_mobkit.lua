@@ -16,7 +16,7 @@ for i = 1, 2  do
 
 	local pet_name
 	local description
-	local skin_colors = {}
+	local skin_colors
 	local textures = {}
 	local mutation
 

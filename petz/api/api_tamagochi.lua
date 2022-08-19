@@ -126,5 +126,5 @@ petz.abandon_pet = function(self, msg)
 	petz.remove_tamed_by_owner(self, true)
 	petz.drop_dreamcatcher(self)
 	self.init_tamagochi_timer = false -- no more timing
-	self.for_sale = false -- not for sale
+	self.for_sale = kitz.remember(self, "for_sale", false) -- not for sale
 end
