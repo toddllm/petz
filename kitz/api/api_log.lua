@@ -1,7 +1,11 @@
+local _id = 0
+
 function kitz.logon_mob(self)
-	table.insert(kitz.active_mobs, self.object)
+	_id = _id + 1
+	kitz.active_mobs[_id] = self
+	self._id = _id
 end
 
 function kitz.logout_mob(self)
-	kitz.active_mobs[self.object] = nil
+	kitz.active_mobs[self._id] = nil
 end
