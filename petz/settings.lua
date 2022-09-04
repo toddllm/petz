@@ -22,6 +22,12 @@ local settings_def = {
 	type = "boolean",
 	default = false,
 	},
+	--Performance
+	{
+	name = "speed_up",
+	type = "boolean",
+	default = true,
+	},
 	--Tamagochi Mode
 	{
 	name = "tamagochi_mode",

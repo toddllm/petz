@@ -61,7 +61,7 @@ function petz.herbivore_brain(self)
 		--if player then petz.move_head(self, player:get_pos()) end
 
 		--Runaway from predator
-		if prty < 18  then
+		if prty < 18 and not(petz.settings.speed_up) then
 			if petz.bh_runaway_from_predator(self, pos) then
 				return
 			end
@@ -81,7 +81,7 @@ function petz.herbivore_brain(self)
 		end
 
 		--Runaway from Player
-		if prty < 14 then
+		if prty < 14 and not(petz.settings.speed_up) then
 			if not(self.tamed) then --if no tamed
 				if player then
 					local player_pos = player:get_pos()
@@ -100,7 +100,7 @@ function petz.herbivore_brain(self)
 		end
 
 		--Baby petz follow their parents
-		if prty < 10 then
+		if prty < 10 and not(petz.settings.speed_up) then
 			if petz.settings.parent_search and self.parents then
 				if kitz.timer(self, 5) then --each 5 seconds search for parents
 					petz.follow_parents(self, pos)
@@ -151,7 +151,7 @@ function petz.herbivore_brain(self)
 		end
 
 		--search for a petz:pet_bowl or a bale
-		if prty < 4 and self.tamed then
+		if prty < 4 and self.tamed and not(petz.settings.speed_up) then
 			local view_range = self.view_range
 			local nearby_nodes = minetest.find_nodes_in_area(
 				{x = pos.x - (view_range/2), y = pos.y - 1, z = pos.z - (view_range/2)},

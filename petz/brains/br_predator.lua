@@ -44,7 +44,7 @@ function petz.predator_brain(self)
 		end
 
 		-- hunt a prey
-		if prty < 12 then -- if not busy with anything important
+		if prty < 12 and not(petz.settings.speed_up) then -- if not busy with anything important
 			 petz.bh_hunt(self, 12, false)
 		end
 

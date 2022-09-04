@@ -613,7 +613,6 @@ function kitz.get_closest_entity(self, name) --returns closest entity of name or
 	for _, obj in ipairs(kitz.active_mobs) do
 		local luaent = obj.object:get_luaentity()
 		if not(self._id == obj._id) and kitz.is_alive(obj.object) and luaent and luaent.name == name then
-			minetest.chat_send_all("other")
 			local opos = obj.object:get_pos()
 			local odist = abs(opos.x-pos.x) + abs(opos.z-pos.z)
 			if odist < dist then
