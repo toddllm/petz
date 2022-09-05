@@ -598,8 +598,8 @@ function kitz.get_nearby_player(self) --returns random player if nearby or nil
 end
 
 function kitz.get_nearby_entity(self, name)	-- returns random nearby entity of name or nil
-	for _, obj in ipairs(kitz.active_mobs) do
-		if not(self._id == obj._id) and kitz.is_alive(obj.object) and obj:get_luaentity().name == name then
+	for id, obj in pairs(kitz.active_mobs) do
+		if not(self._id == id) and kitz.is_alive(obj.object) and obj:get_luaentity().name == name then
 			return obj.object
 		end
 	end
@@ -610,9 +610,9 @@ function kitz.get_closest_entity(self, name) --returns closest entity of name or
 	local cobj = nil
 	local dist = abr*64
 	local pos = self.object:get_pos()
-	for _, obj in ipairs(kitz.active_mobs) do
+	for id, obj in pairs(kitz.active_mobs) do
 		local luaent = obj.object:get_luaentity()
-		if not(self._id == obj._id) and kitz.is_alive(obj.object) and luaent and luaent.name == name then
+		if not(self._id == id) and kitz.is_alive(obj.object) and luaent and luaent.name == name then
 			local opos = obj.object:get_pos()
 			local odist = abs(opos.x-pos.x) + abs(opos.z-pos.z)
 			if odist < dist then
