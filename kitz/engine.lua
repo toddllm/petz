@@ -650,7 +650,7 @@ function kitz.default_brain(self)
 	if kitz.is_queue_empty_high(self) then kitz.hq_roam(self,0) end
 end
 
-function kitz.physics(self)
+function kitz.physics(self, colinfo)
 	local vel=self.object:get_velocity()
 	local vnew = vector.new(vel)
 		-- dumb friction
@@ -821,7 +821,7 @@ function kitz.stepfunc(self, dtime, colinfo)	-- not intended to be modified
 		end
 	end
 
-	self:physics()
+	self:physics(colinfo)
 
 	if self.logic then
 		self:logic()
