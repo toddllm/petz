@@ -70,8 +70,8 @@ function kitz.get_stand_pos(thing)	-- thing can be luaentity or objectref.
 end	--]]
 
 function kitz.get_stand_pos(thing)	-- thing can be luaentity or objectref.
-	local pos = {}
-	local colbox = {}
+	local pos -- = {}
+	local colbox -- = {}
 	if type(thing) == 'table' then
 		pos = thing.object:get_pos()
 		colbox = thing.object:get_properties().collisionbox
@@ -122,8 +122,8 @@ function kitz.get_nodes_in_area(pos1,pos2,full)
 	local sy = (pos2.y<pos1.y) and -1 or 1
 
 	local x=npos1.x-sx
-	local z=npos1.z-sz
-	local y=npos1.y-sy
+	local z -- =npos1.z-sz
+	local y -- =npos1.y-sy
 
 	repeat
 		x=x+sx
@@ -356,8 +356,8 @@ function kitz.get_box_displace_cols(pos,box,vec,dist)
 	local fpos = {pos.y}
 	--local xpos={pos.y}
 	--local zpos={pos.y}
-	local xoff=nil
-	local zoff=nil
+	local xoff -- =nil
+	local zoff -- =nil
 
 	if vec.x < 0 then
 		fpos.x = pos.x+box[1]	-- frontmost corner's x
@@ -462,7 +462,7 @@ function kitz.animate(self,anim)
 		if self._anim == anim then return end
 		self._anim=anim
 
-		local aparms = {}
+		local aparms -- = {}
 		if #self.animation[anim] > 0 then
 			aparms = self.animation[anim][random(#self.animation[anim])]
 		else
