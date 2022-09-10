@@ -733,11 +733,10 @@ minetest.register_node("petz:grain_packet", {
 })
 
 minetest.register_craft({
-	type = "shapeless",
 	output = "petz:grain_packet",
 	recipe = {
-		"farming:seed_wheat", "farming:seed_wheat", "farming:seed_wheat",
-		"farming:seed_wheat",                   "", "farming:seed_wheat",
-		"farming:seed_wheat", "farming:seed_wheat", "farming:seed_wheat"
+		{ "farming:seed_wheat", "farming:seed_wheat", "farming:seed_wheat" },
+		{ "farming:seed_wheat",                   "", "farming:seed_wheat" },
+		{ "farming:seed_wheat", "farming:seed_wheat", "farming:seed_wheat" }
 	}
 })
