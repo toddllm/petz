@@ -151,9 +151,9 @@ function kitz.get_next_waypoint_fast(self,tpos,nogopos)
 
 	if height and not liquidflag then
 		local fast = false
-		heightl = kitz.is_neighbor_node_reachable(self,kitz.neighbor_shift(neighbor,-1))
+		local heightl = kitz.is_neighbor_node_reachable(self,kitz.neighbor_shift(neighbor,-1))
 		if heightl and abs(heightl-height)<0.001 then
-			heightr = kitz.is_neighbor_node_reachable(self,kitz.neighbor_shift(neighbor,1))
+			local heightr = kitz.is_neighbor_node_reachable(self,kitz.neighbor_shift(neighbor,1))
 			if heightr and abs(heightr-height)<0.001 then
 				fast = true
 				dir.y = 0
@@ -165,7 +165,7 @@ function kitz.get_next_waypoint_fast(self,tpos,nogopos)
 		end
 		return height, pos2, fast
 	else
-
+		local liq
 		for i=1,4 do
 			-- scan left
 			height, pos2, liq = kitz.is_neighbor_node_reachable(self,kitz.neighbor_shift(neighbor,-i))
