@@ -812,7 +812,7 @@ function kitz.hq_aqua_attack(self,prty,tgtobj,speed)
 		local tpos = tgtobj:get_pos()
 		local tyaw=minetest.dir_to_yaw(vector.direction(pos,tpos))
 		kitz.turn2yaw(self,tyaw,3)
-		local yaw = self.object:get_yaw()
+		yaw = self.object:get_yaw()
 		if kitz.timer(self,1) then
 			if not kitz.is_in_deep(tgtobj) then return true end
 			local vel = self.object:get_velocity()
