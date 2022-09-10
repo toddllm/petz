@@ -1,14 +1,14 @@
 local abs = math.abs
 local pi = math.pi
-local floor = math.floor
+--local floor = math.floor
 local ceil = math.ceil
 local random = math.random
 local sqrt = math.sqrt
-local max = math.max
-local min = math.min
-local tan = math.tan
-local pow = math.pow
-local dbg = minetest.chat_send_all
+--local max = math.max
+--local min = math.min
+--local tan = math.tan
+--local pow = math.pow
+--local dbg = minetest.chat_send_all
 
 local abr = tonumber(minetest.get_mapgen_setting('active_block_range')) or 3
 
@@ -151,9 +151,9 @@ function kitz.get_next_waypoint_fast(self,tpos,nogopos)
 
 	if height and not liquidflag then
 		local fast = false
-		heightl = kitz.is_neighbor_node_reachable(self,kitz.neighbor_shift(neighbor,-1))
+		local heightl = kitz.is_neighbor_node_reachable(self,kitz.neighbor_shift(neighbor,-1))
 		if heightl and abs(heightl-height)<0.001 then
-			heightr = kitz.is_neighbor_node_reachable(self,kitz.neighbor_shift(neighbor,1))
+			local heightr = kitz.is_neighbor_node_reachable(self,kitz.neighbor_shift(neighbor,1))
 			if heightr and abs(heightr-height)<0.001 then
 				fast = true
 				dir.y = 0
@@ -165,7 +165,7 @@ function kitz.get_next_waypoint_fast(self,tpos,nogopos)
 		end
 		return height, pos2, fast
 	else
-
+		local liq
 		for i=1,4 do
 			-- scan left
 			height, pos2, liq = kitz.is_neighbor_node_reachable(self,kitz.neighbor_shift(neighbor,-i))
@@ -325,13 +325,13 @@ end
 
 function kitz.lq_jumpattack(self,height,target)
 	local init=true
-	local timer=0.5
+	--local timer=0.5
 	local tgtbox = target:get_properties().collisionbox
 	local func=function(self)
 		if not kitz.is_alive(target) then return true end
 		if self.isonground then
 			if init then	-- collision bug workaround
-				local vel = self.object:get_velocity()
+				--local vel = self.object:get_velocity()
 				local dir = minetest.yaw_to_dir(self.object:get_yaw())
 				dir=vector.multiply(dir,6)
 				dir.y = -kitz.gravity*sqrt(height*2/-kitz.gravity)
@@ -400,7 +400,7 @@ end
 function kitz.hq_roam(self,prty)
 	local func=function(self)
 		if kitz.is_queue_empty_low(self) and self.isonground then
-			local pos = kitz.get_stand_pos(self)
+			--local pos = kitz.get_stand_pos(self)
 			local neighbor = random(8)
 
 			local height, tpos, liquidflag = kitz.is_neighbor_node_reachable(self,neighbor)
@@ -644,7 +644,7 @@ function kitz.hq_swimto(self,prty,tpos)
 			cols = kitz.get_box_displace_cols(pos,box,dir,1)
 			for _,p in ipairs(cols[1]) do
 				p.y=pos.y
-				local h,l = kitz.get_terrain_height(p)
+				local h = kitz.get_terrain_height(p)
 				if h and h>pos.y and self.isinliquid then
 					kitz.lq_freejump(self)
 					break
@@ -678,7 +678,7 @@ local function aqua_radar_dumb(pos,yaw,range,reverse)
 					return false
 				end
 			else
-				local h,l = kitz.get_terrain_height(p)
+				local h = kitz.get_terrain_height(p)
 				if h then
 					local node2 = kitz.nodeatpos({x=p.x,y=h+1.99,z=p.z})
 					if node2 and node2.drawtype == 'liquid' then return true, h end
@@ -812,7 +812,7 @@ function kitz.hq_aqua_attack(self,prty,tgtobj,speed)
 		local tpos = tgtobj:get_pos()
 		local tyaw=minetest.dir_to_yaw(vector.direction(pos,tpos))
 		kitz.turn2yaw(self,tyaw,3)
-		local yaw = self.object:get_yaw()
+		yaw = self.object:get_yaw()
 		if kitz.timer(self,1) then
 			if not kitz.is_in_deep(tgtobj) then return true end
 			local vel = self.object:get_velocity()

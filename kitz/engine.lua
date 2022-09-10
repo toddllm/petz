@@ -12,13 +12,13 @@ kitz.friction = 0.4	-- less is more
 local abs = math.abs
 local pi = math.pi
 local floor = math.floor
-local ceil = math.ceil
+--local ceil = math.ceil
 local random = math.random
 local sqrt = math.sqrt
 local max = math.max
 local min = math.min
 local tan = math.tan
-local pow = math.pow
+--local pow = math.pow
 
 local sign = function(x)
 	return (x<0) and -1 or 1
@@ -70,8 +70,8 @@ function kitz.get_stand_pos(thing)	-- thing can be luaentity or objectref.
 end	--]]
 
 function kitz.get_stand_pos(thing)	-- thing can be luaentity or objectref.
-	local pos = {}
-	local colbox = {}
+	local pos -- = {}
+	local colbox -- = {}
 	if type(thing) == 'table' then
 		pos = thing.object:get_pos()
 		colbox = thing.object:get_properties().collisionbox
@@ -122,8 +122,8 @@ function kitz.get_nodes_in_area(pos1,pos2,full)
 	local sy = (pos2.y<pos1.y) and -1 or 1
 
 	local x=npos1.x-sx
-	local z=npos1.z-sz
-	local y=npos1.y-sy
+	local z -- =npos1.z-sz
+	local y -- =npos1.y-sy
 
 	repeat
 		x=x+sx
@@ -340,7 +340,7 @@ function kitz.get_box_intersect_cols(pos,box)
 	local pmin = {x=floor(pos.x+box[1]+0.5),z=floor(pos.z+box[3]+0.5)}
 	local pmax = {x=floor(pos.x+box[4]+0.5),z=floor(pos.z+box[6]+0.5)}
 
-	result= {}
+	local result= {}
 	for x=pmin.x,pmax.x do
 		for z=pmin.z,pmax.z do
 			table.insert(result,{x=x,z=z})
@@ -354,10 +354,10 @@ function kitz.get_box_displace_cols(pos,box,vec,dist)
 	local result = {{}}
 	-- front facing corner pos and neighbors
 	local fpos = {pos.y}
-	local xpos={pos.y}
-	local zpos={pos.y}
-	local xoff=nil
-	local zoff=nil
+	--local xpos={pos.y}
+	--local zpos={pos.y}
+	local xoff -- =nil
+	local zoff -- =nil
 
 	if vec.x < 0 then
 		fpos.x = pos.x+box[1]	-- frontmost corner's x
@@ -393,8 +393,8 @@ function kitz.get_box_displace_cols(pos,box,vec,dist)
 	end
 
 			-- traverse z
-	local zsgn = sign(vec.z)
-	local xsgn = sign(xoff)
+	zsgn = sign(vec.z)
+	xsgn = sign(xoff)
 	index=0
 	for z = floor(fpos.z + 0.5)+zsgn*0.5, fpos.z+vec.z, zsgn do
 		index=index+1
@@ -462,7 +462,7 @@ function kitz.animate(self,anim)
 		if self._anim == anim then return end
 		self._anim=anim
 
-		local aparms = {}
+		local aparms -- = {}
 		if #self.animation[anim] > 0 then
 			aparms = self.animation[anim][random(#self.animation[anim])]
 		else
@@ -650,7 +650,7 @@ function kitz.default_brain(self)
 	if kitz.is_queue_empty_high(self) then kitz.hq_roam(self,0) end
 end
 
-function kitz.physics(self)
+function kitz.physics(self, colinfo)
 	local vel=self.object:get_velocity()
 	local vnew = vector.new(vel)
 		-- dumb friction
@@ -821,7 +821,7 @@ function kitz.stepfunc(self, dtime, colinfo)	-- not intended to be modified
 		end
 	end
 
-	self:physics()
+	self:physics(colinfo)
 
 	if self.logic then
 		self:logic()
