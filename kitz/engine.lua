@@ -12,13 +12,13 @@ kitz.friction = 0.4	-- less is more
 local abs = math.abs
 local pi = math.pi
 local floor = math.floor
-local ceil = math.ceil
+--local ceil = math.ceil
 local random = math.random
 local sqrt = math.sqrt
 local max = math.max
 local min = math.min
 local tan = math.tan
-local pow = math.pow
+--local pow = math.pow
 
 local sign = function(x)
 	return (x<0) and -1 or 1
@@ -354,8 +354,8 @@ function kitz.get_box_displace_cols(pos,box,vec,dist)
 	local result = {{}}
 	-- front facing corner pos and neighbors
 	local fpos = {pos.y}
-	local xpos={pos.y}
-	local zpos={pos.y}
+	--local xpos={pos.y}
+	--local zpos={pos.y}
 	local xoff=nil
 	local zoff=nil
 
