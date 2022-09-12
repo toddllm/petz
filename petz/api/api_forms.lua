@@ -373,7 +373,11 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			end
 			pet.exchange_item_amount = kitz.remember(pet, "exchange_item_amount", kitz.delimit_number( tonumber(fields.fld_exchange_item_amount), {min=1, max=99}) or 1)
 		elseif fields.btn_buy then
-			petz.buy(pet, player, _context[player_name].seller)
+			if _context[player_name] and _context[player_name].seller then
+				petz.buy(pet, player, _context[player_name].seller)
+			else
+				minetest.chat_send_player(player_name, "This pet has not a seller")
+			end
 		elseif fields.btn_back_home then
 			pet.back_home= kitz.remember(pet, "back_home", minetest.is_yes(fields.btn_back_home))
 		elseif fields.btn_set_home then
