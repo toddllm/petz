@@ -295,6 +295,12 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 		end
 	end
 
+	--Check if dead
+	if self.dead then
+		self.object:remove()
+		return
+	end
+
 	--Custom textures
 	if captured_mob or self.breed then
 		local texture= petz.compose_texture(self)	--compose the texture

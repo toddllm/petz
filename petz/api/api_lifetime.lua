@@ -28,6 +28,7 @@ petz.lifetime_timer = function(self, lifetime, on_step_time)
 	--minetest.chat_send_all(tostring(self.lifetime))
 	self.lifetime = kitz.remember(self, "lifetime", self.lifetime - on_step_time)
 	if self.lifetime <= 0 then
+		self.hp = 0
 		petz.on_die(self)
 	end
 end
