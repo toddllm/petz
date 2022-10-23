@@ -685,10 +685,12 @@ function kitz.physics(self, colinfo)
 	local surface = nil
 	local surfnodename = nil
 	local spos = kitz.get_stand_pos(self)
+	self.stand_pos = spos
 	spos.y = spos.y+0.01
 	-- get surface height
 	local snodepos = kitz.get_node_pos(spos)
 	local surfnode = kitz.nodeatpos(spos)
+	self.surfnode = surfnode
 	while surfnode and surfnode.drawtype == 'liquid' do
 		surfnodename = surfnode.name
 		surface = snodepos.y+0.5

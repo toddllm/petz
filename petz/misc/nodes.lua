@@ -395,55 +395,6 @@ if minetest.get_modpath("crops") ~= nil then
 	})
 end
 
---Poop
-minetest.register_node("petz:poop", {
-    description = S("Poop"),
-    inventory_image = "petz_poop_inv.png",
-    tiles = {"petz_poop.png"},
-    groups = {crumbly=3, falling_node=1},
-    sounds = default.node_sound_stone_defaults(),
-    paramtype = "light",
-	walkable = false,
-	falling_node = true,
-    drawtype = "nodebox",
-    node_box = {
-        type = "fixed",
-        fixed = {
-			{-0.1875, -0.5, -0.1875, 0.1875, -0.375, 0.1875},
-			{-0.125, -0.375, -0.125, 0.125, -0.3125, 0.125},
-			{-0.0625, -0.3125, -0.0625, 0.0625, -0.25, 0.0625},
-        },
-	},
-	on_construct = function(pos)
-		local timer = minetest.get_node_timer(pos)
-		timer:start(petz.settings.poop_decay)
-	end,
-	on_timer = function(pos, elapsed)
-		minetest.remove_node(pos)
-		return false
-	end,
-})
-
-minetest.register_node("petz:poop_block", {
-	description = S("Poop Block"),
-	drawtype = "allfaces_optional",
-	tiles = {"petz_poop.png"},
-	paramtype = "light",
-	is_ground_content = false,
-	groups = {snappy = 3, flammable = 3, leaves = 1},
-	sounds = default.node_sound_leaves_defaults(),
-})
-
-minetest.register_craft({
-	type = "shaped",
-	output = "petz:poop_block",
-    recipe = {
-        {'petz:poop', 'petz:poop', 'petz:poop'},
-        {'petz:poop', 'petz:poop', 'petz:poop'},
-        {'petz:poop', 'petz:poop', 'petz:poop'},
-    }
-})
-
 --Cat Basket
 minetest.register_node("petz:cat_basket", {
     description = S("Cat Basket"),
@@ -739,4 +690,56 @@ minetest.register_craft({
 		{ "farming:seed_wheat",                   "", "farming:seed_wheat" },
 		{ "farming:seed_wheat", "farming:seed_wheat", "farming:seed_wheat" }
 	}
+})
+
+--Poop Node
+
+minetest.register_node("petz:poop", {
+    description = S("Poop"),
+    inventory_image = "petz_poop_inv.png",
+    tiles = {"petz_poop.png"},
+    groups = {crumbly=3, falling_node=1},
+    sounds = default.node_sound_stone_defaults(),
+    paramtype = "light",
+	walkable = false,
+	falling_node = true,
+    drawtype = "nodebox",
+    node_box = {
+        type = "fixed",
+        fixed = {
+			{-0.1875, -0.5, -0.1875, 0.1875, -0.375, 0.1875},
+			{-0.125, -0.375, -0.125, 0.125, -0.3125, 0.125},
+			{-0.0625, -0.3125, -0.0625, 0.0625, -0.25, 0.0625},
+        },
+	},
+
+	on_construct = function(pos)
+		local timer = minetest.get_node_timer(pos)
+		timer:start(petz.settings.poop_decay)
+	end,
+
+	on_timer = function(pos, elapsed)
+		minetest.remove_node(pos)
+		return false
+	end,
+})
+
+minetest.register_node("petz:poop_block", {
+	description = S("Poop Block"),
+	drawtype = "allfaces_optional",
+	tiles = {"petz_poop.png"},
+	paramtype = "light",
+	is_ground_content = false,
+	groups = {snappy = 3, flammable = 3, leaves = 1},
+	sounds = default.node_sound_leaves_defaults(),
+})
+
+minetest.register_craft({
+	type = "shaped",
+	output = "petz:poop_block",
+    recipe = {
+        {'petz:poop', 'petz:poop', 'petz:poop'},
+        {'petz:poop', 'petz:poop', 'petz:poop'},
+        {'petz:poop', 'petz:poop', 'petz:poop'},
+    }
 })
