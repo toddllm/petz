@@ -59,12 +59,3 @@ petz.follow = function(self, player)
 		kitz.hq_follow(self, 100, player)
 	end
 end
-
-petz.alight = function(self, prty, end_status)
-	kitz.clear_queue_low(self)
-	kitz.clear_queue_high(self)
-	if not(petz.node_name_in(self, "below") == "air") then
-		kitz.animate(self, "fly")
-	end
-	petz.hq_alight(self, prty, end_status)
-end

@@ -3,6 +3,10 @@
 
 function petz.herbivore_brain(self)
 
+	if self.dead then
+		return
+	end
+
 	local pos = self.object:get_pos()
 
 	local die = false

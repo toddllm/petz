@@ -59,14 +59,21 @@ function petz.lq_dumbfly(self, speed_factor)
 			end
 			local height_from_ground = petz.check_height(self) --returns 'false' if the mob flies higher that max_height, otherwise returns the height from the ground
 			--minetest.chat_send_player("singleplayer", tostring(height_from_ground))
-			if not(height_from_ground) or petz.node_name_in(self, "top") ~= "air" then --check if max height, then stand or descend, or a node above the petz
+			local random_alight
+			if self.can_alight then
+				random_alight = math.random(1, self.fly_rate)
+				if random_alight <= 1 then
+					fly_status = "alight"
+				end
+			end
+			if not(fly_status == "alight") and  not(height_from_ground) or petz.node_name_in(self, "top") ~= "air" then --check if max height, then stand or descend, or a node above the petz
 				random_num = math.random(1, 100)
 				if random_num < 70 then
 					fly_status = "descend"
 				else
 					fly_status = "stand"
 				end
-			else --check if water below, or near the ground, if yes ascend
+			elseif not(fly_status == "alight") then --check if water below, or near the ground, if yes ascend
 				local node_name = petz.node_name_in(self, "below")
 				if minetest.get_item_group(node_name, "water") >= 1  then
 					fly_status = "ascend"
@@ -105,6 +112,9 @@ function petz.lq_dumbfly(self, speed_factor)
 					fly_status = "ascend"
 				end
 				--minetest.chat_send_player("singleplayer", "descend")
+			elseif fly_status == "alight" then
+				petz.alight(self, 0, "alight")
+				return
 			else --ascend
 				fly_status = "ascend"
 				velocity ={
@@ -169,6 +179,15 @@ end
 -- Alight Behaviour ( 2 funtions: HQ & LQ)
 --
 
+function petz.alight(self, prty, end_status)
+	kitz.clear_queue_low(self)
+	kitz.clear_queue_high(self)
+	if not(petz.node_name_in(self, "below") == "air") then
+		kitz.animate(self, "fly")
+	end
+	petz.hq_alight(self, prty, end_status)
+end
+
 function petz.hq_alight(self, prty, end_status)
 	local func = function()
 		local node_name = petz.node_name_in(self, "below")
@@ -179,9 +198,11 @@ function petz.hq_alight(self, prty, end_status)
 			return true
 		else
 			--minetest.chat_send_player("singleplayer", "on ground")
-			kitz.animate(self, end_status)
-			kitz.lq_idle(self, 2400)
-			self.status = end_status
+			if end_status == "stand" then
+				kitz.animate(self, end_status)
+				kitz.lq_idle(self, 2400)
+			end
+			self.status = kitz.remember(self, "status", end_status)
 			return true
 		end
 	end

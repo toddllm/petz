@@ -1,5 +1,6 @@
 local modpath, S = ...
 
+assert(loadfile(modpath .. "/api/api_register.lua"))(S)
 assert(loadfile(modpath .. "/api/api_helper_functions.lua"))()
 assert(loadfile(modpath .. "/api/api_datetime.lua"))()
 assert(loadfile(modpath .. "/api/api_spawn.lua"))()

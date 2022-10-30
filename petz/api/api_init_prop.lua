@@ -360,6 +360,8 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 			petz.guard(self)
 		elseif self.status == "sleep" then
 			self.status = nil --reset
+		elseif self.status == "alight" then
+			petz.alight(self, 0, "alight")
 		else
 			self.status = nil
 		end

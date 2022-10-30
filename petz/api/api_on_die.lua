@@ -3,7 +3,11 @@
 --
 
 petz.on_die = function(self)
-	self.dead = kitz.remember(self, "dead", true) --a variable, useful to avoid functions
+	if self.dead then
+		return
+	else
+		self.dead = kitz.remember(self, "dead", true) --a variable, useful to avoid functions
+	end
 	local pos = self.object:get_pos()
 	--Specific of each mob-->
 	if self.is_mountable then

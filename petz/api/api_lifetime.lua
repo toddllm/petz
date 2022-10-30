@@ -29,6 +29,5 @@ petz.lifetime_timer = function(self, lifetime, on_step_time)
 	self.lifetime = kitz.remember(self, "lifetime", self.lifetime - on_step_time)
 	if self.lifetime <= 0 and not(self.dead) then
 		self.hp = 0
-		petz.on_die(self)
 	end
 end

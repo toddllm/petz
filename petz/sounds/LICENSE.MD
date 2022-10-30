@@ -406,3 +406,8 @@ Author: AGFX
 https://freesound.org/people/AGFX/sounds/43380/
 License: This work is licensed under the Creative Commons 0 License.
 --------------------------------------------
+filename: petz_flamingo_chirp.ogg & filename: petz_flamingo_chirp_02.ogg
+Author: InspectorJ
+https://freesound.org/people/InspectorJ/sounds/400860/
+License: This work is licensed under the Attribution 4.0 License.
+--------------------------------------------
