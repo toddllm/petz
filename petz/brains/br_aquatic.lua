@@ -68,7 +68,9 @@ function petz.aquatic_brain(self)
 
 		--Roam default
 		if kitz.is_queue_empty_high(self) and not(self.status) and not(self.status== "jump") then
-			kitz.hq_aqua_roam(self, 0, self.max_speed)
+			if self.isinliquid then
+				kitz.hq_aqua_roam(self, 0, self.max_speed)
+			end
 		end
 	end
 end
