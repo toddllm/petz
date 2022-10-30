@@ -215,7 +215,11 @@ function petz.flying_brain(self)
 				kitz.animate(self, "fly")
 				self.status = false
 			else
-				kitz.hq_roam(self, 0)
+				if self.isonground then
+					kitz.hq_roam(self, 0)
+				else
+					self.status = false
+				end
 			end
 		end
 
