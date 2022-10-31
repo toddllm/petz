@@ -773,21 +773,11 @@ function kitz.actfunc(self, staticdata, dtime_s)
 
 	if not self.memory then 		-- this is the initial activation
 		self.memory = {}
-
-		-- texture variation
-		if #self.textures > 1 then self.texture_no = random(#self.textures) end
 	end
 
 	if self.timeout and ((self.timeout>0 and dtime_s > self.timeout and next(self.memory)==nil) or
 	                     (self.timeout<0 and dtime_s > abs(self.timeout))) then
 		self.object:remove()
-	end
-
-	-- apply texture
-	if self.textures and self.texture_no then
-		local props = {}
-		props.textures = {self.textures[self.texture_no]}
-		self.object:set_properties(props)
 	end
 
 --hp

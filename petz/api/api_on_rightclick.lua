@@ -25,6 +25,8 @@ petz.on_rightclick = function(self, clicker)
 	else
 		is_owner = false
 	end
+	--minetest.chat_send_all(tostring(self.owner))
+	--minetest.chat_send_all(tostring(is_owner))
 	local privs = minetest.get_player_privs(player_name)
 	local wielded_item = clicker:get_wielded_item()
 	local wielded_item_name = wielded_item:get_name()

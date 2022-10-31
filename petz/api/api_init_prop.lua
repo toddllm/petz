@@ -66,7 +66,7 @@ petz.dyn_prop = {
 	status = {type= "string", default = nil},
 	tag = {type= "string", default = ""},
 	tamed = {type= "boolean", default = false},
-	--texture_no = {type= "int", default = 1}, --do not use!!! OR MISSING TEXTURE
+	texture_no = {type= "int", default = 1},
 	warn_attack = {type= "boolean", default = false},
 	was_killed_by_player = {type= "boolean", default = false},
 }
@@ -173,8 +173,7 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 	--
 	--1. NEW MOBS
 	--
-	--dtime_s == 0 differenciates between loaded and new created mobs
-	if dtime_s == 0 and not captured_mob then	--set some vars
+	if not(self.texture_no) and not(captured_mob) then	--set some vars
 		--Load default settings ->
 		for key, value in pairs(petz.dyn_prop) do
 			self[key] = value["default"]
@@ -246,15 +245,22 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 				end
 				self.texture_no = petz.genetics_random_texture(self, textures_count)
 			else
-				self.texture_no = 1
+				-- texture variation
+				if #self.textures > 1 then self.texture_no = random(#self.textures) end
 			end
 		end
+
+		--Save the texture number:
+		self.texture_no = kitz.remember(self, "texture_no", self.texture_no)
+
 		if petz.settings[self.type.."_convert_count"] then
 			self.convert_count = kitz.remember(self, "convert_count", petz.settings[self.type.."_convert_count"])
 		end
+
 		if self.init_tamagochi_timer then
 			petz.init_tamagochi_timer(self)
 		end
+
 		petz.calculate_sleep_times(self) --Sleep behaviour
 	--
 	--2. ALREADY EXISTING MOBS
@@ -301,12 +307,14 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 		return
 	end
 
-	--Custom textures
-	if captured_mob or self.breed then
-		local texture= petz.compose_texture(self)	--compose the texture
-		kitz.remember(self, "texture_no", self.texture_no)
-		petz.set_properties(self, {textures = {texture}})
+	-- apply texture
+	if self.texture_no then
+		local texture = petz.compose_texture(self) --compose the texture
+		local props = {}
+		props.textures = {texture}
+		self.object:set_properties(props)
 	end
+
 	if self.type == "bee" and self.queen then --delay to create beehive
 		minetest.after(math.random(120, 150), function()
 			if kitz.is_alive(self.object) then

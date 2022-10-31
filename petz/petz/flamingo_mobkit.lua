@@ -7,6 +7,7 @@ petz.register("flamingo", {
 		p2 = {x= 0.1875, y = 0.125, z = 0.1875}
 	},
 	can_fly = true,
+	feathered = true,
 	fly_rate = 60,
 	can_alight = true,
 	max_height = 8,
