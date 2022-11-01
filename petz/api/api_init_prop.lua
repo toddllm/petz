@@ -173,11 +173,12 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 	--
 	--1. NEW MOBS
 	--
-	if not(self.texture_no) and not(captured_mob) then	--set some vars
+	if not(self.texture_no) and not(captured_mob) then --set some vars
 		--Load default settings ->
 		for key, value in pairs(petz.dyn_prop) do
 			self[key] = value["default"]
 		end
+		self.texture_no = nil
 		--Define some settings ->
 		--Set a random gender for all the mobs (not defined in the entity definition)
 		if (self.is_male == nil) then
@@ -245,8 +246,10 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 				end
 				self.texture_no = petz.genetics_random_texture(self, textures_count)
 			else
-				-- texture variation
-				if #self.textures > 1 then self.texture_no = random(#self.textures) end
+				--texture variation
+				if #self.textures > 1 then
+					self.texture_no = math.random(#self.textures)
+				end
 			end
 		end
 

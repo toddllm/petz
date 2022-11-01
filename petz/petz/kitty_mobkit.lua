@@ -21,6 +21,7 @@ minetest.register_entity("petz:"..pet_name, {
 	give_orders = true,
 	can_be_brushed = true,
 	capture_item = "net",
+	backface_culling = false,
 	follow = petz.settings.kitty_follow,
 	rotate = petz.settings.rotate,
 	physical = true,
