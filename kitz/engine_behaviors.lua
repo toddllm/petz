@@ -336,7 +336,7 @@ function kitz.lq_jumpattack(self,height,target)
 				dir=vector.multiply(dir,6)
 				dir.y = -kitz.gravity*sqrt(height*2/-kitz.gravity)
 				self.object:set_velocity(dir)
-				kitz.make_sound(self,'charge')
+				kitz.play_sound(self,'charge')
 				init=false
 			else
 				kitz.lq_idle(self,0.3)
@@ -356,7 +356,7 @@ function kitz.lq_jumpattack(self,height,target)
 				local vy = self.object:get_velocity().y
 				self.object:set_velocity({x=dir.x*-3,y=vy,z=dir.z*-3})
 					-- play attack sound if defined
-				kitz.make_sound(self,'attack')
+				kitz.play_sound(self,'attack')
 				return true
 			end
 		end
@@ -480,7 +480,7 @@ function kitz.hq_runfrom(self,prty,tgtobj)
 		if init then
 			timer = timer-self.dtime
 			if timer <=0 or vector.distance(self.object:get_pos(),tgtobj:get_pos()) < 8 then
-				kitz.make_sound(self,'scared')
+				kitz.play_sound(self,'scared')
 				init=false
 			end
 			return
@@ -549,7 +549,7 @@ function kitz.hq_warn(self,prty,tgtobj)
 			end
 			-- make noise in random intervals
 			if timer > tgttime then
-				kitz.make_sound(self,'warn')
+				kitz.play_sound(self,'warn')
 				-- if self.sounds and self.sounds.warn then
 					-- minetest.sound_play(self.sounds.warn, {object=self.object})
 				-- end
@@ -788,7 +788,7 @@ function kitz.hq_aqua_attack(self,prty,tgtobj,speed)
 		if not kitz.is_alive(tgtobj) then return true end
 		if init then
 			kitz.animate(self,'fast')
-			kitz.make_sound(self,'attack')
+			kitz.play_sound(self,'attack')
 			init = false
 		end
 		local pos = kitz.get_stand_pos(self)

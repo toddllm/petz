@@ -66,7 +66,7 @@ petz.dyn_prop = {
 	status = {type= "string", default = nil},
 	tag = {type= "string", default = ""},
 	tamed = {type= "boolean", default = false},
-	texture_no = {type= "int", default = 1},
+	texture_no = {type= "int", default = nil},
 	warn_attack = {type= "boolean", default = false},
 	was_killed_by_player = {type= "boolean", default = false},
 }
@@ -178,7 +178,6 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 		for key, value in pairs(petz.dyn_prop) do
 			self[key] = value["default"]
 		end
-		self.texture_no = nil
 		--Define some settings ->
 		--Set a random gender for all the mobs (not defined in the entity definition)
 		if (self.is_male == nil) then
@@ -331,11 +330,13 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 			end
 		end, self)
 	end
+
 	if self.colorized then
 		if not self.shaved then
 			petz.colorize(self, self.colorized)
 		end
 	end
+
 	--<<<
 	--DELETE THIS BLOCK IN A FUTURE UPDATE -- behive changed to beehive>>>
 	if self.behive then
@@ -343,9 +344,11 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 		self.behive = kitz.remember(self, "behive", nil)
 	end
 	--<<<
+
 	if self.horseshoes and not captured_mob then
 		petz.horseshoes_speedup(self)
 	end
+
 	if self.breed then
 		if baby_born then
 			self.is_baby = kitz.remember(self, "is_baby", true)
@@ -357,13 +360,17 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 			})
 		end
 	end
+
 	--self.head_rotation = {x= -90, y= 90, z= 0}
 	--self.whead_position = self.object:get_bone_position("parent")
 	--self.head_position.y = self.head_position.y + 0.25
+
 	--ALL the mobs
+
 	if self.is_pet and self.tamed then
 		petz.update_nametag(self)
 	end
+
 	if self.status then
 		if self.status == "stand" then
 			petz.standhere(self)
@@ -377,4 +384,5 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 			self.status = nil
 		end
 	end
+
 end

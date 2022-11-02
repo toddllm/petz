@@ -477,7 +477,7 @@ function kitz.animate(self,anim)
 	end
 end
 
-function kitz.make_sound(self, sound)
+function kitz.play_sound(self, sound)
 	local spec = self.sounds and self.sounds[sound]
 	local param_table = {object=self.object}
 
