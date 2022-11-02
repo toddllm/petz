@@ -19,7 +19,7 @@ function kitz.feed(self, clicker, feed_rate, msg_full_health, sound_type)
 		end
 		self.food_count = kitz.remember(self, "food_count", self.food_count + 1) --increase the food count
 		if sound_type then
-			kitz.make_sound(self, sound_type)
+			kitz.play_sound(self, sound_type)
 		end
 	end
 	return fed
