@@ -20,13 +20,13 @@ function petz.aquatic_brain(self)
 		end
 	end
 
-	if not(self.is_mammal) and not(petz.isinliquid(self)) then --if not mammal, air suffocation
-		kitz.hurt(self, petz.settings.air_damage)
-	end
-
 	petz.check_ground_suffocation(self, pos)
 
 	if kitz.timer(self, 1) then
+
+		if not(self.is_mammal) and not(petz.isinliquid(self)) then --if not mammal, air suffocation
+			kitz.hurt(self, petz.settings.air_damage)
+		end
 
 		local prty = kitz.get_queue_priority(self)
 		local player = kitz.get_nearby_player(self)

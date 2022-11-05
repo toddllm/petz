@@ -14,7 +14,7 @@ function petz.hq_aqua_jump(self, prty)
 		self.object:set_acceleration({x=1.0, y=vel_impulse, z=1.0})
 		self.status = "jump"
 		kitz.make_sound("object", self.object, "petz_splash", petz.settings.max_hear_distance)
-		minetest.after(0.5, function()
+		minetest.after(1, function()
 			if kitz.is_alive(self.object) then
 				self.status = nil
 				kitz.clear_queue_high(self)
