@@ -246,14 +246,14 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 				self.texture_no = petz.genetics_random_texture(self, textures_count)
 			else
 				--texture variation
-				if #self.textures > 1 then
+				if #self.textures >= 1 then
 					self.texture_no = math.random(#self.textures)
 				end
 			end
 		end
 
 		--Save the texture number:
-		self.texture_no = kitz.remember(self, "texture_no", self.texture_no)
+		self.texture_no = kitz.remember(self, "texture_no", self.texture_no or 1)
 
 		if petz.settings[self.type.."_convert_count"] then
 			self.convert_count = kitz.remember(self, "convert_count", petz.settings[self.type.."_convert_count"])
@@ -281,6 +281,9 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 			return
 		end
 		petz.load_vars(self) --Load memory variables
+		if not self.texture_no then
+			self.texture_no = kitz.remember(self, "texture_no", 1)
+		end
 	--
 	--3. CAPTURED MOBS
 	--
