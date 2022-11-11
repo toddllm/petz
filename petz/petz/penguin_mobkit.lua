@@ -22,9 +22,7 @@ minetest.register_entity("petz:"..pet_name,{
 	give_orders = false,
 	can_be_brushed = true,
 	capture_item = "net",
-	lay_eggs = true,
-	lay_eggs_in_nest = false,
-	type_of_egg = "item",
+	lay_eggs = "item",
 	follow = petz.settings.penguin_follow,
 	drops = {
 	},

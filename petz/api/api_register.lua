@@ -1,5 +1,57 @@
 local S = ...
 
+--Egg Registration
+function petz.register__egg(_name, description, egg)
+	local name = "petz:".._name.."_egg"
+	local newborn
+	if egg and not egg.newborn then
+		newborn = "petz:".._name
+	end
+
+	minetest.register_node(name, {
+		description = S(description.." Egg"),
+		inventory_image = "petz_".._name.."_egg_inv.png",
+		groups = {snappy=1, bendy =2, cracky=1, falling_node = 1},
+		sounds = default.node_sound_wood_defaults(),
+		paramtype = "light",
+		drawtype = egg.drawtype,
+		mesh = egg.mesh or nil,
+		visual_scale = 1.0,
+		tiles = {"petz_".._name.."_egg_tiles.png"},
+		node_box = egg.nodebox or nil,
+
+		on_construct = function(pos)
+			local timer = minetest.get_node_timer(pos)
+			timer:start(math.random(200, 300))
+		end,
+
+		on_timer = function(pos)
+			if not minetest.registered_entities[newborn] then
+				return
+			end
+			minetest.set_node(pos, {name= "air"})
+			minetest.add_entity(pos, newborn)
+			local pos2 = {
+				x = pos.x + 1,
+				y = pos.y,
+				z = pos.z + 1,
+			}
+			if minetest.get_node(pos2) and minetest.get_node(pos2).name == "air" then
+				minetest.add_entity(pos2, newborn)
+			end
+			local pos3 = {
+				x = pos.x - 1,
+				y = pos.y,
+				z = pos.z -1,
+			}
+			if minetest.get_node(pos3) and minetest.get_node(pos3).name == "air" then
+				minetest.add_entity(pos3, newborn)
+			end
+			return false
+		end
+	})
+end
+
 function petz.register(_name, def)
 
 	local name = "petz:".._name
@@ -36,6 +88,10 @@ function petz.register(_name, def)
 
 	petz:register_egg(name, S(def.description), "petz_spawnegg_".._name..".png", true)
 
+	if def.lay_eggs == "node" then
+		petz.register__egg(_name, def.description, def.egg)
+	end
+
 	minetest.register_entity(name, {
 
 		--set petz specific properties
@@ -49,6 +105,7 @@ function petz.register(_name, def)
 		can_perch = def.can_perch or false,
 		capture_item = def.capture_item or nil,
 		drops = def.drops,
+		egg = def.egg or nil,
 		feathered = def.feathered or false,
 		fly_rate = def.fly_rate or 60,
 		follow = def.capture_item,

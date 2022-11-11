@@ -38,3 +38,11 @@ function kitz.remove_mob(self)
 	kitz.clear_queue_low(self)
 	self.object:remove()
 end
+
+function kitz.is_air(pos)
+	if minetest.get_node(pos) and minetest.get_node(pos).name == "air" then
+		return true
+	else
+		return false
+	end
+end

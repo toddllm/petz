@@ -101,14 +101,14 @@ petz.cleanup_prop= function(self)
 end
 
 petz.genetics_random_texture = function(self, textures_count)
-	local array = {}
-	for row=1, textures_count do
-		array[row] = {}
-		for col=1, textures_count do
-			array[row][col] = math.min(row, col)
+	local _array = {}
+	for row = 1, textures_count do
+		_array[row] = {}
+		for col = 1, textures_count do
+			_array[row][col] = math.min(row, col)
 		end
 	end
-	return array[math.random(1, textures_count)][math.random(1, textures_count)]
+	return _array[math.random(1, textures_count)][math.random(1, textures_count)]
 	-- Accessing the array to calculate the rates
 	--local rates = {}
 	--for row=1, textures_count do

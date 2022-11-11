@@ -11,14 +11,20 @@ petz.lay_egg = function(self)
 		return
 	end
 	local pos = self.object:get_pos()
-	if self.type_of_egg == "item" then
+	local laid_egg = false
+	if self.lay_eggs == "item" or self.lay_eggs == "node" then
 		local lay_egg_timing = petz.settings.lay_egg_timing
-		if kitz.timer(self, math.random(lay_egg_timing - (lay_egg_timing*0.2), lay_egg_timing+ (lay_egg_timing*0.2))) then
-			minetest.add_item(pos, "petz:"..self.type.."_egg") --chicken/duck/penguin egg!
-			petz.increase_egg_count(self)
+		if kitz.timer(self, math.random(lay_egg_timing - (lay_egg_timing * 0.2),
+			lay_egg_timing + (lay_egg_timing * 0.2))) then
+				if self.lay_eggs == "node" and kitz.is_air(pos) then
+					minetest.set_node(pos, {name = "petz:"..self.type.."_egg"})
+					laid_egg = true
+				else
+					minetest.add_item(pos, "petz:"..self.type.."_egg") --penguin egg!
+					laid_egg = true
+				end
 		end
-	end
-	if self.lay_eggs_in_nest then
+	elseif self.lay_eggs == "nest" then
 		local lay_range = 1
 		local nearby_nodes = minetest.find_nodes_in_area(
 			{x = pos.x - lay_range, y = pos.y - 1, z = pos.z - lay_range},
@@ -33,8 +39,11 @@ petz.lay_egg = function(self)
 			end
 			local nest_to_lay = nearby_nodes[math.random(1, #nearby_nodes)]
 			minetest.set_node(nest_to_lay, {name= "petz:"..nest_type.."_nest_egg"})
-			petz.increase_egg_count(self)
+			laid_egg = true
 		end
+	end
+	if laid_egg then
+		petz.increase_egg_count(self)
 	end
 end
 

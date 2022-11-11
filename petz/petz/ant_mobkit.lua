@@ -38,7 +38,7 @@ for i=1, 3 do
 		scale_model = 0.875
 		textures= {"petz_queen_ant.png"}
 		attack_player = false
-		lay_eggs = true
+		lay_eggs = "node"
 		drops = {
 			{name = "petz:ant_head", chance = 3, min = 1, max = 1,},
 			{name = "petz:ant_body", chance = 3, min = 1, max = 1,},
@@ -57,15 +57,13 @@ for i=1, 3 do
 		is_pet = false,
 		description = description,
 		can_fly = false,
-		lay_eggs = lay_eggs,
-		lay_eggs_in_nest = false,
-		type_of_egg = "node",
 		max_height = 5,
 		has_affinity = false,
 		give_orders = false,
 		can_be_brushed = false,
 		capture_item = "net",
 		is_wild = true,
+		lay_eggs = lay_eggs,
 		attack_player = attack_player,
 		avoid_player = false,
 		follow = petz.settings.ant_follow,

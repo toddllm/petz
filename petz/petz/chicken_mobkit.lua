@@ -21,7 +21,7 @@ for i=1, 3 do
 	if i == 1 then
 		pet_name = "hen"
 		description = "Hen"
-		lay_eggs = true
+		lay_eggs = "nest"
 		mesh = 'petz_hen.b3d'
 		backface_culling = false
 		scale_model = 2.1
@@ -88,8 +88,6 @@ for i=1, 3 do
 		can_be_brushed = false,
 		capture_item = "net",
 		lay_eggs = lay_eggs,
-		lay_eggs_in_nest = true,
-		type_of_egg = "item",
 		follow = petz.settings.hen_follow,
 		drops = {
 			{name = "petz:raw_chicken", chance = 3, min = 1, max = 1,},
