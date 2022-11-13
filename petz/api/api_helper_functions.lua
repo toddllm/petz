@@ -29,7 +29,7 @@ function petz.isinliquid(self)
 	local pos_above = vector.new(pos.x, pos.y+0.5, pos.z)
 	local node_above = kitz.nodeatpos(pos_above)
 	if (node_under and (node_under.drawtype == 'liquid' or node_under.drawtype == 'flowingliquid'))
-		or (node_under and (node_under.drawtype == 'liquid' or node_under.drawtype == 'flowingliquid')) then
+		or (node_above and (node_above.drawtype == 'liquid' or node_above.drawtype == 'flowingliquid')) then
 			return true
 	else
 		return false
