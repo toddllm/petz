@@ -104,9 +104,15 @@ petz.on_rightclick = function(self, clicker)
 		petz.put_wagon(self, clicker)
 	elseif self.is_mountable and is_owner then
 		show_form = petz.mount(self, clicker, wielded_item, wielded_item_name)
-	elseif self.feathered and is_owner then
+	elseif self.feathered and not(self.plucked) and is_owner then
 		if wielded_item_name == petz.settings.shears and clicker:get_inventory() then
-			petz.cut_feather(self, clicker) --cut a feather
+			petz.pluck(self, clicker) --cut a feather
+		else
+			show_form = true
+		end
+	elseif self.feathered and self.plucked and is_owner then
+		if wielded_item_name == "petz:ducky_feather" then
+			petz.feather(self, clicker) --cut a feather
 		else
 			show_form = true
 		end

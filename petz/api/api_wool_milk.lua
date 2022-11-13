@@ -86,9 +86,9 @@ petz.milk_milk = function(self, clicker)
 end
 
 ---
---Cut a feather
+--Cut or put a feather
 ---
-petz.cut_feather = function(self, clicker)
+petz.pluck = function(self, clicker)
 	local inv = clicker:get_inventory()
 	local item_stack= "petz:ducky_feather"
 	if inv:room_for_item("main", item_stack) then
@@ -97,5 +97,17 @@ petz.cut_feather = function(self, clicker)
 		minetest.add_item(self.object:get_pos(), item_stack)
 	end
     kitz.make_sound("object", self.object, "petz_"..self.type.."_moaning", petz.settings.max_hear_distance)
+    self.plucked = kitz.remember(self, "plucked", true)
 	petz.bh_afraid(self, clicker:get_pos())
+	if self.can_fly and not(self.status) then
+		self.status = kitz.remember(self, "status", "alight")
+		petz.alight(self, 0, nil)
+	end
+end
+
+petz.feather = function(self, clicker)
+	local inv = clicker:get_inventory()
+	inv:remove_item("main", "petz:ducky_feather")
+	kitz.make_sound("object", self.object, "petz_"..self.type.."_moaning", petz.settings.max_hear_distance)
+    self.plucked = kitz.remember(self, "plucked", false)
 end

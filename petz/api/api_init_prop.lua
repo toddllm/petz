@@ -19,6 +19,7 @@ petz.dyn_prop = {
 	convert = {type= "string", default = nil},
 	convert_to = {type= "string", default = nil},
 	convert_count = {type= "int", default = 5},
+	plucked = {type= "string", default = nil},
 	dreamcatcher = {type= "boolean", default = false},
 	dead = {type= "boolean", default = false},
 	driver = {type= "player", default = nil},

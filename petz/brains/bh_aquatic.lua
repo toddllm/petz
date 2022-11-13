@@ -2,6 +2,19 @@
 --- Aquatic Behaviours
 ---
 
+function petz.can_jump(self, pos)
+	local vel = self.object:get_velocity()
+	local front_pos = vector.add(pos, vel)
+	--minetest.chat_send_all(tostring(vel))
+	local front_pos_below = vector.new(front_pos.x, front_pos.y-1, front_pos.z)
+	if not kitz.is_liquid(front_pos_below) then
+		--minetest.chat_send_all(minetest.get_node(front_pos_below).name)
+		return false
+	else
+		return true
+	end
+end
+
 function petz.hq_aqua_jump(self, prty)
 	local func = function()
 		local vel_impulse = 2.5

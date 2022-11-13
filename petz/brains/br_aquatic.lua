@@ -56,9 +56,11 @@ function petz.aquatic_brain(self)
 			if (self.can_jump) and not(self.status== "jump") and (kitz.is_in_deep(self)) then
 				local random_number = math.random(1, 25)
 				if random_number == 1 then
-					--minetest.chat_send_player("singleplayer", "jump")
-					kitz.clear_queue_high(self)
-					petz.hq_aqua_jump(self, 8)
+					if petz.can_jump(self, pos) then
+						--minetest.chat_send_player("singleplayer", "jump")
+						kitz.clear_queue_high(self)
+						petz.hq_aqua_jump(self, 8)
+					end
 				end
 			end
 		end

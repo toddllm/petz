@@ -205,8 +205,10 @@ function petz.flying_brain(self)
 		end
 
 		--Roam default
-		if kitz.is_queue_empty_high(self) and not(self.status) then
+		if kitz.is_queue_empty_high(self) and not(self.status) and not(self.plucked) then
 			petz.hq_wanderfly(self, 0)
+		elseif kitz.is_queue_empty_high(self) and not(self.status) and self.plucked then
+			kitz.hq_roam(self, 0)
 		elseif self.status == "alight" then
 			local fly_again = math.random(1, self.fly_rate)
 			if fly_again <= 1 then

@@ -40,7 +40,17 @@ function kitz.remove_mob(self)
 end
 
 function kitz.is_air(pos)
-	if minetest.get_node(pos) and minetest.get_node(pos).name == "air" then
+	local node = kitz.nodeatpos(pos)
+	if node and node.name == "air" then
+		return true
+	else
+		return false
+	end
+end
+
+function kitz.is_liquid(pos)
+	local node = kitz.nodeatpos(pos)
+	if node and (node.drawtype == 'liquid' or node.drawtype == 'flowingliquid') then
 		return true
 	else
 		return false
