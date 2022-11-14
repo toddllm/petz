@@ -54,8 +54,9 @@ petz.check_capture_items = function(self, wielded_item_name, clicker, check_inv_
 	local capture_item_type
 	if wielded_item_name == petz.settings.lasso then
 		capture_item_type = "lasso"
-	elseif (wielded_item_name == "mobs:net") or (wielded_item_name == "fireflies:bug_net") then
-		capture_item_type = "net"
+	elseif (wielded_item_name == "mobs:net") or (wielded_item_name == "fireflies:bug_net")
+		or (wielded_item_name == "petz: net") then
+			capture_item_type = "net"
 	else
 		return false
 	end

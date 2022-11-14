@@ -222,15 +222,16 @@ minetest.register_node("petz:fishtank", {
 				clicker:set_wielded_item(itemstack)
 				return itemstack
 			end
-		elseif ((itemstack_name == "mobs:net") or (itemstack_name == "fireflies:bug_net")) and (has_fish == "true") then
-			local inv = clicker:get_inventory()
-			local fish_type = meta:get_string("fish_type")
-			if fish_type and inv:room_for_item("main", ItemStack(fish_type)) then
-				inv:add_item("main", fish_type.."_set")
-				remove_fish(pos)
-				meta:set_string("has_fish", "false")
-				meta:set_string("fish_texture", nil)
-			end
+		elseif ((itemstack_name == "mobs:net") or (itemstack_name == "fireflies:bug_net")
+			or (itemstack_name == "petz:net")) and (has_fish == "true") then
+				local inv = clicker:get_inventory()
+				local fish_type = meta:get_string("fish_type")
+				if fish_type and inv:room_for_item("main", ItemStack(fish_type)) then
+					inv:add_item("main", fish_type.."_set")
+					remove_fish(pos)
+					meta:set_string("has_fish", "false")
+					meta:set_string("fish_texture", nil)
+				end
 		end
     end,
 	after_place_node = function(pos, placer, itemstack)
@@ -600,6 +601,27 @@ minetest.register_craftitem("petz:rabbit_hide", {
     wield_image = "petz_rabbit_hide.png",
     groups = {leather = 1, flammable = 2}
 })
+
+--Net
+
+if minetest.get_modpath("mobs") == nil and minetest.get_modpath("fireflies") == nil then
+
+	minetest.register_craftitem("petz:net", {
+		description = S("Net (right-click to capture)"),
+		inventory_image = "petz_net.png",
+		groups = {net = 1, flammable = 2}
+	})
+
+	minetest.register_craft({
+		output = "petz:net",
+		type = "shaped",
+			recipe = {
+			{"farming:string", "farming:string", ""},
+			{"", "group:stick", ""},
+			{"", "", "group:stick"}
+		}
+	})
+end
 
 --minetest.register_node("petz:squirrel_cage", {
 	--description = S("Squirrel Cage"),
