@@ -108,7 +108,7 @@ function petz.register(_name, def)
 		egg = def.egg or nil,
 		feathered = def.feathered or false,
 		fly_rate = def.fly_rate or 60,
-		follow = def.capture_item,
+		follow = petz.settings[_name.."_follow"],
 		give_orders = def.give_orders or false,
 		has_affinity = def.has_affinity or false,
 		head = def.head or nil,

@@ -313,12 +313,12 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 		return
 	end
 
-	-- apply texture
+	--set the texture
 	if self.texture_no then
 		local texture = petz.compose_texture(self) --compose the texture
 		local props = {}
 		props.textures = {texture}
-		self.object:set_properties(props)
+		self.object:set_properties(props) --apply the texture
 	end
 
 	if self.type == "bee" and self.queen then --delay to create beehive
