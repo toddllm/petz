@@ -331,7 +331,9 @@ minetest.register_node("petz:bird_stand", {
 					pos = pos_toucan
 				end
 				local ent = petz.create_pet(player, itemstack, itemstack_name:sub(1, -5) , pos)
-				petz.standhere(ent)
+				if ent then
+					petz.standhere(ent)
+				end
 			end
 			return itemstack
 		end
@@ -460,9 +462,11 @@ minetest.register_node("petz:cat_basket", {
 			end
 			if not minetest.is_protected(pos, player_name) then
 				local ent = petz.create_pet(player, itemstack, itemstack_name:sub(1, -5) , pos_kitty)
-				kitz.clear_queue_low(ent)
-				kitz.clear_queue_high(ent)
-				petz.sleep(ent, 2, true)
+				if ent then
+					kitz.clear_queue_low(ent)
+					kitz.clear_queue_high(ent)
+					petz.sleep(ent, 2, true)
+				end
 			end
 			return itemstack
 		end

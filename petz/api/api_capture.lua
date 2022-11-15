@@ -14,7 +14,7 @@ petz.create_pet = function(placer, itemstack, pet_name, pos)
 			kitz.set_owner(self, placer:get_player_name()) --set owner
 			petz.after_tame(self)
 		end
-		itemstack:take_item() -- since mob is unique we remove egg once spawned
+		itemstack:take_item() --since mob is unique we remove egg once spawned
 		return self
 	else
 		return nil
