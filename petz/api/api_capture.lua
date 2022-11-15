@@ -8,13 +8,17 @@ petz.create_pet = function(placer, itemstack, pet_name, pos)
 	local meta = itemstack:get_meta()
 	local staticdata = meta:get_string("staticdata")
 	local mob = minetest.add_entity(pos, pet_name, staticdata)
-	local self = mob:get_luaentity()
-	if not(self.is_wild) and not(self.owner) then --not monster and not owner
-		kitz.set_owner(self, placer:get_player_name()) --set owner
-		petz.after_tame(self)
+	if mob then
+		local self = mob:get_luaentity()
+		if not(self.is_wild) and not(self.owner) then --not monster and not owner
+			kitz.set_owner(self, placer:get_player_name()) --set owner
+			petz.after_tame(self)
+		end
+		itemstack:take_item() -- since mob is unique we remove egg once spawned
+		return self
+	else
+		return nil
 	end
-	itemstack:take_item() -- since mob is unique we remove egg once spawned
-	return self
 end
 
 function petz:register_egg(pet_name, desc, inv_img, tamed)
@@ -55,7 +59,7 @@ petz.check_capture_items = function(self, wielded_item_name, clicker, check_inv_
 	if wielded_item_name == petz.settings.lasso then
 		capture_item_type = "lasso"
 	elseif (wielded_item_name == "mobs:net") or (wielded_item_name == "fireflies:bug_net")
-		or (wielded_item_name == "petz: net") then
+		or (wielded_item_name == "petz:net") then
 			capture_item_type = "net"
 	else
 		return false
