@@ -736,7 +736,7 @@ function kitz.vitals(self)
 end
 
 function kitz.statfunc(self)
-	local tmptab={}
+	local tmptab = {}
 	tmptab.memory = self.memory
 	tmptab.hp = self.hp
 	tmptab.texture_no = self.texture_no
