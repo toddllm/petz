@@ -76,7 +76,8 @@ function petz.on_punch(self, puncher, time_from_last_punch, tool_capabilities, d
 	end
 	--Colorize Punch Effect-->
 	if petz.settings.colorize_punch then
-		local punch_texture = self.textures[self.texture_no].."^[colorize:"..petz.settings.punch_color..":125"
+		local texture_no = self.texture_no or 1
+		local punch_texture = self.textures[texture_no].."^[colorize:"..petz.settings.punch_color..":125"
 		self.object:set_properties(self, {textures = {punch_texture}})
 		minetest.after(0.1, function()
 			if self then
