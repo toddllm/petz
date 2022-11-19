@@ -1,49 +1,39 @@
 --
 --CHIMP
 --
-local S = ...
 
-local pet_name = "chimp"
-local scale_model = 1.275
-local mesh = 'petz_chimp.b3d'
-local textures = {"petz_chimp.png"}
-local p1 = {x= -0.25, y = -0.5, z = -0.125}
-local p2 = {x= 0.1875, y = -0.125, z = 0.3125}
-local collisionbox = petz.get_collisionbox(p1, p2, scale_model, nil)
-
-minetest.register_entity("petz:"..pet_name,{
-	--Petz specifics
-	type = "chimp",
-	init_tamagochi_timer = true,
-	is_pet = true,
+petz.register("chimp", {
+	description = "Chimp",
+	scale_model = 2.0,
+	skin_colors = {"dark_brown"},
+	collisionbox = {
+		p1 = {x= -0.25, y = -0.5, z = -0.125},
+		p2 = {x= 0.1875, y = -0.125, z = 0.3125}
+	},
 	has_affinity = true,
 	is_arboreal = true,
 	is_wild = false,
+	is_pet = true,
+	max_hp = 8,
 	give_orders = true,
 	can_be_brushed = true,
-	capture_item = "lasso",
-	follow = petz.settings.chimp_follow,
-	rotate = petz.settings.rotate,
-	physical = true,
-	stepheight = 0.1,	--EVIL!
-	collide_with_objects = true,
-	collisionbox = collisionbox,
-	visual = petz.settings.visual,
-	mesh = mesh,
-	textures = textures,
-	visual_size = {x=petz.settings.visual_size.x*scale_model, y=petz.settings.visual_size.y*scale_model},
-	static_save = true,
-	get_staticdata = kitz.statfunc,
-	-- api props
-	springiness= 0,
-	buoyancy = 0.5, -- portion of hitbox submerged
+	init_tamagochi_timer = true,
 	max_speed = 2,
-	jump_height = 5,
 	view_range = 10,
-	lung_capacity = 10, -- seconds
-	max_hp = 10,
+	capture_item = "lasso",
+	jump_height = 5.0,
 	makes_footstep_sound = true,
-	attack={range=0.5, damage_groups={fleshy=3}},
+
+	logic = petz.herbivore_brain,
+
+	drops = {
+		{name = "petz:raw_parrot", chance = 3, min = 1, max = 1,},
+	},
+	--head = {
+		--position = vector.new(0, 0.5, 0.2908),
+		--rotation_origin = vector.new(-90, 0, 0), --in degrees, normally values are -90, 0, 90
+		--eye_offset = -0.2,
+	--},
 	animation = {
 		walk={range={x=1, y=12}, speed=25, loop=true},
 		run={range={x=1, y=12}, speed=25, loop=true},
@@ -60,30 +50,4 @@ minetest.register_entity("petz:"..pet_name,{
 		misc = {"petz_chimp_hoo", "petz_chimp_hoo_2"},
 		moaning = "petz_chimp_moaning",
 	},
-
-	logic = petz.herbivore_brain,
-
-	on_activate = function(self, staticdata, dtime_s) --on_activate, required
-		kitz.actfunc(self, staticdata, dtime_s)
-		petz.set_initial_properties(self, staticdata, dtime_s)
-	end,
-
-	on_deactivate = function(self)
-		petz.on_deactivate(self)
-	end,
-
-	on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, dir)
-		petz.on_punch(self, puncher, time_from_last_punch, tool_capabilities, dir)
-	end,
-
-	on_rightclick = function(self, clicker)
-		petz.on_rightclick(self, clicker)
-	end,
-
-	on_step = function(self, dtime)
-		kitz.stepfunc(self, dtime) -- required
-		petz.on_step(self, dtime)
-	end,
 })
-
-petz:register_egg("petz:chimp", S("Chimp"), "petz_spawnegg_chimp.png", true)

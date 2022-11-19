@@ -48,7 +48,7 @@ function petz.move_head(self, tpos)
 	local look_at_dir = vector.normalize(direction) -- important: normalize the vector
 	-- Functions to calculate the pitch & yaw (in degrees):
 	local pitch = kitz.yaw_to_degrees(math.asin(look_at_dir.y))
-	local yaw =kitz.yaw_to_degrees(math.atan2(look_at_dir.x, look_at_dir.z))
+	local yaw = kitz.yaw_to_degrees(math.atan2(look_at_dir.x, look_at_dir.z))
 	local body_yaw = kitz.yaw_to_degrees(self.object:get_yaw()) --yaw of the body in degrees
 	local final_yaw = yaw + body_yaw --get the head yaw in reference with the body
 	local head_rotation = {x= pitch, y= final_yaw, z= 0} -- the head movement {pitch, yaw, roll}

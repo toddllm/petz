@@ -67,7 +67,7 @@ petz.dyn_prop = {
 	status = {type= "string", default = nil},
 	tag = {type= "string", default = ""},
 	tamed = {type= "boolean", default = false},
-	--texture_no = {type= "int", default = nil},
+	--texture_no = {type= "int", default = nil}, --PASSED BY STATICDATA
 	warn_attack = {type= "boolean", default = false},
 	was_killed_by_player = {type= "boolean", default = false},
 }

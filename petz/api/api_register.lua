@@ -113,6 +113,7 @@ function petz.register(_name, def)
 		has_affinity = def.has_affinity or false,
 		head = def.head or nil,
 		init_tamagochi_timer = def.init_tamagochi_timer or false,
+		is_arboreal = def.is_arboreal or false,
 		is_baby = def.is_baby or false,
 		is_male = def.is_male or false,
 		is_pet = def.is_pet,
