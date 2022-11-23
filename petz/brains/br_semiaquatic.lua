@@ -93,10 +93,19 @@ function petz.semiaquatic_brain(self)
 			petz.create_dam(self, pos)
 		end
 
+		--if prty < 5 then
+			--local swin_again = math.random(1, 5)
+			--if swin_again <= 1 and not self.isinliquid then
+				--if petz.hq_liquid_search(self, 5) then
+					--return
+				--end
+			--end
+		--end
+
 		--Roam default
 		if kitz.is_queue_empty_high(self) and not(self.status) then
-			if petz.isinliquid(self) then
-				kitz.hq_aqua_roam(self, 0, self.max_speed)
+			if self.isinliquid then
+				kitz.hq_aqua_roam(self, 0, self.max_speed/3)
 			else
 				kitz.hq_roam(self, 0)
 			end

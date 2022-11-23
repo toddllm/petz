@@ -699,15 +699,15 @@ function kitz.physics(self, colinfo)
 		surfnode = kitz.nodeatpos(snodepos)
 	end
 	self.isinliquid = surfnodename
-	if surface then				-- standing in liquid
---		self.isinliquid = true
+	if surface then	--standing in liquid
+		--self.isinliquid = true
 		local submergence = min(surface-spos.y,self.height)/self.height
---		local balance = self.buoyancy*self.height
+		--local balance = self.buoyancy*self.height
 		local buoyacc = kitz.gravity*(self.buoyancy-submergence)
 		kitz.set_acceleration(self.object,
-			{x=-vel.x*self.water_drag,y=buoyacc-vel.y*abs(vel.y)*0.4,z=-vel.z*self.water_drag})
+			{x=-vel.x*self.water_drag, y=buoyacc-vel.y*abs(vel.y)*0.4, z=-vel.z*self.water_drag})
 	else
---		self.isinliquid = false
+		--self.isinliquid = false
 		self.object:set_acceleration({x=0,y=kitz.gravity,z=0})
 	end
 

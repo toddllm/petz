@@ -471,7 +471,7 @@ function kitz.hq_goto(self,prty,tpos)
 	kitz.queue_high(self,func,prty)
 end
 
-function kitz.hq_runfrom(self,prty,tgtobj)
+function kitz.hq_runfrom(self, prty, tgtobj)
 	local init=true
 	local timer=6
 	local func = function(self)

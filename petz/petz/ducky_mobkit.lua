@@ -42,7 +42,8 @@ minetest.register_entity("petz:"..pet_name,{
 	get_staticdata = kitz.statfunc,
 	-- api props
 	springiness= 0,
-	buoyancy = 0.5, -- portion of hitbox submerged
+	swin_rate = 5,
+	buoyancy = 0.3, -- portion of hitbox submerged
 	max_speed = 2,
 	jump_height = 1.5,
 	view_range = 10,
@@ -64,7 +65,7 @@ minetest.register_entity("petz:"..pet_name,{
 		misc = "petz_ducky_quack",
 	},
 
-	logic = petz.herbivore_brain,
+	logic = petz.semiaquatic_brain,
 
 	on_activate = function(self, staticdata, dtime_s) --on_activate, required
 		kitz.actfunc(self, staticdata, dtime_s)
