@@ -14,7 +14,6 @@ minetest.register_entity("petz:"..pet_name,{
 	init_tamagochi_timer = false,
 	is_pet = false,
 	can_fly = true,
-	lay_eggs = "node",
 	bottled = "petz:bottle_moth",
 	max_height = 3,
 	has_affinity = false,
