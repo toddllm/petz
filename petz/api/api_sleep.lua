@@ -64,7 +64,8 @@ end
 petz.sleep = function(self, prty, force)
 	self.status = kitz.remember(self, "status", "sleep")
 	kitz.animate(self, 'sleep')
-	local texture = self.textures[self.texture_no]
+	local texture_no = self.texture_no or 1
+	local texture = self.textures[texture_no]
 	self.object:set_properties(self, {textures = {texture.."^petz_"..self.type.."_sleep.png"}}) --sleeping eyes
 	petz.hq_sleep(self, prty, force)
 end
