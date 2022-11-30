@@ -7,6 +7,16 @@ local S = ...
 petz.create_pet = function(placer, itemstack, pet_name, pos)
 	local meta = itemstack:get_meta()
 	local staticdata = meta:get_string("staticdata")
+	local static_data_table = minetest.deserialize(staticdata)
+	if static_data_table and static_data_table["hp"] --if dead then..
+		and static_data_table["hp"] <= 0 then
+			local player_name = placer:get_player_name()
+			if player_name then
+				minetest.chat_send_player(player_name, S("Failed placement: The animal was dead!"))
+			end
+			itemstack:take_item()
+			return nil
+	end
 	local mob = minetest.add_entity(pos, pet_name, staticdata)
 	if mob then
 		local self = mob:get_luaentity()
@@ -84,14 +94,25 @@ end
 
 petz.capture = function(self, clicker, put_in_inventory)
 
+	local ent = self.object:get_luaentity()
+	local staticdata = ent:get_staticdata(self)
+	local static_data_table = minetest.deserialize(staticdata)
+
+	if static_data_table and static_data_table["hp"] --if dead then..
+		and static_data_table["hp"] <= 0 then
+			local player_name = clicker:get_player_name()
+			if player_name then
+				minetest.chat_send_player(player_name, S("Failed capture: The animal is dead!"))
+			end
+			return
+	end
+
 	self.captured = kitz.remember(self, "captured", true) --IMPORTANT! mark as captured
 
 	local new_stack = ItemStack(self.name .. "_set") 	-- add special mob egg with all mob information
+	local stack_meta = new_stack:get_meta()
 
 	--Save the staticdata into the ItemStack-->
-	local stack_meta = new_stack:get_meta()
-	local ent = self.object:get_luaentity()
-	local staticdata = ent:get_staticdata(self)
 	stack_meta:set_string("staticdata", staticdata)
 
 	--Info text stuff for the ItemStack
