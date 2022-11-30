@@ -8,8 +8,8 @@ petz.create_pet = function(placer, itemstack, pet_name, pos)
 	local meta = itemstack:get_meta()
 	local staticdata = meta:get_string("staticdata")
 	local static_data_table = minetest.deserialize(staticdata)
-	if static_data_table and static_data_table["hp"] --if dead then..
-		and static_data_table["hp"] <= 0 then
+	if static_data_table and static_data_table["memory"] --if dead then..
+		and static_data_table["memory"]["dead"] then
 			local player_name = placer:get_player_name()
 			if player_name then
 				minetest.chat_send_player(player_name, S("Failed placement: The animal was dead!"))
@@ -98,8 +98,8 @@ petz.capture = function(self, clicker, put_in_inventory)
 	local staticdata = ent:get_staticdata(self)
 	local static_data_table = minetest.deserialize(staticdata)
 
-	if static_data_table and static_data_table["hp"] --if dead then..
-		and static_data_table["hp"] <= 0 then
+	if static_data_table and static_data_table["memory"] --if dead then..
+		and static_data_table["memory"]["dead"] then
 			local player_name = clicker:get_player_name()
 			if player_name then
 				minetest.chat_send_player(player_name, S("Failed capture: The animal is dead!"))
