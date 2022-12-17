@@ -108,9 +108,8 @@ function petz.is_jumping(self)
 	end
 end
 
-
 function petz.check_ground_suffocation(self)
-	if self.can_fly then --some fying mobs can escape from cages by the roof
+	if self.can_fly then --some flying mobs can escape from cages by the roof
 		return
 	end
 	local spos = kitz.get_stand_pos(self)
@@ -121,14 +120,21 @@ function petz.check_ground_suffocation(self)
 		local stand_node_pos = kitz.get_node_pos(stand_pos)
 		local stand_node = kitz.nodeatpos(stand_node_pos)
 		if stand_node and stand_node.walkable and stand_node.drawtype == "normal" then
-			local new_y = stand_pos.y + self.jump_height
-			if new_y <= 30927 then
-				self.object:set_pos({
-					x = stand_pos.x,
-					y = new_y,
-					z = stand_pos.z
-				})
+			local grid = kitz.adjacent_pos_grid(stand_pos)
+			local air_cells = {}
+			for _, cell_pos in ipairs(grid) do
+				if kitz.is_air(cell_pos) and kitz.is_walkable(cell_pos, -1) then
+					air_cells[#air_cells+1] = cell_pos
+				end
 			end
+			local new_pos
+			if kitz.table_is_empty(air_cells) then
+				new_pos = vector.new(stand_pos.x, stand_pos.y + self.jump_height, stand_pos.z)
+			else
+				new_pos = air_cells[math.random(1, #air_cells)]
+				new_pos.y = new_pos.y + 1.01
+			end
+			self.object:set_pos(new_pos)
 		end
 	end
 end

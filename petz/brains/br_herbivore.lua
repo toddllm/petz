@@ -90,9 +90,10 @@ function petz.herbivore_brain(self)
 				if player then
 					local player_pos = player:get_pos()
 					local wielded_item_name = player:get_wielded_item():get_name()
-					if not(self.is_pet) and self.follow ~= wielded_item_name and vector.distance(pos, player_pos) <= self.view_range then
-						kitz.hq_runfrom(self, 14, player)
-						return
+					if not(self.is_pet) and self.follow ~= wielded_item_name
+						and vector.distance(pos, player_pos) <= self.view_range then
+							kitz.hq_runfrom(self, 14, player)
+							return
 					end
 				end
 			end

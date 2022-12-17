@@ -39,6 +39,8 @@ function kitz.remove_mob(self)
 	self.object:remove()
 end
 
+--Nodes
+
 function kitz.is_air(pos)
 	local node = kitz.nodeatpos(pos)
 	if node and node.name == "air" then
@@ -55,4 +57,57 @@ function kitz.is_liquid(pos)
 	else
 		return false
 	end
+end
+
+function kitz.is_walkable(pos, offset)
+	if offset then
+		_pos= vector.new(pos.x, pos.y + offset, pos.z)
+	end
+	local node = kitz.nodeatpos(_pos)
+	if node and node.walkable then
+		return true
+	else
+		return false
+	end
+end
+
+function kitz.adjacent_pos_grid(pos, non_oblique)
+	local cells = {{x=0, y=0, z=1}, {x=0, y=0, z=-1}, {x=1, y=0, z=0}, {x=-1, y=0, z=0}}
+	local grid = {}
+	if not non_oblique then
+		cells[#cells+1] = {x=1, y=0, z=1}
+		cells[#cells+1] = {x=1, y=0, z=-1}
+		cells[#cells+1] = {x=-1, y=0, z=1}
+		cells[#cells+1] = {x=-1, y=0, z=-1}
+	end
+	local _cells = kitz.table_shuffle(cells)
+	for _, cell_pos in ipairs(_cells) do
+		grid[#grid+1] = vector.add(pos, cell_pos)
+	end
+	return grid
+end
+
+function kitz.get_random_adjacent_pos(pos, non_oblique)
+	local grid = helper.nodes.adjacent_pos_grid(pos, non_oblique)
+	return grid[math.random(1, #grid)]
+end
+
+--Tables
+
+function kitz.table_is_empty(t)
+	local next = next
+	if next(t) == nil then
+		return true
+	else
+		return false
+	end
+end
+
+function kitz.table_shuffle(t) -- suffles numeric indices
+    local len, random = #t, math.random
+    for i = len, 2, -1 do
+        local j = random(1, i)
+        t[i], t[j] = t[j], t[i]
+    end
+    return t
 end
