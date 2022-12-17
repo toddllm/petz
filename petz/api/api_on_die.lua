@@ -4,6 +4,7 @@
 
 petz.on_die = function(self)
 	if self.dead then
+		kitz.hq_die(self)
 		return
 	else
 		self.dead = kitz.remember(self, "dead", true) --a variable, useful to avoid functions

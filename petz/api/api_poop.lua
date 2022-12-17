@@ -12,6 +12,9 @@ petz.poop = function(self, pos)
 	local stand_node = minetest.get_node_or_nil(self.stand_pos)
 	local below_pos = vector.new(self.stand_pos.x, self.stand_pos.y - 1, self.stand_pos.z)
 	local node_below = minetest.get_node_or_nil(below_pos)
+	if not(stand_node) or not(node_below) then
+		return
+	end
 	if stand_node.name == "air" and node_below.name ~= "air" then
 		minetest.set_node(self.stand_pos, {name = "petz:poop"})
 	end
