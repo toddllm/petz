@@ -61,9 +61,9 @@ end
 
 function kitz.is_walkable(pos, offset)
 	if offset then
-		_pos= vector.new(pos.x, pos.y + offset, pos.z)
+		pos= vector.new(pos.x, pos.y + offset, pos.z)
 	end
-	local node = kitz.nodeatpos(_pos)
+	local node = kitz.nodeatpos(pos)
 	if node and node.walkable then
 		return true
 	else
@@ -88,7 +88,7 @@ function kitz.adjacent_pos_grid(pos, non_oblique)
 end
 
 function kitz.get_random_adjacent_pos(pos, non_oblique)
-	local grid = helper.nodes.adjacent_pos_grid(pos, non_oblique)
+	local grid = kitz.adjacent_pos_grid(pos, non_oblique)
 	return grid[math.random(1, #grid)]
 end
 

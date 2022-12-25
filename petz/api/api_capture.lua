@@ -53,8 +53,14 @@ function petz:register_egg(pet_name, desc, inv_img, tamed)
 				if not minetest.registered_entities[pet_name] then
 					return
 				end
-				spawn_pos = petz.pos_to_spawn(pet_name, spawn_pos)
-				petz.create_pet(placer, itemstack, pet_name, spawn_pos)
+				local corrected_spawn_pos = petz.pos_to_spawn(pet_name, spawn_pos)
+				if corrected_spawn_pos then
+					petz.create_pet(placer, itemstack, pet_name, corrected_spawn_pos)
+				else
+					if minetest.is_player(placer) then
+						minetest.chat_send_player(placer:get_player_name(), S("You can not put the Petz there."))
+					end
+				end
 			end
 			return itemstack
 		end,
@@ -109,7 +115,7 @@ petz.capture = function(self, clicker, put_in_inventory)
 
 	self.captured = kitz.remember(self, "captured", true) --IMPORTANT! mark as captured
 
-	local new_stack = ItemStack(self.name .. "_set") 	-- add special mob egg with all mob information
+	local new_stack = ItemStack(self.name .. "_set") -- add special mob egg with all mob information
 	local stack_meta = new_stack:get_meta()
 
 	--Save the staticdata into the ItemStack-->

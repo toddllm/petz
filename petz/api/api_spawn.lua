@@ -212,7 +212,9 @@ petz.spawn_mob = function(spawn_pos, limit_max_mobs, abr, liquidflag)
 				]]
 				if spawn then
 					spawn_pos = petz.pos_to_spawn(random_mob_name, spawn_pos) --recalculate pos.y for bigger mobs
-					minetest.add_entity(spawn_pos, random_mob_name)
+					if spawn_pos then
+						minetest.add_entity(spawn_pos, random_mob_name)
+					end
 					--minetest.chat_send_player("singleplayer", random_mob.. " spawned!!!")
 				end
 				--minetest.chat_send_player("singleplayer", "cave="..tostring(cave))
@@ -256,16 +258,24 @@ petz.pos_to_spawn = function(pet_name, pos)
 	local x = pos.x
 	local y = pos.y
 	local z = pos.z
+	local new_y
 	if minetest.registered_entities[pet_name] and minetest.registered_entities[pet_name].visual_size.x then
 		if minetest.registered_entities[pet_name].visual_size.x >= 32 and
 			minetest.registered_entities[pet_name].visual_size.x <= 48 then
-				y = y + 2
+				new_y = y + 2
 		elseif minetest.registered_entities[pet_name].visual_size.x > 48 then
-			y = y + 5
+			new_y = y + 5
 		else
-			y = y + 1
+			new_y = y + 1
 		end
 	end
-	local spawn_pos = { x = x, y = y, z = z}
+	local spawn_pos
+	for i= 1, new_y do
+		spawn_pos = vector.new(x, y+i, z)
+		if not(kitz.is_air(spawn_pos)) then
+			spawn_pos = nil
+			break
+		end
+	end
 	return spawn_pos
 end
