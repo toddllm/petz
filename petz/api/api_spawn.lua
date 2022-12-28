@@ -255,23 +255,14 @@ end)
 --end)
 
 petz.pos_to_spawn = function(pet_name, pos)
-	local x = pos.x
-	local y = pos.y
-	local z = pos.z
-	local new_y
-	if minetest.registered_entities[pet_name] and minetest.registered_entities[pet_name].visual_size.x then
-		if minetest.registered_entities[pet_name].visual_size.x >= 32 and
-			minetest.registered_entities[pet_name].visual_size.x <= 48 then
-				new_y = y + 2
-		elseif minetest.registered_entities[pet_name].visual_size.x > 48 then
-			new_y = y + 5
-		else
-			new_y = y + 1
-		end
+	local new_y = minetest.registered_entities[pet_name].visual_size.y / 10
+	if new_y < 1 then
+		new_y = 1
 	end
+	--minetest.chat_send_all(tostring(new_y))
 	local spawn_pos
 	for i= 1, new_y do
-		spawn_pos = vector.new(x, y+i, z)
+		spawn_pos = vector.new(pos.x, pos.y+i, pos.z)
 		if not(kitz.is_air(spawn_pos)) then
 			spawn_pos = nil
 			break

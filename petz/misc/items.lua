@@ -189,7 +189,7 @@ minetest.register_node("petz:fishtank", {
 	special_tiles = {"petz_fishtank_bottom.png"},
 	inventory_image = "petz_fishtank_inv.png",
 	walkable = true,
-	groups = {snappy = 2},
+	groups = {cracky = 1},
 	paramtype = "light",
 	paramtype2 = "glasslikeliquidlevel",
 	param2 = 50,
@@ -197,10 +197,7 @@ minetest.register_node("petz:fishtank", {
 	use_texture_alpha = "blend",
 	light_source = default.LIGHT_MAX - 1,
 	sounds = default.node_sound_glass_defaults(),
-	selection_box = {
-		type = "fixed",
-		fixed = { -0.25, -0.5, -0.25, 0.25, 0.4, 0.25 },
-	},
+
 	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 		local itemstack_name= itemstack:get_name()
 		if itemstack:get_name():sub(1, 5) == "petz:" then
@@ -234,11 +231,13 @@ minetest.register_node("petz:fishtank", {
 				end
 		end
     end,
+
 	after_place_node = function(pos, placer, itemstack)
 		minetest.set_node(pos, {name = "petz:fishtank", param2 = 1})
 		local meta = minetest.get_meta(pos)
 		meta:set_string("has_fish", "false")
 	end,
+
 	on_destruct = function(pos)
 		local meta = minetest.get_meta(pos)
 		local has_fish = meta:get_string("has_fish")
@@ -285,7 +284,6 @@ minetest.register_craft({
         {"default:steel_ingot", "", ""},
     }
 })
-
 
 if petz.settings.shears == "petz:shears" then -- Shears
 	minetest.register_tool("petz:shears", {
