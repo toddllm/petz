@@ -1,56 +1,42 @@
 --
 --KITTY
 --
-local S = ...
 
-local pet_name = "kitty"
-local scale_model = 1.5
-local mesh = 'petz_kitty.b3d'
-local textures= {"petz_kitty.png", "petz_kitty2.png", "petz_kitty3.png", "petz_kitty4.png", "petz_kitty5.png", "petz_kitty6.png"}
-local p1 = {x= -0.0625, y = -0.5, z = -0.3125}
-local p2 = {x= 0.125, y = -0.0625, z = 0.3125}
-local collisionbox = petz.get_collisionbox(p1, p2, scale_model, nil)
-
-minetest.register_entity("petz:"..pet_name, {
-	--Petz specifics
-	type = "kitty",
-	init_tamagochi_timer = true,
-	is_pet = true,
+petz.register("kitty", {
+	description = "Kitty",
+	scale_model = 2.0,
+	scale_baby = 0.5,
+	skin_colors = {"brown", "black", "dark_gray", "camel", "light_gray", "siamese"},
+	collisionbox = {
+		p1 = {x= -0.0625, y = -0.5, z = -0.3125},
+		p2 = {x= 0.125, y = -0.0625, z = 0.3125}
+	},
 	has_affinity = true,
-	is_wild = false,
-	give_orders = true,
-	can_be_brushed = true,
-	capture_item = "net",
-	backface_culling = false,
-	follow = petz.settings.kitty_follow,
-	rotate = petz.settings.rotate,
-	physical = true,
+	is_pet = true,
 	sleep_at_day = true,
 	sleep_ratio = 0.3,
-	stepheight = 0.1,	--EVIL!
-	collide_with_objects = true,
-	collisionbox = collisionbox,
-	visual = petz.settings.visual,
-	mesh = mesh,
-	textures = textures,
-	visual_size = {x=petz.settings.visual_size.x*scale_model, y=petz.settings.visual_size.y*scale_model},
-	static_save = true,
-	get_staticdata = kitz.statfunc,
-	-- api props
-	springiness= 0,
-	buoyancy = 0.5, -- portion of hitbox submerged
+	max_hp = 18,
+	give_orders = true,
+	can_be_brushed = true,
+	breed = true,
+	init_tamagochi_timer = true,
 	max_speed = 2,
-	jump_height = 3.0,
 	view_range = 10,
-	lung_capacity = 10, -- seconds
-	max_hp = 10,
-	makes_footstep_sound = false,
+	capture_item = "net",
+	jump_height = 3,
+
+	logic = petz.herbivore_brain,
+
+	drops = {
+		{name = "petz:bone", chance = 3, min = 1, max = 1,},
+	},
+
 	head = {
 		position = vector.new(0, 0.2908, -0.2908),
 		rotation_origin = vector.new(-90, 0, 0), --in degrees, normally values are -90, 0, 90
 		eye_offset = -0.2,
 	},
-	attack={range=0.5, damage_groups={fleshy=3}},
+
 	animation = {
 		idle = {range={x=0, y=0}, speed=25, loop=false},
 		walk={range={x=1, y=12}, speed=25, loop=true},
@@ -62,35 +48,9 @@ minetest.register_entity("petz:"..pet_name, {
 		sit = {range={x=60, y=65}, speed=5, loop=false},
 		sleep = {range={x=81, y=93}, speed=10, loop=false},
 	},
+
 	sounds = {
 		misc = {"petz_kitty_meow", "petz_kitty_meow2", "petz_kitty_meow3"},
 		moaning = "petz_kitty_moaning",
 	},
-
-	logic = petz.herbivore_brain,
-
-	on_activate = function(self, staticdata, dtime_s) --on_activate, required
-		kitz.actfunc(self, staticdata, dtime_s)
-		petz.set_initial_properties(self, staticdata, dtime_s)
-	end,
-
-	on_deactivate = function(self)
-		petz.on_deactivate(self)
-	end,
-
-	on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, dir)
-		petz.on_punch(self, puncher, time_from_last_punch, tool_capabilities, dir)
-	end,
-
-	on_rightclick = function(self, clicker)
-		petz.on_rightclick(self, clicker)
-	end,
-
-	on_step = function(self, dtime)
-		kitz.stepfunc(self, dtime) -- required
-		petz.on_step(self, dtime)
-	end,
 })
-
-petz:register_egg("petz:kitty", S("Kitty"), "petz_spawnegg_kitty.png", true)
-

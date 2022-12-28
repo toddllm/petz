@@ -57,14 +57,14 @@ function petz.register(_name, def)
 	local name = "petz:".._name
 	local mesh = def.mesh or 'petz_'.._name..'.b3d'
 	local visual_size = {
-		x = petz.settings.visual_size.x * def.scale_model,
-		y = petz.settings.visual_size.y * def.scale_model
+		x = petz.settings.visual_size.x * (def.scale_model or 1),
+		y = petz.settings.visual_size.y * (def.scale_model or 1)
 	}
 	local visual_size_baby
-	if def.visual_size_baby then
+	if def.breed then
 		visual_size_baby = {
-			x = visual_size.x * def.scale_baby,
-			y = visual_size.y * def.scale_baby
+			x = visual_size.x * (def.scale_baby or 0.5),
+			y = visual_size.y * (def.scale_baby or 0.5)
 		}
 	end
 	local skin_colors = def.skin_colors
@@ -115,7 +115,7 @@ function petz.register(_name, def)
 		init_tamagochi_timer = def.init_tamagochi_timer or false,
 		is_arboreal = def.is_arboreal or false,
 		is_baby = def.is_baby or false,
-		is_male = def.is_male or false,
+		is_male = def.is_male or nil,
 		is_pet = def.is_pet,
 		is_wild = def.is_wild or false,
 		jump_height = def.jump_height or 1,
@@ -133,6 +133,8 @@ function petz.register(_name, def)
 		replace_what = replace_what or nil,
 		rotate = petz.settings.rotate,
 		skin_colors = skin_colors or nil,
+		sleep_at_day = def.sleep_at_day or true,
+		sleep_ratio = def.sleep_ratio or 0.3,
 		sounds = def.sounds or nil,
 		springiness = def.springiness or 0,
 		type = _name,

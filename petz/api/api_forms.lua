@@ -11,6 +11,11 @@ local function create_context(player_name, tab_id)
 	_context[player_name].tab_id = tab_id
 end
 
+local function compose_pregnant_icon(pet_icon)
+	local pregnant_icon = "[combine:16x16:0,0="..pet_icon..":0,0=petz_pregnant_icon.png"
+	return pregnant_icon
+end
+
 petz.create_form = function(player_name, buy)
     local pet = petz.pet[player_name]
     local form_size = {w = 4, h = 3}
@@ -115,7 +120,7 @@ petz.create_form = function(player_name, buy)
 			if not(pet.is_male) and pet.is_pregnant then
 				local pregnant_remain_time = petz.round(petz.settings.pregnancy_time - pet.pregnant_time)
 				tamagochi_form_stuff = tamagochi_form_stuff..
-					"image["..(pregnant_icon_x+0.375)..","..(pregnant_icon_y+0.5)..";1,1;petz_"..pet.type.."_pregnant_icon.png]"..
+					"image["..(pregnant_icon_x+0.375)..","..(pregnant_icon_y+0.5)..";1,1;"..compose_pregnant_icon(pet_icon).."]"..
 					"label["..(pregnant_text_x+0.375)..","..(pregnant_text_y+1)..";"..S("Pregnant").." ("..tostring(pregnant_remain_time).."s)]"
 			elseif not(pet.is_male) and pet.pregnant_count and pet.pregnant_count <= 0 then
 				tamagochi_form_stuff = tamagochi_form_stuff..
