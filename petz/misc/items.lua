@@ -217,7 +217,6 @@ minetest.register_node("petz:fishtank", {
 				fish_entity:set_sprite({x=0, y=0}, 16, 1.0, false)
 				itemstack:take_item()
 				clicker:set_wielded_item(itemstack)
-				return itemstack
 			end
 		elseif ((itemstack_name == "mobs:net") or (itemstack_name == "fireflies:bug_net")
 			or (itemstack_name == "petz:net")) and (has_fish == "true") then
@@ -230,6 +229,7 @@ minetest.register_node("petz:fishtank", {
 					meta:set_string("fish_texture", nil)
 				end
 		end
+		return itemstack
     end,
 
 	after_place_node = function(pos, placer, itemstack)
