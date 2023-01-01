@@ -25,10 +25,10 @@ petz.register("kitty", {
 	capture_item = "net",
 	jump_height = 3,
 
-	logic = petz.herbivore_brain,
+	logic = "herbivore",
 
 	drops = {
-		{name = "petz:bone", chance = 3, min = 1, max = 1,},
+		{name = "petz:bone", chance = 5, min = 1, max = 1,},
 	},
 
 	head = {

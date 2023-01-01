@@ -20,7 +20,7 @@ petz.register("parrot", {
 	view_range = 12,
 	capture_item = "net",
 	jump_height = 2.0,
-	logic = petz.flying_brain,
+	logic = "flying",
 	drops = {
 		{name = "petz:raw_parrot", chance = 3, min = 1, max = 1,},
 	},

@@ -24,7 +24,7 @@ petz.register("chimp", {
 	jump_height = 5.0,
 	makes_footstep_sound = true,
 
-	logic = petz.herbivore_brain,
+	logic = "herbivore",
 
 	drops = {
 		{name = "petz:raw_parrot", chance = 3, min = 1, max = 1,},

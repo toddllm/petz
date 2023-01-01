@@ -20,7 +20,7 @@ petz.register("gecko", {
 	},
 	max_speed = 2,
 	capture_item = "net",
-	logic = petz.herbivore_brain,
+	logic = "herbivore",
 	animation = {
 		idle = {range={x=0, y=0}, speed=25, loop=false},
 		walk={range={x=1, y=12}, speed=25, loop=true},

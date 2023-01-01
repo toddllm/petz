@@ -55,11 +55,14 @@ end
 function petz.register(_name, def)
 
 	local name = "petz:".._name
+
 	local mesh = def.mesh or 'petz_'.._name..'.b3d'
+
 	local visual_size = {
 		x = petz.settings.visual_size.x * (def.scale_model or 1),
 		y = petz.settings.visual_size.y * (def.scale_model or 1)
 	}
+
 	local visual_size_baby
 	if def.breed then
 		visual_size_baby = {
@@ -67,16 +70,27 @@ function petz.register(_name, def)
 			y = visual_size.y * (def.scale_baby or 0.5)
 		}
 	end
+
 	local skin_colors = def.skin_colors
 	local textures = {}
-	for n = 1, #skin_colors do
-		textures[n] = "petz_".._name.."_"..skin_colors[n]..".png"
+	if skin_colors and #skin_colors > 0 then
+		for n = 1, #skin_colors do
+			textures[n] = "petz_".._name.."_"..skin_colors[n]..".png"
+		end
+	else
+		textures[1] = "petz_".._name..".png"
 	end
-	local collisionbox, collisionbox_baby
+
+	local collisionbox, collisionbox_baby, selectionbox, selection_baby
 	if def.collisionbox then
 		collisionbox, collisionbox_baby = petz.get_collisionbox(def.collisionbox.p1,
 			def.collisionbox.p2, def.scale_model, def.scale_baby)
 	end
+	if def.selectionbox then
+		selectionbox, selectionbox_baby = petz.get_selectionbox(def.selectionbox.p1,
+			def.selectionbox.p2, def.scale_model, def.scale_baby)
+	end
+
 	local replace_rate
 	local replace_offset
 	local replace_what
@@ -97,6 +111,7 @@ function petz.register(_name, def)
 		--set petz specific properties
 		animation =	def.animation or nil,
 		attack = def.attack or nil,
+		attack_player = def.attack_player or false,
 		breed = def.breed or false,
 		buoyancy = def.buoyancy or 0.5, -- portion of hitbox submerged
 		can_be_brushed = def.can_be_brushed or false,
@@ -115,8 +130,10 @@ function petz.register(_name, def)
 		init_tamagochi_timer = def.init_tamagochi_timer or false,
 		is_arboreal = def.is_arboreal or false,
 		is_baby = def.is_baby or false,
+		is_boss = def.is_boss or false,
 		is_male = def.is_male or nil,
-		is_pet = def.is_pet,
+		is_monster = def.is_monster or false,
+		is_pet = def.is_pet or false,
 		is_wild = def.is_wild or false,
 		jump_height = def.jump_height or 1,
 		max_height = def.max_height or 10,
@@ -124,7 +141,7 @@ function petz.register(_name, def)
 		max_speed = def.max_speed or 1,
 		milkable = def.milkable or false,
 		lay_eggs = def.lay_eggs or false,
-		logic = def.logic,
+		logic = petz[(def.logic or "herbivore").."_brain"],
 		lung_capacity = def.lung_capacity or 10, -- seconds
 		parents = def.parents or nil,
 		poop = def.poop or false,
@@ -133,7 +150,8 @@ function petz.register(_name, def)
 		replace_what = replace_what or nil,
 		rotate = petz.settings.rotate,
 		skin_colors = skin_colors or nil,
-		sleep_at_day = def.sleep_at_day or true,
+		sleep_at_day = def.sleep_at_day or false,
+		sleep_at_night = def.sleep_at_night or false,
 		sleep_ratio = def.sleep_ratio or 0.3,
 		sounds = def.sounds or nil,
 		springiness = def.springiness or 0,
@@ -145,6 +163,8 @@ function petz.register(_name, def)
 		collide_with_objects = def.collide_with_objects or true,
 		collisionbox = collisionbox,
 		collisionbox_baby = collisionbox_baby,
+		selectionbox = selectionbox or collisionbox,
+		selectionbox_baby = selectionbox_baby or collisionbox_baby,
 		makes_footstep_sound = def.makes_footstep_sound or false,
 		mesh = mesh,
 		physical = def.physical or true,

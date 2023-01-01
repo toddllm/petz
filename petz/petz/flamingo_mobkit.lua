@@ -14,7 +14,7 @@ petz.register("flamingo", {
 	is_pet = false,
 	max_speed = 2,
 	capture_item = "lasso",
-	logic = petz.flying_brain,
+	logic = "flying",
 	animation = {
 		walk={range={x=1, y=12}, speed=25, loop=true},
 		run={range={x=13, y=25}, speed=25, loop=true},

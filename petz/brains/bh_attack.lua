@@ -130,7 +130,7 @@ function petz.lq_jumpattack(self,height,target)
 			--minetest.chat_send_all(tostring(distance))
 			if distance < 2.0 then
 				--if petz.is_pos_in_box(self,apos,tgtpos,tgtbox) then	--bite
-				target:punch(self.object,1,self.attack)
+				target:punch(self.object, 1, self.attack)
 				-- bounce off
 				local vy = self.object:get_velocity().y
 				self.object:set_velocity({x=dir.x*-3,y=vy,z=dir.z*-3})
