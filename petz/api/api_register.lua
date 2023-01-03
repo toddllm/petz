@@ -81,7 +81,7 @@ function petz.register(_name, def)
 		textures[1] = "petz_".._name..".png"
 	end
 
-	local collisionbox, collisionbox_baby, selectionbox, selection_baby
+	local collisionbox, collisionbox_baby, selectionbox, selectionbox_baby
 	if def.collisionbox then
 		collisionbox, collisionbox_baby = petz.get_collisionbox(def.collisionbox.p1,
 			def.collisionbox.p2, def.scale_model, def.scale_baby)

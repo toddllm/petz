@@ -1,4 +1,4 @@
-petz.get_node_below = function(pos)
+function petz.get_node_below(pos)
 	local pos_below = {
 		x = pos.x,
 		y = pos.y - 1.0,
@@ -14,19 +14,40 @@ function petz.spawn_is_in_deep(nodepos)
 	end
 	nodepos.y = nodepos.y + 1.1
 	local node_1_above = kitz.nodeatpos(nodepos)
-	nodepos.y= nodepos.y + 1
+	nodepos.y = nodepos.y + 1
 	local node_2_above = kitz.nodeatpos(nodepos)
-	if (node_1_above and node_1_above.drawtype == 'liquid') and (node_2_above and node_2_above.drawtype == 'liquid') then
+	if (node_1_above and node_1_above.drawtype == 'liquid')
+		and (node_2_above and node_2_above.drawtype == 'liquid') then
 		return true
 	else
 		return false
 	end
 end
 
-petz.spawn_mob = function(spawn_pos, limit_max_mobs, abr, liquidflag)
-	if petz.settings.no_spawn_in_protected and minetest.is_protected(spawn_pos, "") then
-		return
+function petz.pos_to_spawn(pet_name, pos)
+	local new_y = minetest.registered_entities[pet_name].visual_size.y / 10
+	if new_y < 1 then
+		new_y = 1
 	end
+	--minetest.chat_send_all(tostring(new_y))
+	local spawn_pos
+	for i= 1, new_y do
+		spawn_pos = vector.new(pos.x, pos.y+i, pos.z)
+		if not(kitz.is_air(spawn_pos)) then
+			spawn_pos = nil
+			break
+		end
+	end
+	return spawn_pos
+end
+
+function petz.spawn_mob(spawn_pos, limit_max_mobs, abr, liquidflag)
+
+	if not(spawn_pos) --spawn_pos = nil
+		or (petz.settings.no_spawn_in_protected and minetest.is_protected(spawn_pos, "")) then --not protected area
+		return false
+	end
+
 	local node
 	if not(liquidflag) then
 		node = petz.get_node_below(spawn_pos) --the node below the spawn pos
@@ -175,7 +196,10 @@ petz.spawn_mob = function(spawn_pos, limit_max_mobs, abr, liquidflag)
 			--minetest.chat_send_all(tostring("mob count="..mob_count))
 			--minetest.chat_send_all(tostring("same species count="..same_species_count))
 		end
-		if not(limit_max_mobs) or ((mob_count < petz.settings.max_mobs) and (same_species_count < petz.settings.max_per_species)) then --check for bigger mobs:
+
+		if not(limit_max_mobs) or ((mob_count < petz.settings.max_mobs)
+			and (same_species_count < petz.settings.max_per_species)) then --check for bigger mobs:
+
 			local spawn_herd = petz.settings[random_mob.."_spawn_herd"]
 			if spawn_herd then
 				--minetest.chat_send_player("singleplayer", tonumber(spawn_herd))
@@ -213,7 +237,10 @@ petz.spawn_mob = function(spawn_pos, limit_max_mobs, abr, liquidflag)
 				if spawn then
 					spawn_pos = petz.pos_to_spawn(random_mob_name, spawn_pos) --recalculate pos.y for bigger mobs
 					if spawn_pos then
-						minetest.add_entity(spawn_pos, random_mob_name)
+						local objref = minetest.add_entity(spawn_pos, random_mob_name)
+						return objref
+					else
+						return false
 					end
 					--minetest.chat_send_player("singleplayer", random_mob.. " spawned!!!")
 				end
@@ -222,16 +249,6 @@ petz.spawn_mob = function(spawn_pos, limit_max_mobs, abr, liquidflag)
 		end
 	end
 end
-
-minetest.register_globalstep(function(dtime)
-	local abr = tonumber(minetest.get_mapgen_setting('active_block_range')) or 3
-	local radius =  abr * 16 --recommended
-	local interval = petz.settings.spawn_interval
-	local spawn_pos, liquidflag = kitz.get_spawn_pos_abr(dtime, interval, radius, petz.settings.spawn_chance, 0.2)
-	if spawn_pos then
-		petz.spawn_mob(spawn_pos, true, abr, liquidflag)
-	end
-end)
 
 -- Spawn some mobs when area loaded
 --minetest.register_on_generated(function(minp, maxp, seed)
@@ -254,19 +271,10 @@ end)
 	--end
 --end)
 
-petz.pos_to_spawn = function(pet_name, pos)
-	local new_y = minetest.registered_entities[pet_name].visual_size.y / 10
-	if new_y < 1 then
-		new_y = 1
-	end
-	--minetest.chat_send_all(tostring(new_y))
-	local spawn_pos
-	for i= 1, new_y do
-		spawn_pos = vector.new(pos.x, pos.y+i, pos.z)
-		if not(kitz.is_air(spawn_pos)) then
-			spawn_pos = nil
-			break
-		end
-	end
-	return spawn_pos
-end
+minetest.register_globalstep(function(dtime)
+	local abr = tonumber(minetest.get_mapgen_setting('active_block_range')) or 3
+	local radius =  abr * 16 --recommended
+	local interval = petz.settings.spawn_interval
+	local spawn_pos, liquidflag = kitz.get_spawn_pos_abr(dtime, interval, radius, petz.settings.spawn_chance, 0.2)
+	petz.spawn_mob(spawn_pos, true, abr, liquidflag)
+end)
