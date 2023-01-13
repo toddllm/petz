@@ -1,3 +1,26 @@
+function petz.count_closest_petz(pos, dist, specie)
+	local petz_count = 0
+	local same_species_count = 0
+	for id, obj in pairs(kitz.active_mobs) do
+		local luaent = obj.object:get_luaentity()
+		if luaent and kitz.is_alive(obj.object) then
+			for i = 1, #petz.settings["petz_list"] do
+				if luaent.type and luaent.type == petz.settings["petz_list"][i] then
+					local opos = obj.object:get_pos()
+					local odist = math.abs(opos.x-pos.x) + math.abs(opos.z-pos.z)
+					if odist <= dist then
+						petz_count = petz_count + 1
+						if luaent.type == specie then
+							same_species_count = same_species_count + 1
+						end
+					end
+				end
+			end
+		end
+	end
+	return petz_count, same_species_count
+end
+
 function petz.get_node_below(pos)
 	local pos_below = {
 		x = pos.x,
@@ -165,6 +188,7 @@ function petz.spawn_mob(spawn_pos, limit_max_mobs, abr, liquidflag)
 	local random_chance = math.random(1, spawn_chance)
 	--minetest.chat_send_player("singleplayer", tostring(random_chance))
 	if random_chance == 1 then
+
 		local random_mob_biome = petz.settings[random_mob.."_spawn_biome"]
 		--minetest.chat_send_player("singleplayer", "biome="..random_mob_biome)
 		if random_mob_biome ~= "default" then --specific biome to spawn for this mob
@@ -174,27 +198,11 @@ function petz.spawn_mob(spawn_pos, limit_max_mobs, abr, liquidflag)
 				return
 			end
 		end
-		local mob_count = 0
-		local same_species_count = 0
+
+		local mob_count, same_species_count = 0
 		if limit_max_mobs then
-			local objs = minetest.get_objects_inside_radius(spawn_pos, abr*16 + 5)
-			for _, obj in ipairs(objs) do -- count mobs in abrange
-				if not obj:is_player() then
-					local luaent = obj:get_luaentity()
-					if luaent then
-						for i = 1, #petz.settings["petz_list"] do
-							if luaent.type and luaent.type == petz.settings["petz_list"][i] then
-								mob_count = mob_count + 1
-							end
-						end
-						if luaent.type and luaent.type == random_mob then
-							same_species_count = same_species_count + 1
-						end
-					end
-				end
-			end
-			--minetest.chat_send_all(tostring("mob count="..mob_count))
-			--minetest.chat_send_all(tostring("same species count="..same_species_count))
+			mob_count, same_species_count = petz.count_closest_petz(spawn_pos, abr*16 + 5, random_mob)
+			--minetest.chat_send_all(tostring(mob_count) .. ", "..tostring(same_species_count))
 		end
 
 		if not(limit_max_mobs) or ((mob_count < petz.settings.max_mobs)

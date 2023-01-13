@@ -9,7 +9,7 @@ function petz.bh_hunt(self, prty, force)
 		for i = 1, #preys  do --loop  thru all preys
 			--minetest.chat_send_player("singleplayer", "preys list="..preys[i])
 			--minetest.chat_send_player("singleplayer", "node name="..node.name)
-			local prey = kitz.get_closest_entity(self, preys[i])	-- look for prey
+			local prey = kitz.get_closest_entity(self, preys[i]) --look for prey
 			if prey then
 				--minetest.chat_send_player("singleplayer", "got it")
 				petz.hq_hunt(self, prty, prey) -- and chase it

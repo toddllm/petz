@@ -3,8 +3,8 @@
 --
 
 function kitz.replace(self, sound_name, max_hear_distance)
-	if not self.replace_rate or not self.replace_what or self.child == true or self.object:get_velocity().y ~= 0
-		or math.random(1, self.replace_rate) > 1 then
+	if not(self.replace_rate) or not(self.replace_what) or (self.child == true) or (self.object:get_velocity().y ~= 0)
+		or (math.random(1, self.replace_rate) > 1) then
 			return false
 	end
 	local pos = self.object:get_pos()

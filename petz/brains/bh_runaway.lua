@@ -10,7 +10,7 @@ function petz.bh_runaway_from_predator(self, pos)
 		for i = 1, #predators do --loop  thru all preys
 			--minetest.chat_send_player("singleplayer", "spawn node="..spawn_nodes[i])
 			--minetest.chat_send_player("singleplayer", "node name="..node.name)
-			local predator = kitz.get_closest_entity(self, predators[i]) -- look for predator
+			local predator = kitz.get_closest_entity(self, predators[i]) --look for predator
 			if predator then
 				local predator_pos = predator:get_pos()
 				if predator and vector.distance(pos, predator_pos) <= self.view_range then
