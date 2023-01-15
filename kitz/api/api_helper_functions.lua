@@ -94,6 +94,14 @@ end
 
 --Tables
 
+function kitz.is_table(elem)
+	if (type(elem) == "table") then
+		return true
+	else
+		return false
+	end
+end
+
 function kitz.table_is_empty(t)
 	local next = next
 	if next(t) == nil then
@@ -110,4 +118,33 @@ function kitz.table_shuffle(t) -- suffles numeric indices
         t[i], t[j] = t[j], t[i]
     end
     return t
+end
+
+--Inventory Cube (3D)
+
+function kitz.create_inv_cube(tiles)
+	local inv_cube = "[inventorycube"
+	local tile_top, tile_left, tile_right
+	tile_top = tiles[1]
+	if kitz.is_table(tile_top) then
+		tile_top = tile_top.name
+	end
+	if tiles[3] then
+		tile_right = tiles[3]
+		if kitz.is_table(tile_right) then
+			tile_right = tile_right.name
+		end
+	else
+		tile_right = tile_top
+	end
+	if tiles[6] then
+		tile_left = tiles[6]
+		if kitz.is_table(tile_left) then
+			tile_left = tile_left.name
+		end
+	else
+		tile_left = tile_top
+	end
+	inv_cube = inv_cube.."{"..tile_top.."{"..tile_left.."{"..tile_right
+	return inv_cube
 end
