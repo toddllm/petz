@@ -123,6 +123,9 @@ end
 --Inventory Cube (3D)
 
 function kitz.create_inv_cube(tiles)
+	if not tiles then
+		return
+	end
 	local inv_cube = "[inventorycube"
 	local tile_top, tile_left, tile_right
 	tile_top = tiles[1]
@@ -147,4 +150,10 @@ function kitz.create_inv_cube(tiles)
 	end
 	inv_cube = inv_cube.."{"..tile_top.."{"..tile_left.."{"..tile_right
 	return inv_cube
+end
+
+-- Strings
+
+function kitz.string_is_empty(s)
+  return s == nil or s == ''
 end

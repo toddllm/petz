@@ -180,12 +180,13 @@ petz.create_form = function(player_name, buy)
 		buttonexit_pos.x = buttonexit_pos.x + 1
 		buttonexit_pos.y = buttonexit_pos.y - 2
 		local exchange_item = petz.settings.selling_exchange_items_list[pet.exchange_item_index]
-		local item_description
-		local item_inventory_image
+		local item_description, item_inventory_image
 		if exchange_item then
 			item_description = exchange_item.description or ""
-			item_inventory_image = kitz.create_inv_cube(exchange_item.tiles) or ""
-
+			item_inventory_image = exchange_item.inventory_image
+			if kitz.string_is_empty(item_inventory_image) then
+				item_inventory_image = kitz.create_inv_cube(exchange_item.tiles) or ""
+			end
 		else
 			item_description = ""
 			item_inventory_image  = ""
