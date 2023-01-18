@@ -27,7 +27,7 @@ petz.register("chimp", {
 	logic = "herbivore",
 
 	drops = {
-		{name = "petz:raw_parrot", chance = 3, min = 1, max = 1,},
+		{name = "petz:bone", chance = 4, min = 1, max = 1,},
 	},
 	--head = {
 		--position = vector.new(0, 0.5, 0.2908),

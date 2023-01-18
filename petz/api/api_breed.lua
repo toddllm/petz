@@ -1,5 +1,11 @@
 local S = ...
 
+petz.compose_pregnant_icon = function(self)
+	local pet_icon = "petz_spawnegg_"..self.type..".png"
+	local pregnant_icon = "[combine:16x16:0,0="..pet_icon..":0,0=petz_pregnant_icon.png"
+	return pregnant_icon
+end
+
 petz.is_fertile = function(self)
 	if self.pregnant_count and (self.pregnant_count > 0) then
 		return true

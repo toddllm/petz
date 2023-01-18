@@ -4,7 +4,8 @@ end
 
 --Lay Egg
 petz.lay_egg = function(self)
-	if self.eggs_count >= petz.settings.max_laid_eggs then
+	local max_laid_eggs = petz.settings[self.type.."_max_laid_eggs"] or petz.settings.max_laid_eggs
+	if self.eggs_count >= max_laid_eggs then
 		return
 	end
 	if petz.isinliquid(self) then --do not put eggs when in liquid

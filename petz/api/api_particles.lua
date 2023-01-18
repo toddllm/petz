@@ -31,20 +31,7 @@ petz.do_particles_effect = function(obj, pos, particle_type, texture_name)
         particles_amount = 10
 		min_size = 1.0
 		max_size = 1.5
-    elseif particle_type == "pregnant_pony" then
-        texture_name = "petz_pony_pregnant_icon.png"
-        time = 1.5
-        particles_amount = 10
-        min_size = 5.0
-		max_size = 6.0
-	elseif particle_type == "pregnant_lamb" then
-        texture_name = "petz_lamb_pregnant_icon.png"
-        time = 1.5
-        particles_amount = 10
-        min_size = 5.0
-		max_size = 6.0
-	elseif particle_type == "pregnant_camel" then
-        texture_name = "petz_camel_pregnant_icon.png"
+    elseif particle_type == "pregnant" then
         time = 1.5
         particles_amount = 10
         min_size = 5.0

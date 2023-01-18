@@ -556,6 +556,8 @@ for i = 1, #petz.settings["petz_list"] do --load the settings
 	petz.settings[petz_type.."_convert_count"] = tonumber(user:get(petz_type.."_convert_count") or settings:get(petz_type.."_convert_count")) or nil
 	petz.settings[petz_type.."_lifetime"] = tonumber(user:get(petz_type.."_lifetime") or settings:get(petz_type.."_lifetime")) or nil
 	petz.settings[petz_type.."_disable_spawn"] = user:get_bool(petz_type.."_disable_spawn")
+	petz.settings[petz_type.."_max_laid_eggs"] = tonumber(user:get(petz_type.."_max_laid_eggs")
+		or settings:get(petz_type.."_max_laid_eggs")) or 2.0
 	if petz.settings[petz_type.."_disable_spawn"] == nil then
 		petz.settings[petz_type.."_disable_spawn"] = settings:get_bool(petz_type.."_disable_spawn", false)
 	end

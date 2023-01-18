@@ -20,7 +20,7 @@ function petz.bh_breed(self, pos)
 					couple.is_rut = kitz.remember(couple, "is_rut", false)
 					couple.is_pregnant = kitz.remember(couple, "is_pregnant", true)
 					couple.father_genes = kitz.remember(couple, "father_genes", self.genes)
-					petz.do_particles_effect(couple.object, couple.object:get_pos(), "pregnant".."_"..couple.type)
+					petz.do_particles_effect(couple.object, couple.object:get_pos(), "pregnant", petz.compose_pregnant_icon(self))
 				end
 			end
 		end
