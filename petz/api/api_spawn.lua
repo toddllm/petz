@@ -64,6 +64,20 @@ function petz.pos_to_spawn(pet_name, pos)
 	return spawn_pos
 end
 
+function petz.limit_reached(pos, radius, mob_name)
+
+	local mob_count, same_species_count = 0
+	mob_count, same_species_count = petz.count_closest_petz(pos, radius or 53, mob_name)
+	--minetest.chat_send_all(tostring(mob_count) .. ", "..tostring(same_species_count))
+
+	if (mob_count > petz.settings.max_mobs)
+		and (same_species_count > petz.settings.max_per_species) then
+		return true
+	end
+
+	return false
+end
+
 function petz.spawn_mob(spawn_pos, limit_max_mobs, abr, liquidflag)
 
 	if not(spawn_pos) --spawn_pos = nil
@@ -199,61 +213,55 @@ function petz.spawn_mob(spawn_pos, limit_max_mobs, abr, liquidflag)
 			end
 		end
 
-		local mob_count, same_species_count = 0
-		if limit_max_mobs then
-			mob_count, same_species_count = petz.count_closest_petz(spawn_pos, abr*16 + 5, random_mob)
-			--minetest.chat_send_all(tostring(mob_count) .. ", "..tostring(same_species_count))
+		if limit_max_mobs and petz.limit_reached(spawn_pos, abr*16 + 5, random_mob) then
+			return
 		end
 
-		if not(limit_max_mobs) or ((mob_count < petz.settings.max_mobs)
-			and (same_species_count < petz.settings.max_per_species)) then --check for bigger mobs:
-
-			local spawn_herd = petz.settings[random_mob.."_spawn_herd"]
-			if spawn_herd then
-				--minetest.chat_send_player("singleplayer", tonumber(spawn_herd))
-				if spawn_herd == 0 then
-					spawn_herd = 1
-				elseif spawn_herd > 5 then
-					spawn_herd = 5
-				end
-			else
+		local spawn_herd = petz.settings[random_mob.."_spawn_herd"]
+		if spawn_herd then
+			--minetest.chat_send_player("singleplayer", tonumber(spawn_herd))
+			if spawn_herd == 0 then
 				spawn_herd = 1
+			elseif spawn_herd > 5 then
+				spawn_herd = 5
 			end
-			for i = 1, math.random(1, spawn_herd) do
-				local spawn = true
-				if i == 2 then
-					spawn_pos.x = spawn_pos.x + 1
-				elseif i == 3 then
-					spawn_pos.x = spawn_pos.x - 2
-				elseif i == 4 then
-					spawn_pos.x = spawn_pos.x + 1
-					spawn_pos.z = spawn_pos.z + 1
+		else
+			spawn_herd = 1
+		end
+		for i = 1, math.random(1, spawn_herd) do
+			local spawn = true
+			if i == 2 then
+				spawn_pos.x = spawn_pos.x + 1
+			elseif i == 3 then
+				spawn_pos.x = spawn_pos.x - 2
+			elseif i == 4 then
+				spawn_pos.x = spawn_pos.x + 1
+				spawn_pos.z = spawn_pos.z + 1
+			else
+				spawn_pos.z = spawn_pos.z - 2
+			end
+			--[[
+			if i > 1 then
+				local height, liquidflag2 = kitz.get_terrain_height(spawn_pos, 32)
+				if height or (liquidflag2 and ent.can_swin) then
+					local node_below = petz.get_node_below(spawn_pos)
+					if not(kitz.item_in_itemlist(node_below.name, petz.settings[random_mob.."_spawn_nodes"])) then
+						spawn = false
+					end
+				end
+			end
+			]]
+			if spawn then
+				spawn_pos = petz.pos_to_spawn(random_mob_name, spawn_pos) --recalculate pos.y for bigger mobs
+				if spawn_pos then
+					local objref = minetest.add_entity(spawn_pos, random_mob_name)
+					--minetest.chat_send_all(random_mob_name.. " spawned!!!")
+					return objref
 				else
-					spawn_pos.z = spawn_pos.z - 2
+					return false
 				end
-				--[[
-				if i > 1 then
-					local height, liquidflag2 = kitz.get_terrain_height(spawn_pos, 32)
-					if height or (liquidflag2 and ent.can_swin) then
-						local node_below = petz.get_node_below(spawn_pos)
-						if not(kitz.item_in_itemlist(node_below.name, petz.settings[random_mob.."_spawn_nodes"])) then
-							spawn = false
-						end
-					end
-				end
-				]]
-				if spawn then
-					spawn_pos = petz.pos_to_spawn(random_mob_name, spawn_pos) --recalculate pos.y for bigger mobs
-					if spawn_pos then
-						local objref = minetest.add_entity(spawn_pos, random_mob_name)
-						return objref
-					else
-						return false
-					end
-					--minetest.chat_send_player("singleplayer", random_mob.. " spawned!!!")
-				end
-				--minetest.chat_send_player("singleplayer", "cave="..tostring(cave))
 			end
+				--minetest.chat_send_player("singleplayer", "cave="..tostring(cave))
 		end
 	end
 end

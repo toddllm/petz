@@ -14,6 +14,9 @@ petz.lay_egg = function(self)
 	local pos = self.object:get_pos()
 	local laid_egg = false
 	if self.lay_eggs == "item" or self.lay_eggs == "node" then
+		if petz.limit_reached(pos, nil, self.type) then
+			return
+		end
 		local lay_egg_timing = petz.settings.lay_egg_timing
 		if kitz.timer(self, math.random(lay_egg_timing - (lay_egg_timing * 0.2),
 			lay_egg_timing + (lay_egg_timing * 0.2))) then
