@@ -89,8 +89,20 @@ function petz.set_old_override_table(player)
 	end
 end
 
+local hud_id_by_player_name = {}
+
 function petz.show_werewolf_vignette(player)
-	local hud_id = player:hud_add({
+	local player_name = player:get_player_name()
+	local hud_id = hud_id_by_player_name[player_name]
+	if hud_id then
+		local hud_def = player:hud_get(hud_id)
+		if hud_def and hud_def.name == "petz:werewolf_vignette" then
+			-- already showing the vignette, do nothing
+			return
+		end
+	end
+	hud_id_by_player_name[player_name] = player:hud_add({
+		name = "petz:werewolf_vignette",
 		hud_elem_type = "image",
 		text = "petz_werewolf_vignette.png",
 		position = {x=0, y=0},
@@ -98,17 +110,25 @@ function petz.show_werewolf_vignette(player)
 		alignment = {x=1, y=1},
 		offset = {x=0, y=0}
 	})
-	local meta = player:get_meta()
-	meta:set_int("petz:werewolf_vignette_id", hud_id)
 end
 
 function petz.remove_werewolf_vignette(player)
-	local meta = player:get_meta()
-	local hud_id = meta:get_int("petz:werewolf_vignette_id")
+	local player_name = player:get_player_name()
+	local hud_id = hud_id_by_player_name[player_name]
 	if hud_id then
-		player:hud_remove(hud_id)
+		local hud_def = player:hud_get(hud_id)
+		if hud_def and hud_def.name == "petz:werewolf_vignette" then
+			player:hud_remove(hud_id)
+		end
 	end
+	hud_id_by_player_name[player_name] = nil
 end
+
+minetest.register_on_leaveplayer(function(player)
+	-- cleanup
+	local player_name = player:get_player_name()
+	hud_id_by_player_name[player_name] = nil
+end)
 
 ---
 --- Set, Unset & Reset Functions
