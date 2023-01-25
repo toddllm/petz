@@ -496,7 +496,7 @@ minetest.register_craft({
 
 local pet_name = "werewolf"
 local scale_model = 1.0
-local mesh = lycanthropy.werewolf.model
+local mesh = "petz_werewolf.b3d"
 local textures = lycanthropy.werewolf.textures
 local collisionbox = lycanthropy.werewolf.collisionbox
 
