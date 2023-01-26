@@ -15,7 +15,8 @@ petz.insert_tamed_by_owner = function(self)
 		end
 	end
 	if insert then --if not yet
-		table.insert(petz.tamed_by_owner[self.owner], {["pet"] = self, metadata = {["tag"] = self.tag, ["type"] = self.type, ["last_pos"] = nil}})
+		table.insert(petz.tamed_by_owner[self.owner], {["pet"] = self, metadata = {["tag"] = self.tag,
+			["type"] = self.type, ["last_pos"] = nil}})
 	end
 end
 

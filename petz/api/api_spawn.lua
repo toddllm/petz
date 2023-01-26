@@ -56,7 +56,7 @@ function petz.pos_to_spawn(pet_name, pos)
 	local spawn_pos
 	for i= 1, new_y do
 		spawn_pos = vector.new(pos.x, pos.y+i, pos.z)
-		if not(kitz.is_air(spawn_pos)) then
+		if not(kitz.is_air(spawn_pos)) and not(kitz.is_liquid(spawn_pos)) then
 			spawn_pos = nil
 			break
 		end
@@ -68,10 +68,10 @@ function petz.limit_reached(pos, radius, mob_name)
 
 	local mob_count, same_species_count = 0
 	mob_count, same_species_count = petz.count_closest_petz(pos, radius or 53, mob_name)
-	--minetest.chat_send_all(tostring(mob_count) .. ", "..tostring(same_species_count))
+	--minetest.chat_send_all("mob_count="..tostring(mob_count) .. ", same_species_count="..tostring(same_species_count))
 
-	if (mob_count > petz.settings.max_mobs)
-		and (same_species_count > petz.settings.max_per_species) then
+	if (mob_count >= petz.settings.max_mobs)
+		and (same_species_count >= petz.settings.max_per_species) then
 		return true
 	end
 
@@ -112,6 +112,7 @@ function petz.spawn_mob(spawn_pos, limit_max_mobs, abr, liquidflag)
 	end
 
 	local candidates_list = {} --Create a sublist of the petz with the same node to spawnand between max_height and min_height
+
 	for i = 1, #petz.settings["petz_list"] do
 		local pet_name
 		local can_spawn = true
@@ -182,7 +183,7 @@ function petz.spawn_mob(spawn_pos, limit_max_mobs, abr, liquidflag)
 		end
 	end --end for
 
-	--minetest.chat_send_player("singleplayer", minetest.serialize(candidates_list))
+	--minetest.chat_send_all(minetest.serialize(candidates_list))
 
 	if #candidates_list < 1 then --if no candidates, then return
 		return
@@ -190,78 +191,72 @@ function petz.spawn_mob(spawn_pos, limit_max_mobs, abr, liquidflag)
 
 	local random_mob = candidates_list[math.random(1, #candidates_list)] --Get a random mob from the list of candidates
 	local random_mob_name = "petz:" .. random_mob
-	--minetest.chat_send_player("singleplayer", random_mob)
-	local spawn_chance = petz.settings[random_mob.."_spawn_chance"]
-	if spawn_chance < 0 then
-		spawn_chance = 0
-	elseif spawn_chance > 1 then
-		spawn_chance = 1
+	--minetest.chat_send_all(random_mob)
+
+	--Spawn chance-->
+	local spawn_chance = kitz.math.clamp(petz.settings[random_mob.."_spawn_chance"], 0, 1)
+	if not(math.random(1, math.floor((1 / spawn_chance) + 0.5)) == 1) then
+		return
 	end
-	spawn_chance = math.floor((1 / spawn_chance)+0.5)
-	--minetest.chat_send_player("singleplayer", tostring(spawn_chance))
-	local random_chance = math.random(1, spawn_chance)
-	--minetest.chat_send_player("singleplayer", tostring(random_chance))
-	if random_chance == 1 then
 
-		local random_mob_biome = petz.settings[random_mob.."_spawn_biome"]
-		--minetest.chat_send_player("singleplayer", "biome="..random_mob_biome)
-		if random_mob_biome ~= "default" then --specific biome to spawn for this mob
-			local biome_name = minetest.get_biome_name(minetest.get_biome_data(spawn_pos).biome) --biome of the spawn pos
-			--minetest.chat_send_player("singleplayer", "biome="..biome_name)
-			if biome_name ~= random_mob_biome then
-				return
-			end
-		end
-
-		if limit_max_mobs and petz.limit_reached(spawn_pos, abr*16 + 5, random_mob) then
+	local random_mob_biome = petz.settings[random_mob.."_spawn_biome"]
+	--minetest.chat_send_player("singleplayer", "biome="..random_mob_biome)
+	if random_mob_biome ~= "default" then --specific biome to spawn for this mob
+		local biome_name = minetest.get_biome_name(minetest.get_biome_data(spawn_pos).biome) --biome of the spawn pos
+		--minetest.chat_send_player("singleplayer", "biome="..biome_name)
+		if biome_name ~= random_mob_biome then
 			return
 		end
+	end
 
-		local spawn_herd = petz.settings[random_mob.."_spawn_herd"]
-		if spawn_herd then
-			--minetest.chat_send_player("singleplayer", tonumber(spawn_herd))
-			if spawn_herd == 0 then
-				spawn_herd = 1
-			elseif spawn_herd > 5 then
-				spawn_herd = 5
-			end
-		else
+	if limit_max_mobs and petz.limit_reached(spawn_pos, abr*16 + 5, random_mob) then
+		return
+	end
+
+	local spawn_herd = petz.settings[random_mob.."_spawn_herd"]
+	if spawn_herd then
+		--minetest.chat_send_player("singleplayer", tonumber(spawn_herd))
+		if spawn_herd == 0 then
 			spawn_herd = 1
+		elseif spawn_herd > 5 then
+			spawn_herd = 5
 		end
-		for i = 1, math.random(1, spawn_herd) do
-			local spawn = true
-			if i == 2 then
-				spawn_pos.x = spawn_pos.x + 1
-			elseif i == 3 then
-				spawn_pos.x = spawn_pos.x - 2
-			elseif i == 4 then
-				spawn_pos.x = spawn_pos.x + 1
-				spawn_pos.z = spawn_pos.z + 1
+	else
+		spawn_herd = 1
+	end
+
+	for i = 1, math.random(1, spawn_herd) do
+		local spawn = true
+		if i == 2 then
+			spawn_pos.x = spawn_pos.x + 1
+		elseif i == 3 then
+			spawn_pos.x = spawn_pos.x - 2
+		elseif i == 4 then
+			spawn_pos.x = spawn_pos.x + 1
+			spawn_pos.z = spawn_pos.z + 1
+		else
+			spawn_pos.z = spawn_pos.z - 2
+		end
+		--[[
+		if i > 1 then
+			local height, liquidflag2 = kitz.get_terrain_height(spawn_pos, 32)
+			if height or (liquidflag2 and ent.can_swin) then
+				local node_below = petz.get_node_below(spawn_pos)
+				if not(kitz.item_in_itemlist(node_below.name, petz.settings[random_mob.."_spawn_nodes"])) then
+					spawn = false
+				end
+			end
+		end
+		]]
+		if spawn then
+			spawn_pos = petz.pos_to_spawn(random_mob_name, spawn_pos) --recalculate pos.y for bigger mobs
+			if spawn_pos then
+				local objref = minetest.add_entity(spawn_pos, random_mob_name)
+				--minetest.chat_send_all(random_mob_name.. " spawned!!!")
+				return objref
 			else
-				spawn_pos.z = spawn_pos.z - 2
+				return false
 			end
-			--[[
-			if i > 1 then
-				local height, liquidflag2 = kitz.get_terrain_height(spawn_pos, 32)
-				if height or (liquidflag2 and ent.can_swin) then
-					local node_below = petz.get_node_below(spawn_pos)
-					if not(kitz.item_in_itemlist(node_below.name, petz.settings[random_mob.."_spawn_nodes"])) then
-						spawn = false
-					end
-				end
-			end
-			]]
-			if spawn then
-				spawn_pos = petz.pos_to_spawn(random_mob_name, spawn_pos) --recalculate pos.y for bigger mobs
-				if spawn_pos then
-					local objref = minetest.add_entity(spawn_pos, random_mob_name)
-					--minetest.chat_send_all(random_mob_name.. " spawned!!!")
-					return objref
-				else
-					return false
-				end
-			end
-				--minetest.chat_send_player("singleplayer", "cave="..tostring(cave))
 		end
 	end
 end
