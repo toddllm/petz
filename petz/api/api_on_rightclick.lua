@@ -37,8 +37,13 @@ petz.on_rightclick = function(self, clicker)
 		and ((wielded_item_name == "petz:hairbrush") or (wielded_item_name == "petz:beaver_oil")) then
 			petz.brush(self, wielded_item_name, pet_name)
 	--If feeded
-	elseif kitz.feed(self, clicker, petz.settings.tamagochi_feed_hunger_rate, S("@1 at full health (@2)", S(petz.first_to_upper(self.type)), tostring(self.hp)), "moaning") then
-		if kitz.tame(self, 5, player_name, S("@1 has been tamed!", S(petz.first_to_upper(self.type))), {max = petz.settings.max_tamed_by_owner, count= petz.count_tamed_by_owner(player_name), msg = S("You cannot tame more petz! (@1 max.)", tostring(petz.settings.max_tamed_by_owner))}) then
+	elseif kitz.feed(self, clicker, petz.settings.tamagochi_feed_hunger_rate, S("@1 at full health (@2)",
+		(petz.first_to_upper(self.type)), tostring(self.max_hp)), "moaning")
+		then
+		if kitz.tame(self, 5, player_name, S("@1 has been tamed!", S(petz.first_to_upper(self.type))),
+			{max = petz.settings.max_tamed_by_owner, count= petz.count_tamed_by_owner(player_name),
+			msg = S("You cannot tame more petz! (@1 max.)", tostring(petz.settings.max_tamed_by_owner))})
+			then
 			petz.after_tame(self)
 		end
 		if self.tamed then

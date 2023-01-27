@@ -5,17 +5,14 @@ function kitz.feed(self, clicker, feed_rate, msg_full_health, sound_type)
 	if kitz.item_in_itemlist(wielded_item_name, self.follow) then -- Can eat/tame with item in hand
 		fed = true
 		local creative_mode = minetest.settings:get_bool("creative_mode")
-		if creative_mode == false then -- if not in creative, take item
+		if creative_mode == false then --if not in creative, take item
 			wielded_item:take_item()
 			clicker:set_wielded_item(wielded_item)
 		end
 		--Feed-->
 		kitz.set_health(self, feed_rate or kitz.consts.DEFAULT_FEED_RATE)
-		if self.hp >= self.max_hp then
-			self.hp = self.max_hp
-			if msg_full_health then
-				minetest.chat_send_player(clicker:get_player_name(), msg_full_health)
-			end
+		if self.hp >= self.max_hp and msg_full_health then
+			minetest.chat_send_player(clicker:get_player_name(), msg_full_health)
 		end
 		self.food_count = kitz.remember(self, "food_count", self.food_count + 1) --increase the food count
 		if sound_type then

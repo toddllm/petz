@@ -66,7 +66,7 @@ end
 
 function petz.limit_reached(pos, radius, mob_name)
 
-	local mob_count, same_species_count = 0
+	local mob_count, same_species_count
 	mob_count, same_species_count = petz.count_closest_petz(pos, radius or 53, mob_name)
 	--minetest.chat_send_all("mob_count="..tostring(mob_count) .. ", same_species_count="..tostring(same_species_count))
 
