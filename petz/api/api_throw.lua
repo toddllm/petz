@@ -190,6 +190,8 @@ function petz.register_throw_entity(name, textures, damage, effect, particles, s
 	})
 end
 
+-- tools for debugging
+
 minetest.register_tool("petz:cobweb_gun", {
 	description = "cobweb gun (shoot cobweb projectile)",
 	short_description = "cobweb gun",
