@@ -192,6 +192,12 @@ local settings_def = {
 	type = "boolean",
 	default = true,
 	},
+	--Jump Fences
+	{
+	name = "jump_fences",
+	type = "boolean",
+	default = false,
+	},
 	--Lifetime
 	{
 	name = "lifetime",
