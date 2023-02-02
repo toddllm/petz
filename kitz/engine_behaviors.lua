@@ -40,6 +40,9 @@ function kitz.is_neighbor_node_reachable(self,neighbor)	-- todo: take either num
 	local offset = neighbors[neighbor]
 	local pos=kitz.get_stand_pos(self)
 	local tpos = kitz.get_node_pos(kitz.pos_shift(pos,offset))
+	if kitz.in_group(tpos, "fence") then --don't jump fences
+		return
+	end
 	local recursteps = ceil(self.jump_height)+1
 	local height, liquidflag = kitz.get_terrain_height(tpos,recursteps)
 
@@ -418,7 +421,7 @@ function kitz.hq_follow0(self,tgtobj)	-- probably delete this one
 			local opos = tgtobj:get_pos()
 			if vector.distance(pos,opos) > 3 then
 				local neighbor = kitz.dir2neighbor(vector.direction(pos,opos))
-if not neighbor then return true end		--temp debug
+				if not neighbor then return true end		--temp debug
 				local height, tpos = kitz.is_neighbor_node_reachable(self,neighbor)
 				if height then kitz.dumbstep(self,height,tpos)
 				else

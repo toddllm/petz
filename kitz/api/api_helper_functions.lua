@@ -94,6 +94,22 @@ function kitz.get_random_adjacent_pos(pos, non_oblique)
 	return grid[math.random(1, #grid)]
 end
 
+--Node Helpers
+
+function kitz.in_group(pos, group)
+	local node = minetest.get_node_or_nil(pos)
+	if node then
+		local group_value = minetest.get_item_group(node.name, group)
+		if group_value > 0 then
+			return group_value
+		else
+			return false
+		end
+	else
+		return false
+	end
+end
+
 --Tables
 
 function kitz.is_table(elem)
