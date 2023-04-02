@@ -202,7 +202,7 @@ end
 
 petz.unset_werewolf_appearance = function(player)
 	local meta = player:get_meta()
-	local pre_werewolf_animation = meta:get("petz:pre_werewolf_animation")
+	local pre_werewolf_animation = minetest.deserialize(meta:get_string("petz:pre_werewolf_animation"))
 	if pre_werewolf_animation then
 		-- TODO: this still isn't perfect, but it gets rid of weird glitchy appearances due to mismatched models.
 		-- it results in the player looking exactly like they did before they became a werewolf, until their next
@@ -210,7 +210,6 @@ petz.unset_werewolf_appearance = function(player)
 		-- the wrong item.
 
 		meta:set_string("petz:pre_werewolf_animation", "")
-		pre_werewolf_animation = minetest.deserialize(pre_werewolf_animation)
 		if pre_werewolf_animation.model then
 			player_api.set_model(player, pre_werewolf_animation.model)
 		end
