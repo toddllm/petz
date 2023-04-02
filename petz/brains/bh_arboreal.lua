@@ -3,14 +3,14 @@
 --
 
 function petz.check_tree(self)
-	local node_front_name = petz.node_name_in(self, "front")
+	local node_front_name, _, node = petz.node_name_in(self, "front")
 	--minetest.chat_send_player("singleplayer", node_front_name)
-	local node_top_name= petz.node_name_in(self, "top")
+	local node_top_name = petz.node_name_in(self, "top")
 	--minetest.chat_send_player("singleplayer", node_top_name)
 	if node_front_name and minetest.registered_nodes[node_front_name]
-		and petz.is_tree_like(node_front_name)
 		and node_top_name and minetest.registered_nodes[node_top_name]
-		and node_top_name == "air" then
+		and node_top_name == "air"
+		and petz.is_tree_like(node) then
 			return true
 	else
 		return false
@@ -18,8 +18,8 @@ function petz.check_tree(self)
 end
 
 function petz.is_tree_like(node)
-	if minetest.registered_nodes[node].groups.leaves
-			or minetest.registered_nodes[node].groups.tree then
+	if minetest.registered_nodes[node.name].groups.leaves
+			or ( node.param1 == 0 and minetest.registered_nodes[node.name].groups.tree ) then
 				return true
 	else
 		return false
@@ -73,10 +73,10 @@ function petz.lq_climb(self)
 			return true
 		end
 		local node_top_name= node_top.name
-		local node_front_top_name, front_top_pos = petz.node_name_in(self, "front_top")
+		local node_front_top_name, front_top_pos, node = petz.node_name_in(self, "front_top")
 		--minetest.chat_send_all(node_top_name)
 		if node_top_name and minetest.registered_nodes[node_top_name]
-			and (petz.is_tree_like(node_top_name)) then
+			and (petz.is_tree_like(node)) then
 				local climb = false
 				local climb_pos
 				for i =1, 8 do
@@ -91,7 +91,7 @@ function petz.lq_climb(self)
 						pos.y = pos.y + 0.5
 						climb_pos = pos
 						break
-					elseif not(petz.is_tree_like(node.name)) then
+					elseif not(petz.is_tree_like(node)) then
 						climb = false
 						break
 					end

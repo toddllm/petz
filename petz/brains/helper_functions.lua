@@ -193,7 +193,7 @@ function petz.node_name_in(self, where)
 		end
 		local node = minetest.get_node_or_nil(pos2)
 		if node and minetest.registered_nodes[node.name] then
-			return node.name, pos2
+			return node.name, pos2, node
 		else
 			return nil
 		end
