@@ -45,7 +45,7 @@ petz.timer = function(self)
     minetest.after(petz.settings.tamagochi_check_time, function()
         if kitz.is_alive(self) then
 			if (not(minetest.is_singleplayer())) and (petz.settings.tamagochi_check_if_player_online) then
-				if not minetest.player_exists(self.owner) then --if pet owner is not online
+				if self.owner and not(minetest.player_exists(self.owner)) then --if pet owner is not online
 					return
 				end
 			end
