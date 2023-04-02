@@ -65,6 +65,8 @@ for i = 1, 2  do
 		visual_size_baby = visual_size_baby,
 		collisionbox = collisionbox,
 		collisionbox_baby = collisionbox_baby,
+		selectionbox = collisionbox,
+		selectionbox_baby = collisionbox_baby,
 		collide_with_objects = true,
 
 		static_save = true,

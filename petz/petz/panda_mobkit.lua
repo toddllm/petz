@@ -40,6 +40,8 @@ minetest.register_entity("petz:"..pet_name,{
 	collide_with_objects = true,
 	collisionbox = collisionbox,
 	collisionbox_baby = collisionbox_baby,
+	selectionbox = collisionbox,
+	selectionbox_baby = collisionbox_baby,
 	visual = petz.settings.visual,
 	mesh = mesh,
 	textures = textures,

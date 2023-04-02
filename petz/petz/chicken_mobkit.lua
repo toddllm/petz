@@ -98,6 +98,7 @@ for i=1, 3 do
 		stepheight = 0.1,	--EVIL!
 		collide_with_objects = true,
 		collisionbox = collisionbox,
+		selectionbox = collisionbox,
 		visual = petz.settings.visual,
 		mesh = mesh,
 		textures = textures,

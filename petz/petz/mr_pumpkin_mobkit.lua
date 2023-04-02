@@ -36,6 +36,7 @@ minetest.register_entity("petz:"..pet_name,{
 	stepheight = 0.1,	--EVIL!
 	collide_with_objects = true,
 	collisionbox = collisionbox,
+	selectionbox = collisionbox,
 	visual = petz.settings.visual,
 	mesh = mesh,
 	textures = textures,
