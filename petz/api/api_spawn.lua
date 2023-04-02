@@ -177,6 +177,8 @@ function petz.spawn_mob(spawn_pos, limit_max_mobs, abr, liquidflag)
 					end
 				end
 			end
+		else --mob not registred
+			return
 		end
 		if can_spawn and kitz.item_in_itemlist(node.name, petz.settings[pet_name.."_spawn_nodes"]) then
 			table.insert(candidates_list, pet_name)
@@ -286,6 +288,6 @@ minetest.register_globalstep(function(dtime)
 	local abr = tonumber(minetest.get_mapgen_setting('active_block_range')) or 3
 	local radius =  abr * 16 --recommended
 	local interval = petz.settings.spawn_interval
-	local spawn_pos, liquidflag = kitz.get_spawn_pos_abr(dtime, interval, radius, petz.settings.spawn_chance, 0.2)
+	local spawn_pos, liquidflag = kitz.get_spawn_pos_abr(dtime, interval, radius, petz.settings.spawn_chance, 0)
 	petz.spawn_mob(spawn_pos, true, abr, liquidflag)
 end)
