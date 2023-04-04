@@ -3,6 +3,13 @@
 --
 
 petz.on_die = function(self)
+	local owner = self.owner
+	local spos = self.object and minetest.pos_to_string(vector.round(self.object:get_pos())) or "unknown"
+	if owner then
+		minetest.log("action", string.format("[petz] %s @ %s owned by %s has died", self.name, spos, owner))
+	else
+		minetest.log("action", string.format("[petz] %s @ %s has died", self.name, spos))
+	end
 	if self.dead then
 		kitz.hq_die(self)
 		return

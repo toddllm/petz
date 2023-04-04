@@ -621,7 +621,7 @@ function kitz.hq_liquid_recovery(self,prty)	-- scan for nearest land
 			yaw = 0
 			radius=radius+1
 			if radius > self.view_range then
-				self.hp = 0
+				kitz.hurt(self, self.hp, "stuck in liquid")
 				return true
 			end
 		end

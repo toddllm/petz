@@ -203,7 +203,7 @@ function petz.lq_flyattack(self, target)
 			self.object:set_velocity({x= dir.x*-3, y=vy, z=dir.z * -3})
 			kitz.make_sound(self, 'attack') -- play attack sound if defined
 			if self.attack_kamikaze then
-				self.hp = 0 --bees must to die!!!
+				kitz.hurt(self, self.hp, "kamikaze attack")
 			end
 		else
 			petz.flyto(self, target)

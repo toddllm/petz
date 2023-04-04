@@ -67,6 +67,6 @@ function kitz.set_health(self, rate)
 	if rate >= 0 then
 		kitz.heal(self, hp_amount)
 	else
-		kitz.hurt(self, hp_amount)
+		kitz.hurt(self, hp_amount, "set health")
 	end
 end

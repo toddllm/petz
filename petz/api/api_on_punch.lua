@@ -87,7 +87,11 @@ function petz.on_punch(self, puncher, time_from_last_punch, tool_capabilities, d
 	end
 	--Do Hurt-->
 	local damage = petz.calculate_damage(self, time_from_last_punch, tool_capabilities)
-	kitz.hurt(self, damage)
+	if puncher_is_player then
+		kitz.hurt(self, damage, string.format("punched by player %s", puncher:get_player_name()))
+	else
+		kitz.hurt(self, damage, string.format("punched by non-player"))
+	end
 	--Tamagochi Mode?-->
 	petz.punch_tamagochi(self, puncher) --decrease affinity when in Tamagochi mode
 	--Check if killed by player and save it-->
