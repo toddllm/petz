@@ -4,8 +4,8 @@ petz.register("gecko", {
 	backface_culling = false,
 	skin_colors = {"green", "yellow", "orange", "blue"},
 	collisionbox = {
-		p1 = {x= -0.1875, y = -0.5, z = -0.125},
-		p2 = {x= 0.1875, y = -0.25, z = 0.1875}
+		p1 = {x= -0.125, y = -0.5, z = -0.125},
+		p2 = {x= 0.125, y = -0.3125, z = 0.4375}
 	},
 	is_pet = false,
 	lay_eggs = "node",
