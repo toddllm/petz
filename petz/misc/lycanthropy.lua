@@ -263,18 +263,17 @@ petz.set_lycanthropy = function(player)
 		local clan_index = math.random(1, #lycanthropy.clans)
 		meta:set_int("petz:werewolf_clan_idx", clan_index)
 		minetest.chat_send_player(player_name, S("You've fallen ill with Lycanthropy!"))
-		
+
 		petz.set_werewolf(player)
 	end
 end
 
 petz.cure_lycanthropy = function(player)
 	local player_name = player:get_player_name()
-	local meta = player:get_meta()
 	if petz.is_werewolf(player) then
 		petz.unset_werewolf(player)
 	end
-	meta:set_int("petz:lycanthropy", 0)
+	player:get_meta():set_int("petz:lycanthropy", 0)
 	minetest.chat_send_player(player_name, S("You've cured of Lycanthropy"))
 end
 
@@ -409,8 +408,9 @@ minetest.register_chatcommand("werewolf", {
     },
     func = function(name, param)
 		local subcommand, player_name = string.match(param, "([%a%d_-]+) ([%a%d_-]+)")
-		if not(subcommand == "set") and not(subcommand == "unset") and not(subcommand == "reset") and not(subcommand == "clan") then
-			return true, "Error: The subcomands for the werewolf command are 'set' / 'unset' / 'cure' / 'clan'"
+		if not(subcommand == "set") and not(subcommand == "unset") and not(subcommand == "reset")
+			and not(subcommand == "clan") and not(subcommand == "cure") then
+				return true, "Error: The subcomands for the werewolf command are 'set' / 'unset' / 'cure' / 'clan'"
 		end
 		if player_name then
 			local player = minetest.get_player_by_name(player_name)
@@ -430,12 +430,16 @@ minetest.register_chatcommand("werewolf", {
 						petz.cure_lycanthropy(player)
 						return true, "The lycanthropy of".." "..player_name .." ".."was cured!"
 					else
-						return false, player_name .. " doesn't have"
+						return false, player_name .." ".."is not a werewolf!"
 					end
 				elseif subcommand == "clan" then
-					local meta = player:get_meta()
-					local clan_name = lycanthropy.clans[meta:get_int("petz:werewolf_clan_idx")].name
-					return true, "The clan of".." "..player_name .." ".."is".." '"..clan_name.."'"
+					if petz.has_lycanthropy(player) then
+						local meta = player:get_meta()
+						local clan_name = lycanthropy.clans[meta:get_int("petz:werewolf_clan_idx")].name
+						return true, "The clan of".." "..player_name .." ".."is".." '"..clan_name.."'"
+					else
+						return false, player_name .." ".."is not a werewolf!"
+					end
 				end
 			else
 				return false, player_name .." ".."not online!"
