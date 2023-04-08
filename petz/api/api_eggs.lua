@@ -8,12 +8,12 @@ petz.lay_egg = function(self)
 	if self.eggs_count >= max_laid_eggs then
 		return
 	end
-	if petz.isinliquid(self) then --do not put eggs when in liquid
-		return
-	end
 	local pos = self.object:get_pos()
 	local laid_egg = false
 	if self.lay_eggs == "item" or self.lay_eggs == "node" then
+		if petz.isinliquid(self) then --do not put eggs when in liquid
+			return
+		end
 		if petz.limit_reached(pos, nil, self.type) then
 			return
 		end
