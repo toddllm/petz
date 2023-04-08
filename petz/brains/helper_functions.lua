@@ -109,7 +109,7 @@ function petz.is_jumping(self)
 end
 
 function petz.check_ground_suffocation(self, pos)
-	pos.y = pos.y - 0.1
+	pos.y = pos.y
 	if self.can_fly then --some flying mobs can escape from cages by the roof
 		return
 	end
