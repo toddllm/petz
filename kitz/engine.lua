@@ -443,10 +443,23 @@ function kitz.exists(thing)
 	end
 end
 
-function kitz.hurt(luaent,dmg)
+function kitz.hurt(luaent, dmg, reason)
 	if not luaent then return false end
 	if type(luaent) == 'table' then
-		luaent.hp = max((luaent.hp or 0) - dmg,0)
+		local old_hp = luaent.hp or 0
+		local new_hp = max(old_hp - dmg, 0)
+		luaent.hp = new_hp
+		local name = luaent.name
+		local spos = luaent.object and minetest.pos_to_string(vector.round(luaent.object:get_pos())) or "unknown"
+		local owner = luaent.owner
+		reason = reason or "unknown"
+		if owner and owner ~= "" then
+			minetest.log("action", string.format("[petz] %s @ %s owned by %s took %s damage because %s",
+				name, spos, owner, old_hp - new_hp, reason))
+		else
+			minetest.log("action", string.format("[petz] %s @ %s took %s damage because %s",
+				name, spos, old_hp - new_hp, reason))
+		end
 	end
 end
 
@@ -718,7 +731,7 @@ function kitz.vitals(self)
 	local vel = self.object:get_velocity()
 	local velocity_delta = abs(self.lastvelocity.y - vel.y)
 	if velocity_delta > kitz.safe_velocity then
-		self.hp = self.hp - floor(self.max_hp * min(1, velocity_delta/kitz.terminal_velocity))
+		kitz.hurt(self, floor(self.max_hp * min(1, velocity_delta/kitz.terminal_velocity)), "terminal velocity")
 	end
 
 	-- vitals: oxygen
@@ -731,7 +744,9 @@ function kitz.vitals(self)
 			self.oxygen = self.lung_capacity
 		end
 
-		if self.oxygen <= 0 then self.hp=0 end	-- drown
+		if self.oxygen <= 0 then
+			kitz.hurt(self, self.hp, "drown")
+		end
 	end
 end
 
