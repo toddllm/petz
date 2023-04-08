@@ -9,7 +9,7 @@ function petz.env_damage(self, pos, prty)
 	local node = minetest.get_node_or_nil(pos)
 	if (stand_node and (stand_node.groups.igniter))
 		or (node and (minetest.get_item_group(node.name, "igniter") > 0)) then --if fire or lava
-			kitz.hurt(self, petz.settings.igniter_damage)
+			kitz.hurt(self, petz.settings.igniter_damage, "standing in igniter")
 			local air_pos = minetest.find_node_near(stand_pos, self.view_range, "air", false)
 			if air_pos then
 				kitz.hq_goto(self, prty, air_pos)
@@ -32,7 +32,7 @@ function petz.env_damage(self, pos, prty)
 			end
 			local node2 = minetest.get_node_or_nil(node_pos)
 			if node2 and node2.name == noxious_node.name then
-				kitz.hurt(self, noxious_node.damage or 1)
+				kitz.hurt(self, noxious_node.damage or 1, "standing in noxious node")
 			end
 		end
 	end
