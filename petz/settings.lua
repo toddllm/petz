@@ -319,7 +319,7 @@ local settings_def = {
 	default = 1200,
 	},
 	{
-	name = "max_laid_anteggs",
+	name = "ant_max_laid_eggs",
 	type = "number",
 	default = 500,
 	},

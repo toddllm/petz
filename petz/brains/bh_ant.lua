@@ -48,7 +48,7 @@ function petz.bh_create_anthill(self, pos)
 end
 
 function petz.bh_lay_antegg(self, pos)
-	if self.eggs_count >= petz.settings.max_laid_anteggs then --the limit for laying eggs
+	if self.eggs_count >= petz.settings.ant_max_laid_eggs then --the limit for laying eggs
 		return
 	end
 	--Lay in front (air node) and above a Ant Bed Node
