@@ -20,6 +20,17 @@ function petz.bh_breed(self, pos)
 					couple.is_rut = kitz.remember(couple, "is_rut", false)
 					couple.is_pregnant = kitz.remember(couple, "is_pregnant", true)
 					couple.father_genes = kitz.remember(couple, "father_genes", self.genes)
+
+					if self.is_mountable then -- store father stats in mother if breeding pony or camel
+						local speedup = (self.horseshoes or 0) * petz.settings.horseshoe_speedup
+						local father_veloc_stats = {
+							max_speed_forward = (self.max_speed_forward - speedup),
+							max_speed_reverse = (self.max_speed_reverse - speedup),
+							accel = (self.accel - speedup)
+						}
+						couple.father_veloc_stats = kitz.remember(couple, "father_veloc_stats", father_veloc_stats)
+					end
+
 					petz.do_particles_effect(couple.object, couple.object:get_pos(), "pregnant", petz.compose_pregnant_icon(self))
 				end
 			end
