@@ -186,6 +186,13 @@ local settings_def = {
 	type = "boolean",
 	default = false,
 	},
+	{
+	name = "spawn_areas",
+	type = "string",
+	split = true,
+	split_separator = "|",
+	default = "",
+	},
 	--Parent Search
 	{
 	name = "parent_search",
@@ -497,7 +504,13 @@ for key, value in ipairs(settings_def) do
 		end
 		local str = user:get(value.name) or settings:get(value.name, value.default)
 		if str and value.split then
-			str = string.split(str)
+			local split_separator
+			if value.split_separator then
+				split_separator = value.split_separator
+			else
+				split_separator = ","
+			end
+			str = string.split(str, split_separator)
 		end
 		petz.settings[value.name] = str
 	elseif value.type == "number" then
