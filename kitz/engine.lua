@@ -223,6 +223,16 @@ function kitz.get_terrain_height(pos,steps,dir,liquidflag) --dir is 1=up, -1=dow
 	end
 end
 
+local function spawn_inside_area(spawn_pos, area)
+	if (area[1].x <= spawn_pos.x) and (spawn_pos.x <= area[2].x)
+		and (area[1].y <= spawn_pos.y) and (spawn_pos.y <= area[2].y)
+			and (area[1].z <= spawn_pos.z) and (spawn_pos.z <= area[2].z) then
+				return true
+	else
+		return false
+	end
+end
+
 function kitz.get_spawn_pos_abr(abr)
 	local players = minetest.get_connected_players()
 	local player = players[math.random(#players)] --choose a random player
@@ -237,6 +247,23 @@ function kitz.get_spawn_pos_abr(abr)
 	local height, liquidflag = kitz.get_terrain_height(spawn_pos, 32)
 
 	if height then
+
+		if petz.settings.spawn_areas and not kitz.table_is_empty(petz.settings.spawn_areas) then
+			for _, _area in ipairs(petz.settings.spawn_areas) do
+				local points = string.split(_area, ';')
+				local area = {}
+				for i = 1, 2 do
+					local axis = string.split(points[i])
+					if #axis == 3 then
+						area[i] = vector.new(tonumber(axis[1]), tonumber(axis[2]), tonumber(axis[3]))
+					end
+				end
+				if #area == 2 and not(spawn_inside_area(spawn_pos, area)) then
+					return false, false
+				end
+			end
+		end
+
 		spawn_pos.y = height
 		return spawn_pos, liquidflag
 	end

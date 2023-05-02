@@ -121,6 +121,9 @@ function kitz.is_table(elem)
 end
 
 function kitz.table_is_empty(t)
+	if not(type(t) == "table") then
+		return false
+	end
 	local next = next
 	if next(t) == nil then
 		return true
