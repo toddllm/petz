@@ -80,8 +80,7 @@ end
 
 function petz.spawn_mob(spawn_pos, limit_max_mobs, abr, liquidflag)
 
-	if not(spawn_pos) --spawn_pos = nil
-		or (petz.settings.no_spawn_in_protected and minetest.is_protected(spawn_pos, "")) then --not protected area
+	if (petz.settings.no_spawn_in_protected and minetest.is_protected(spawn_pos, "")) then --not protected area
 		return false
 	end
 
@@ -197,7 +196,7 @@ function petz.spawn_mob(spawn_pos, limit_max_mobs, abr, liquidflag)
 
 	--Spawn chance-->
 	local spawn_chance = kitz.math.clamp(petz.settings[random_mob.."_spawn_chance"], 0, 1)
-	if not(math.random(1, math.floor((1 / spawn_chance) + 0.5)) == 1) then
+	if math.random(1, math.floor((1 / spawn_chance) + 0.5)) ~= 1 then
 		return
 	end
 
@@ -284,10 +283,18 @@ end
 	--end
 --end)
 
+local spawn_timer = 0
+
 minetest.register_globalstep(function(dtime)
+	spawn_timer = spawn_timer + dtime
+	if spawn_timer > petz.settings.spawn_interval then
+		spawn_timer = 0
+	else
+		return
+	end
 	local abr = tonumber(minetest.get_mapgen_setting('active_block_range')) or 3
-	local radius =  abr * 16 --recommended
-	local interval = petz.settings.spawn_interval
-	local spawn_pos, liquidflag = kitz.get_spawn_pos_abr(dtime, interval, radius, petz.settings.spawn_chance, 0)
-	petz.spawn_mob(spawn_pos, true, abr, liquidflag)
+	local spawn_pos, liquidflag = kitz.get_spawn_pos_abr(abr)
+	if spawn_pos then
+		petz.spawn_mob(spawn_pos, true, abr, liquidflag)
+	end
 end)

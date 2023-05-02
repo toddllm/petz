@@ -177,10 +177,6 @@ function kitz.string_is_empty(s)
 end
 
 --Math
-function kitz.math.clamp(val, lower, upper)
-    assert(val and lower and upper, "not very useful error message here")
-    if lower > upper then  --swap if boundaries supplied the wrong way
-		lower, upper = upper, lower
-	end
-    return math.max(lower, math.min(upper, val))
+function kitz.math.clamp(val, low, high)
+	return math.min(math.max(val, low), high)
 end
