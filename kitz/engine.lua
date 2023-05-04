@@ -233,12 +233,15 @@ local function spawn_inside_area(spawn_pos, area)
 	end
 end
 
-function kitz.get_spawn_pos_abr(abr)
+function kitz.get_spawn_pos_abr(_abr)
 	local players = minetest.get_connected_players()
+	if #players == 0 then
+		return
+	end
 	local player = players[math.random(#players)] --choose a random player
 	local player_pos = player:get_pos()
 
-	local radius =  abr * 16 --recommended
+	local radius =  _abr * 16 --recommended
 
 	local spawn_point = vector.new(math.random(-radius, radius), 0, math.random(-radius, radius))
 

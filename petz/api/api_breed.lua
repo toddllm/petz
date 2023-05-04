@@ -174,7 +174,7 @@ petz.growth_timer = function(self, dtime)
 		pos.y = pos.y + 1.01 -- grows a litte up
 		self.object:set_pos(pos)
 		local obj
-		if self.parents then -- for chicken only
+		if self.parents then --for chicken only
 			kitz.remove_mob(self)
 			obj = minetest.add_entity(pos, self.parents[math.random(1, #self.parents)])
 			if not obj then --abortion
