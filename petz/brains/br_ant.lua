@@ -64,9 +64,9 @@ function petz.ant_brain(self)
 		end
 
 		if prty < 6 and self.lay_eggs then
-			local lay_antegg_timing= petz.settings.lay_antegg_timing
+			local lay_antegg_timing = petz.settings.lay_antegg_timing
 			if self.eggs_count <= petz.settings.ant_population then --quick laid in the beginning
-				lay_antegg_timing= lay_antegg_timing / petz.settings.ant_population
+				lay_antegg_timing = lay_antegg_timing / petz.settings.ant_population
 			end
 			if kitz.timer(self, lay_antegg_timing) then
 				petz.bh_lay_antegg(self, pos)

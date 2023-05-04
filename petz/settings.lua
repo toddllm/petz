@@ -328,7 +328,7 @@ local settings_def = {
 	{
 	name = "ant_max_laid_eggs",
 	type = "number",
-	default = 500,
+	default = 50,
 	},
 	{
 	name = "ant_population",
