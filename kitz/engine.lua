@@ -234,24 +234,24 @@ local function spawn_inside_area(spawn_pos, area)
 end
 
 function kitz.get_spawn_pos_abr(_abr)
+
 	local players = minetest.get_connected_players()
 	if #players == 0 then
 		return
 	end
+
 	local player = players[math.random(#players)] --choose a random player
 	local player_pos = player:get_pos()
 
 	local radius =  _abr * 16 --recommended
-
 	local spawn_point = vector.new(math.random(-radius, radius), 0, math.random(-radius, radius))
-
 	local spawn_pos = vector.add(player_pos, spawn_point)
 
 	local height, liquidflag = kitz.get_terrain_height(spawn_pos, 32)
 
 	if height then
-
 		if petz.settings.spawn_areas and not kitz.table_is_empty(petz.settings.spawn_areas) then
+			local spawn_in_area
 			for _, _area in ipairs(petz.settings.spawn_areas) do
 				local points = string.split(_area, ';')
 				local area = {}
@@ -261,9 +261,13 @@ function kitz.get_spawn_pos_abr(_abr)
 						area[i] = vector.new(tonumber(axis[1]), tonumber(axis[2]), tonumber(axis[3]))
 					end
 				end
-				if #area == 2 and not(spawn_inside_area(spawn_pos, area)) then
-					return false, false
+				if #area == 2 and spawn_inside_area(spawn_pos, area) then
+					spawn_in_area = true
+					break --the spawn is inside an area
 				end
+			end
+			if not spawn_in_area then
+				return false, false --no spawn inside any area
 			end
 		end
 
