@@ -13,7 +13,7 @@ minetest.register_craft({
     output = 'bale:bale',
     recipe = {
         {'farming:wheat', 'farming:wheat', 'farming:wheat'},
-        {'farming:wheat', 'farming:wheat', 'farming:wheat'},
+        {'farming:wheat', 'farming:string', 'farming:wheat'},
         {'farming:wheat', 'farming:wheat', 'farming:wheat'},
     }
 })
