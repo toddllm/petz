@@ -48,8 +48,8 @@ function petz.spawn_is_in_deep(nodepos)
 end
 
 function petz.pos_to_spawn(pet_name, pos)
-	if not minetest.registered_entities[pet_name] then
-		return nil
+	if not minetest.registered_entities[pet_name].visual_size then
+		return pos
 	end
 	local new_y = minetest.registered_entities[pet_name].visual_size.y / 10
 	if new_y < 1 then
