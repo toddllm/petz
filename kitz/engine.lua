@@ -251,7 +251,7 @@ function kitz.get_spawn_pos_abr(_abr)
 
 	if height then
 		if petz.settings.spawn_areas and not kitz.table_is_empty(petz.settings.spawn_areas) then
-			local spawn_in_area
+			local spawn_in_area --false by default
 			for _, _area in ipairs(petz.settings.spawn_areas) do
 				local points = string.split(_area, ';')
 				local area = {}
@@ -262,8 +262,8 @@ function kitz.get_spawn_pos_abr(_abr)
 					end
 				end
 				if #area == 2 and spawn_inside_area(spawn_pos, area) then
-					spawn_in_area = true
-					break --the spawn is inside an area
+					spawn_in_area = true --the spawn is inside an area
+					break
 				end
 			end
 			if not spawn_in_area then
