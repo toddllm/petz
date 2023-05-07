@@ -223,14 +223,38 @@ function kitz.get_terrain_height(pos,steps,dir,liquidflag) --dir is 1=up, -1=dow
 	end
 end
 
-local function spawn_inside_area(spawn_pos, area)
-	if (area[1].x <= spawn_pos.x) and (spawn_pos.x <= area[2].x)
-		and (area[1].y <= spawn_pos.y) and (spawn_pos.y <= area[2].y)
-			and (area[1].z <= spawn_pos.z) and (spawn_pos.z <= area[2].z) then
-				return true
-	else
-		return false
+local function sort(area)
+    local a
+	if not (area[1].x < area[2].x) then
+		a = area[1].x
+		area[1].x = area[2].x
+		area[2].x = a
 	end
+
+	if not (area[1].y < area[2].y) then
+		a = area[1].y
+		area[1].y = area[2].y
+		area[2].y = a
+	end
+
+	if not (area[1].z < area[2].z) then
+		a = area[1].z
+		area[1].z = area[2].z
+		area[2].z = a
+	end
+
+	return area
+
+end -- lower()
+
+local function spawn_inside_area(spawn_pos, area)
+	sort(area)
+
+	if not (spawn_pos.x >= area[1].x and spawn_pos.x <= area[2].x) then return false end
+	if not (spawn_pos.y >= area[1].y and spawn_pos.y <= area[2].y) then return false end
+	if not (spawn_pos.z >= area[1].x and spawn_pos.z <= area[2].z) then return false end
+	return true
+
 end
 
 function kitz.get_spawn_pos_abr(_abr)
