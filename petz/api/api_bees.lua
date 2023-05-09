@@ -172,11 +172,13 @@ minetest.register_node("petz:beehive", {
 				local spawn_bee_pos = petz.spawn_bee_pos(pos)
 				if spawn_bee_pos then
 					local bee = minetest.add_entity(spawn_bee_pos, "petz:bee")
-					local bee_entity = bee:get_luaentity()
-					bee_entity.beehive = kitz.remember(bee_entity, "beehive", pos)
-					bee_count = bee_count - 1
-					meta:set_int("bee_count", bee_count)
-					petz.set_infotext_beehive(meta, honey_count, bee_count)
+					if bee then
+						local bee_entity = bee:get_luaentity()
+						bee_entity.beehive = kitz.remember(bee_entity, "beehive", pos)
+						bee_count = bee_count - 1
+						meta:set_int("bee_count", bee_count)
+						petz.set_infotext_beehive(meta, honey_count, bee_count)
+					end
 				end
 			end
 		end

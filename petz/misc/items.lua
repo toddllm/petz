@@ -212,11 +212,13 @@ minetest.register_node("petz:fishtank", {
 				meta:set_string("has_fish", "true")
 				meta:set_string("fish_type", itemstack_name)
 				local fish_entity = minetest.add_entity({x=pos.x, y=pos.y, z=pos.z}, itemstack_name.."_entity_sprite")
-				local itemstack_meta = itemstack:get_meta()
-				fish_entity:set_properties({textures=itemstack_meta:get_string("textures").."^[transformFX"})
-				fish_entity:set_sprite({x=0, y=0}, 16, 1.0, false)
-				itemstack:take_item()
-				clicker:set_wielded_item(itemstack)
+				if fish_entity then
+					local itemstack_meta = itemstack:get_meta()
+					fish_entity:set_properties({textures=itemstack_meta:get_string("textures").."^[transformFX"})
+					fish_entity:set_sprite({x=0, y=0}, 16, 1.0, false)
+					itemstack:take_item()
+					clicker:set_wielded_item(itemstack)
+				end
 			end
 		elseif ((itemstack_name == "mobs:net") or (itemstack_name == "fireflies:bug_net")
 			or (itemstack_name == "petz:net")) and (has_fish == "true") then
@@ -414,7 +416,7 @@ for i=1, 2 do
 			local ent = minetest.add_entity(pos, "petz:"..bottled_mob, '{owner ='.. meta:get_string("owner")..', tamed = true}')
 			local texture_no = meta:get_int("petz:texture_no")
 			--minetest.chat_send_all("texture= "..tostring(meta:get_int("petz:texture_no")))
-			if texture_no then
+			if ent and texture_no then
 				local ent_ref = ent:get_luaentity()
 				if texture_no == 0 then
 					texture_no = math.random(1, #ent_ref.textures)
