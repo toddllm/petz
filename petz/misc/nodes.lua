@@ -218,10 +218,13 @@ minetest.register_node("petz:chicken_nest_egg", {
 			if not minetest.registered_entities["petz:chicken"] then
 				return
 			end
-			local entity = minetest.add_entity(pos_above, "petz:chicken"):get_luaentity()
-			entity.is_baby = kitz.remember(entity, "is_baby", true) --it is a baby
-			entity.growth_time = kitz.remember(entity, "growth_time", 0.0) --the chicken to grow
-			minetest.set_node(pos, {name= "petz:ducky_nest"})
+			local obj = minetest.add_entity(pos_above, "petz:chicken")
+			if obj then
+				local entity = obj:get_luaentity()
+				entity.is_baby = kitz.remember(entity, "is_baby", true) --it is a baby
+				entity.growth_time = kitz.remember(entity, "growth_time", 0.0) --the chicken to grow
+				minetest.set_node(pos, {name= "petz:ducky_nest"})
+			end
 			return true
 		end
 	end,

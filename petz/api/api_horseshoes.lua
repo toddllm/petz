@@ -48,9 +48,10 @@ petz.horseshoes_reset = function(self)
 	local pos = self.object:get_pos()
 	for i = 1, self.horseshoes do
 		obj = minetest.add_item(pos, "petz:horseshoe")
-		kitz.drop_velocity(obj)
+		if obj then
+			kitz.drop_velocity(obj)
+		end
 	end
 	self.horseshoes = kitz.remember(self, "horseshoes", 0)
 	kitz.make_sound("object", self.object, "petz_pop_sound", petz.settings.max_hear_distance)
 end
-
