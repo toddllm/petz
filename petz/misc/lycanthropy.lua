@@ -393,7 +393,7 @@ if not minetest.get_modpath("hbhunger") then
 				minetest.chat_send_player(user_name, S("Werewolves only can eat raw meat!"))
 				return itemstack
 			end
-    end
+    	end
 	)
 end
 
