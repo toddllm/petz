@@ -90,11 +90,17 @@ local use_player_monoids = minetest.get_modpath("player_monoids")
 ---
 
 function petz.is_werewolf(player)
+	if not minetest.is_player(player) then
+		return false
+	end
 	local meta = player:get_meta()
 	return meta:get_int("petz:werewolf") == 1
 end
 
 function petz.has_lycanthropy(player)
+	if not minetest.is_player(player) then
+		return false
+	end
 	local meta = player:get_meta()
 	return meta:get_int("petz:lycanthropy") == 1
 end
@@ -312,23 +318,19 @@ end)
 --- On_punch: Less damage if you were a werewolf
 ---
 
-minetest.register_on_punchplayer(
-	function(player, hitter, time_from_last_punch, tool_capabilities, dir, damage)
-		if not(petz.is_werewolf(player)) or not(hitter) then
-			return
-		end
-		local hp = player:get_hp()
-		if hp - damage > 0 or hp <= 0 then
-			return
-		end
-		local werewolf_damage_reduction = 0.5
-		local overrided_damage = (tool_capabilities.damage_groups.fleshy or 1) * werewolf_damage_reduction
-		hp = hp - overrided_damage
-		--minetest.chat_send_player(hitter:get_player_name(), tostring(overrided_damage))
-		player:set_hp(hp)
-		return true
+-- rounds up or down by chance depending on the fractional part
+local function probabilistic_round(v)
+	return math.floor(v + math.random())
+end
+
+minetest.register_on_player_hpchange(function(player, hp_change, reason)
+	if reason and reason.type == "punch" and petz.is_werewolf(player) and hp_change < 0 then
+		local werewolf_damage_reduction = petz.settings.lycanthropy_werewolf_damage_reduction
+		return probabilistic_round(hp_change * (1 - werewolf_damage_reduction))
 	end
-)
+
+	return hp_change
+end, true)
 
 ---
 --- Cycle day/night to change

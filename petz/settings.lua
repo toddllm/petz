@@ -478,6 +478,11 @@ local settings_def = {
 	type = "number",
 	default = 10,
 	},
+	{
+	name = "lycanthropy_werewolf_damage_reduction",
+	type = "number",
+	default = 0.5,
+	},
 	--Server Cron Tasks
 	{
 	name = "clear_mobs_time",
