@@ -384,7 +384,7 @@ minetest.register_on_joinplayer(
 -- A werewolf only can eat raw meat
 --
 
-if minetest.get_modpath("hbhunger") then
+if not minetest.get_modpath("hbhunger") then
 	minetest.register_on_item_eat(
 		function(hp_change, replace_with_item, itemstack, user, pointed_thing)
 			if petz.is_werewolf(user) and (minetest.get_item_group(itemstack:get_name(), "food_meat_raw") == 0) then
