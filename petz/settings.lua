@@ -1,7 +1,16 @@
 local modpath = ...
 
+--The default and (it should) not writable conf file
 local settings = Settings(modpath .. "/petz.conf")
-local user = Settings(modpath .. "/user.conf")
+
+--The user.conf file (or petz.conf in the world dir) to override the default 'petz.conf'
+local user_conf_file
+if kitz.file_exists(minetest.get_worldpath().."/petz.conf") then
+	user_conf_file = minetest.get_worldpath().."/petz.conf"
+else
+	user_conf_file = modpath .. "/user.conf"
+end
+local user = Settings(user_conf_file)
 
 -- All the settings definitions
 local settings_def = {

@@ -174,7 +174,6 @@ function kitz.create_inv_cube(tiles)
 end
 
 -- Strings
-
 function kitz.string_is_empty(s)
   return s == nil or s == ''
 end
@@ -183,3 +182,15 @@ end
 function kitz.math.clamp(val, low, high)
 	return math.min(math.max(val, low), high)
 end
+
+--Files
+function kitz.file_exists(filename)
+	local f = io.open(filename, "r")
+	if f ~= nil then
+		io.close(f)
+		return true
+	else
+		return false
+	end
+end
+
