@@ -76,7 +76,7 @@ function petz.lq_climb(self)
 		local node_front_top_name, front_top_pos, node = petz.node_name_in(self, "front_top")
 		--minetest.chat_send_all(node_top_name)
 		if node_top_name and minetest.registered_nodes[node_top_name]
-			and (petz.is_tree_like(node)) then
+			and node_front_top_name and (petz.is_tree_like(node)) then
 				local climb = false
 				local climb_pos
 				for i =1, 8 do
