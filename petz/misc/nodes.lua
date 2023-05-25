@@ -439,7 +439,7 @@ minetest.register_node("petz:cat_basket", {
 		local obj_list = minetest.get_objects_inside_radius(pos_above, 1) --check if already a kitty
 		local pos_kitty = {
 			x = pos.x,
-			y = pos.y,
+			y = pos.y+0.5,
 			z = pos.z-0.125,
 		}
 		for _, obj in ipairs(obj_list) do
