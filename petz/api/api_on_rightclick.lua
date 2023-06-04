@@ -62,6 +62,10 @@ petz.on_rightclick = function(self, clicker)
 			minetest.chat_send_player(player_name, S("You are not the owner of the").." "..S(pet_name)..".")
 			return
 		end
+		if self.saddlebag then
+			minetest.chat_send_player(player_name, S("You cannot capture animals with a SADDLEBAG!"))
+			return
+		end
 		if self.owner== nil or self.owner== "" or (not(is_owner) and petz.settings.rob_mobs) then
 			kitz.set_owner(self, player_name)
 			petz.after_tame(self)
