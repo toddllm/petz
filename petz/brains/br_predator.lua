@@ -19,16 +19,16 @@ function petz.predator_brain(self)
 
 		local prty = kitz.get_queue_priority(self)
 
+		if prty < 45 then
+			petz.env_damage(self, pos, 45) --enviromental damage: lava, fire...
+		end
+
 		if prty < 40 and self.isinliquid then
 			kitz.hq_liquid_recovery(self, 40)
 			return
 		end
 
 		local player = kitz.get_nearby_player(self) --get the player close
-
-		if prty < 30 then
-			petz.env_damage(self, pos, 30) --enviromental damage: lava, fire...
-		end
 
 		--Follow Behaviour
 		if prty < 16 then

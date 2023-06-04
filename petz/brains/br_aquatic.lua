@@ -31,6 +31,10 @@ function petz.aquatic_brain(self)
 		local prty = kitz.get_queue_priority(self)
 		local player = kitz.get_nearby_player(self)
 
+		if prty < 30 then
+			petz.env_damage(self, pos, 30) --enviromental damage: lava, fire...
+		end
+
 		--Follow Behaviour
 		if prty < 16 then
 			if petz.bh_start_follow(self, pos, player, 16) then

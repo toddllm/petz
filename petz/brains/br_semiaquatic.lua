@@ -35,6 +35,10 @@ function petz.semiaquatic_brain(self)
 			--end
 		--end
 
+		if prty < 30 then
+			petz.env_damage(self, pos, 30) --enviromental damage: lava, fire...
+		end
+
 		--Follow Behaviour
 		if prty < 16 then
 			if petz.bh_start_follow(self, pos, player, 16) then
