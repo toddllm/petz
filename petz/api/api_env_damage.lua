@@ -7,7 +7,7 @@ function petz.env_damage(self, pos, prty)
 	local stand_node_pos = kitz.get_node_pos(stand_pos)
 	local stand_node = kitz.nodeatpos(stand_node_pos)
 	local node = minetest.get_node_or_nil(pos)
-	minetest.chat_send_all("dd"..node.name)
+	--minetest.chat_send_all("dd"..node.name)
 	if (stand_node and (stand_node.groups.igniter))
 		or (node and (minetest.get_item_group(node.name, "igniter") > 0)) then --if fire or lava
 			kitz.hurt(self, petz.settings.igniter_damage, "standing in igniter")
