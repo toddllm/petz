@@ -93,7 +93,7 @@ function petz.semiaquatic_brain(self)
 		-- Default Random Sound
 		kitz.make_misc_sound(self, petz.settings.misc_sound_chance, petz.settings.max_hear_distance)
 
-		if self.petz_type == "beaver" then --beaver's dam
+		if self.type == "beaver" then --beaver's dam
 			petz.create_dam(self, pos)
 		end
 

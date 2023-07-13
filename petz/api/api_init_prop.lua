@@ -227,7 +227,8 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 				end
 				self.texture_no = petz.genetics_texture(self, textures_count)
 			else -- mutation
-				local mutation_gen = math.random((#self.skin_colors-self.mutation+1), #self.skin_colors) --select the mutation in the last skins
+				--select the mutation in the last skins-->
+				local mutation_gen = math.random((#self.skin_colors-self.mutation+1), #self.skin_colors)
 				self.genes["gen1"] = mutation_gen
 				self.genes["gen2"] = mutation_gen
 				self.texture_no = mutation_gen
