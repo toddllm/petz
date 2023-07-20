@@ -8,7 +8,7 @@ petz.create_pet = function(placer, itemstack, pet_name, pos)
 	local meta = itemstack:get_meta()
 	local staticdata = meta:get_string("staticdata")
 	local static_data_table = minetest.deserialize(staticdata)
-	if static_data_table and static_data_table["memory"] --if dead then..
+	if static_data_table and static_data_table["memory"] --if dead then...
 		and static_data_table["memory"]["dead"] then
 			local player_name = placer:get_player_name()
 			if player_name then

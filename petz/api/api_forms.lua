@@ -211,6 +211,7 @@ petz.create_form = function(player_name, buy)
 				tab_form = tab_form .. "image[2,0.375;1,1;petz_lifetime.png]" .. "label[3,0.75;"..S("Lifetime").."]".."label[3,1;"..tostring(pet.lifetime).."]"
 			end
 		end
+		--minetest.chat_send_all(pet.genes["gen1"]..","..pet.genes["gen2"])
 	elseif (tab_id == 3 and not(buy) and pet.dreamcatcher) then
 		form_size.w = form_size.w + 2
 		form_size.h = form_size.h + 1

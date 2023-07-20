@@ -197,26 +197,27 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 		--Mobs that can have babies
 		if self.breed then
 			--Genetics
+			local gen1, gen2
 			local genes_mutation = false
 			if self.mutation and (self.mutation > 0) and math.random(1, 200) == 1 then
 				genes_mutation = true
 			end
 			if not genes_mutation then
 				if not baby_born then
-					self.genes["gen1"] = petz.get_gen(self)
-					self.genes["gen2"] = petz.get_gen(self)
+					gen1 = petz.get_gen(self)
+					gen2 = petz.get_gen(self)
 					--minetest.chat_send_player("singleplayer", tostring(self.genes["gen1"]))
 					--minetest.chat_send_player("singleplayer", tostring(self.genes["gen2"]))
 				else
 					if math.random(1, 2) == 1 then
-						self.genes["gen1"] = static_data_table["gen1_father"]
+						gen1 = static_data_table["gen1_father"]
 					else
-						self.genes["gen1"] = static_data_table["gen2_father"]
+						gen1 = static_data_table["gen2_father"]
 					end
 					if math.random(1, 2) == 1 then
-						self.genes["gen2"] = static_data_table["gen1_mother"]
+						gen2 = static_data_table["gen1_mother"]
 					else
-						self.genes["gen2"] = static_data_table["gen2_mother"]
+						gen2 = static_data_table["gen2_mother"]
 					end
 				end
 				local textures_count
@@ -229,11 +230,11 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 			else -- mutation
 				--select the mutation in the last skins-->
 				local mutation_gen = math.random((#self.skin_colors-self.mutation+1), #self.skin_colors)
-				self.genes["gen1"] = mutation_gen
-				self.genes["gen2"] = mutation_gen
+				gen1 = mutation_gen
+				gen2 = mutation_gen
 				self.texture_no = mutation_gen
 			end
-			kitz.remember(self, "genes", self.genes)
+			self.genes = kitz.remember(self, "genes", {gen1 = gen1, gen2 = gen2})
 		end
 		--ALL the mobs
 		--Get a texture
@@ -341,14 +342,6 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 			petz.colorize(self, self.colorized)
 		end
 	end
-
-	--<<<
-	--DELETE THIS BLOCK IN A FUTURE UPDATE -- behive changed to beehive>>>
-	if self.behive then
-		self.beehive = kitz.remember(self, "beehive", self.behive)
-		self.behive = kitz.remember(self, "behive", nil)
-	end
-	--<<<
 
 	if self.horseshoes and not captured_mob then
 		petz.horseshoes_speedup(self)
