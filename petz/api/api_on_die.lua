@@ -59,10 +59,6 @@ petz.on_die = function(self)
 		petz.pet[self.owner]= nil
 		minetest.close_formspec(self.owner, "petz:form_orders")
 	end
-	--Remove this petz from the list of the player pets-->
-	if self.tamed then
-		petz.remove_tamed_by_owner(self, false)
-	end
 	--Make Sound-->
 	kitz.make_sound(self, 'die')
 	--Particles Effect

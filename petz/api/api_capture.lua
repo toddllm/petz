@@ -164,7 +164,6 @@ petz.capture = function(self, clicker, put_in_inventory)
 		local meta, honey_count, bee_count = petz.get_beehive_stats(self.beehive)
 		petz.set_infotext_beehive(meta, honey_count, bee_count)
 	end
-	petz.remove_tamed_by_owner(self, false)
 	kitz.remove_mob(self)
 	return stack_meta
 end

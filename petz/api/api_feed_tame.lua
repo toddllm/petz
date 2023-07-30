@@ -1,57 +1,11 @@
 local S= ...
 
-petz.insert_tamed_by_owner = function(self)
-	if not self.owner then
-		return
-	end
-	if (petz.tamed_by_owner[self.owner] == nil) then
-		petz.tamed_by_owner[self.owner] = {}
-	end
-	local insert = true
-	for i = 1, #petz.tamed_by_owner[self.owner] do
-		if petz.tamed_by_owner[self.owner][i].pet == self then
-			insert = false
-			break
-		end
-	end
-	if insert then --if not yet
-		table.insert(petz.tamed_by_owner[self.owner], {["pet"] = self, metadata = {["tag"] = self.tag,
-			["type"] = self.type, ["last_pos"] = nil}})
-	end
-end
-
-petz.remove_tamed_by_owner = function(self, force)
-	if self.tag ~= "" or force then
-		if petz.tamed_by_owner[self.owner] then
-			local temp_table = {}
-			for key, pet_table in ipairs(petz.tamed_by_owner[self.owner]) do
-				if pet_table.pet ~= self then
-					table.insert(temp_table, pet_table)
-					--minetest.chat_send_player("singleplayer", self.tag)
-				end
-			end
-			petz.tamed_by_owner[self.owner] = temp_table
-		end
-	end
-end
-
-petz.count_tamed_by_owner = function(owner_name)
-	local count
-	if petz.tamed_by_owner[owner_name] then
-		count = #petz.tamed_by_owner[owner_name]
-	else
-		count = 0
-	end
-	return count
-end
-
 petz.do_feed = function(self)
 	petz.set_affinity(self, petz.settings.tamagochi_feed_hunger_rate)
 	self.fed = kitz.remember(self, "fed", true)
 end
 
 petz.after_tame = function(self)
-	petz.insert_tamed_by_owner(self)
 	if petz.settings.tamagochi_mode then
 		self.init_tamagochi_timer = true
 	end

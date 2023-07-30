@@ -123,7 +123,6 @@ petz.abandon_pet = function(self, msg)
 	end
 	petz.delete_nametag(self)
 	kitz.remove_owner(self) --the pet abandon you
-	petz.remove_tamed_by_owner(self, true)
 	petz.drop_dreamcatcher(self)
 	self.init_tamagochi_timer = false -- no more timing
 	if self.for_sale then

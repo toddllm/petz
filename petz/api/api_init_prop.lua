@@ -156,7 +156,6 @@ petz.load_vars = function(self)
 	if not(self.sleep_start_time) or not(self.sleep_end_time) then
 		petz.calculate_sleep_times(self)
 	end
-	petz.insert_tamed_by_owner(self)
 	petz.cleanup_prop(self) --Reset some vars
 end
 
