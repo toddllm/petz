@@ -141,9 +141,9 @@ petz.get_gen = function(self)
 	return math.random(1, textures_count)
 end
 
-petz.genetics_texture  = function(self, textures_count)
+petz.genetics_texture = function(self, textures_count, gen1, gen2)
 	for i = 1, textures_count do
-		if self.genes["gen1"] == i or self.genes["gen2"] == i then
+		if gen1 == i or gen2 == i then
 			return i
 		end
 	end
@@ -226,7 +226,7 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 				else
 					textures_count = #self.skin_colors
 				end
-				self.texture_no = petz.genetics_texture(self, textures_count)
+				self.texture_no = petz.genetics_texture(self, textures_count, gen1, gen2)
 			else -- mutation
 				--select the mutation in the last skins-->
 				local mutation_gen = math.random((#self.skin_colors-self.mutation+1), #self.skin_colors)
@@ -241,7 +241,7 @@ function petz.set_initial_properties(self, staticdata, dtime_s)
 		if not self.texture_no then
 			if self.skin_colors then
 				local textures_count
-				if self.mutation and (self.mutation > 0) then
+				if self.mutation and (self.mutation > 0) then --if mutating add back in last texture
 					textures_count = #self.skin_colors - self.mutation
 				else
 					textures_count = #self.skin_colors
