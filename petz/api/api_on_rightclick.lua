@@ -41,7 +41,7 @@ petz.on_rightclick = function(self, clicker)
 		(petz.first_to_upper(self.type)), tostring(self.max_hp)), "moaning")
 		then
 		if kitz.tame(self, 5, player_name, S("@1 has been tamed!", S(petz.first_to_upper(self.type))),
-			{max = petz.settings.max_tamed_by_owner, count= petz.count_tamed_by_owner(player_name),
+			{max = petz.settings.max_tamed_by_owner, count = kitz.count_active_mobs_by_owner(player_name),
 			msg = S("You cannot tame more petz! (@1 max.)", tostring(petz.settings.max_tamed_by_owner))})
 			then
 			petz.after_tame(self)

@@ -1,3 +1,21 @@
+--Mobs by owner
+function kitz.get_active_mobs_by_owner(owner)
+	local active_mobs_by_owner = {}
+	for id, obj in pairs(kitz.active_mobs) do
+		if kitz.is_alive(obj.object) then
+			if obj.owner == owner then
+				active_mobs_by_owner[id] = obj
+			end
+		end
+	end
+	return active_mobs_by_owner
+end
+
+function kitz.count_active_mobs_by_owner(owner)
+	local active_mobs_by_owner = kitz.get_active_mobs_by_owner(owner)
+	return #active_mobs_by_owner
+end
+
 function kitz.feed(self, clicker, feed_rate, msg_full_health, sound_type)
 	local wielded_item = clicker:get_wielded_item()
 	local wielded_item_name = wielded_item:get_name()

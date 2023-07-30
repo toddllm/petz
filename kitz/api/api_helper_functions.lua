@@ -194,16 +194,3 @@ function kitz.file_exists(filename)
 	end
 end
 
---Mobs by owner
-function kitz.get_active_mobs_by_owner(owner)
-	local active_mobs_by_owner = {}
-	for id, obj in pairs(kitz.active_mobs) do
-		if kitz.is_alive(obj.object) then
-			if obj.owner == owner then
-				active_mobs_by_owner[id] = obj
-			end
-		end
-	end
-	return active_mobs_by_owner
-end
-

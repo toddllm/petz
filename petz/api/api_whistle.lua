@@ -34,7 +34,7 @@ petz.create_form_list_by_owner = function(user_name, user_pos)
 	end
 	local pet_list = ""
 	for _, pet in ipairs(pet_list_table) do
-		if kitz.is_alive(pet.object) and not(petz.str_is_empty(pet.tag)) then -- check if alive
+		if kitz.is_alive(pet.object) and not(petz.str_is_empty(pet.tag)) then --check if alive
 			local pet_type = pet.type:gsub("^%l", string.upper)
 			local pet_pos = pet.object:get_pos()
 			local distance, pet_pos_x, pet_pos_y, pet_pos_z
@@ -49,7 +49,8 @@ petz.create_form_list_by_owner = function(user_name, user_pos)
 				pet_pos_z = "Z"
 				distance = "too far away"
 			end
-			pet_list = pet_list .. minetest.colorize("#EE0", pet.tag).." | " .. S(pet_type) .. " | ".. "Pos = (".. pet_pos_x .. "/"
+			pet_list = pet_list .. minetest.colorize("#EE0", pet.tag).." | " .. S(pet_type) .. " | "
+				.."Pos = (".. pet_pos_x .. "/"
 				.. pet_pos_y .. "/".. pet_pos_z ..") | Dist= "..distance..","
 		end
 	end
