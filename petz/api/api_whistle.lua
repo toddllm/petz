@@ -33,7 +33,7 @@ petz.create_form_list_by_owner = function(user_name, user_pos)
 		return ''
 	end
 	local pet_list = ""
-	for _, pet in ipairs(pet_list_table) do
+	for _, pet in pairs(pet_list_table) do
 		if kitz.is_alive(pet.object) and not(petz.str_is_empty(pet.tag)) then --check if alive
 			local pet_type = pet.type:gsub("^%l", string.upper)
 			local pet_pos = pet.object:get_pos()
@@ -68,11 +68,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "petz:form_whistle" then
 		return false
 	end
+
 	if fields.petz_list then
 		local player_name = player:get_player_name()
 		local event = minetest.explode_textlist_event(fields.petz_list)
 		local pet_index = event.index
-		if not context[player_name][pet_index] then
+		if not context[player_name] then
 			return
 		end
 		local pet = context[player_name][pet_index]

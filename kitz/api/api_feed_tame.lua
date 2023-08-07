@@ -4,7 +4,7 @@ function kitz.get_active_mobs_by_owner(owner)
 	for id, obj in pairs(kitz.active_mobs) do
 		if kitz.is_alive(obj.object) then
 			if obj.owner == owner then
-				active_mobs_by_owner[id] = obj
+				active_mobs_by_owner[#active_mobs_by_owner+1] = obj
 			end
 		end
 	end
