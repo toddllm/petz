@@ -31,15 +31,20 @@ function petz.chest.chest_lid_close(pn)
 
 	petz.chest.open_chests[pn] = nil
 	for k, v in pairs(petz.chest.open_chests) do
-		if v.pos.x == pos.x and v.pos.y == pos.y and v.pos.z == pos.z then
+		if vector.equals(v.pos, pos) then
 			return true
 		end
 	end
 
-	local node = minetest.get_node(pos)
-	minetest.after(0.2, minetest.swap_node, pos, { name = "petz:" .. swap,
-			param2 = node.param2 })
-	minetest.sound_play(sound, {gain = 0.3, pos = pos, max_hear_distance = 10})
+	minetest.after(0.2, function()
+		local node = minetest.get_node(pos)
+		if node.name ~= "petz:" .. swap .. "_open" then
+			-- the chest has already been replaced, don't try to replace what's there.
+			return
+		end
+		minetest.swap_node(pos, {name = "petz:" .. swap, param2 = node.param2})
+		minetest.sound_play(sound, {gain = 0.3, pos = pos, max_hear_distance = 10})
+	end)
 end
 
 minetest.register_on_leaveplayer(function(player)
