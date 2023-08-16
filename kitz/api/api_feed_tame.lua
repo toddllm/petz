@@ -1,10 +1,12 @@
 --Mobs by owner
-function kitz.get_active_mobs_by_owner(owner)
+function kitz.get_active_mobs_by_owner(owner, tag)
 	local active_mobs_by_owner = {}
 	for id, obj in pairs(kitz.active_mobs) do
 		if kitz.is_alive(obj.object) then
 			if obj.owner == owner then
-				active_mobs_by_owner[#active_mobs_by_owner+1] = obj
+				if not(tag) or (tag and not(petz.str_is_empty(obj.tag))) then
+					active_mobs_by_owner[#active_mobs_by_owner+1] = obj
+				end
 			end
 		end
 	end

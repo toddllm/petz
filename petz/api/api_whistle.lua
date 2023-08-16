@@ -27,14 +27,14 @@ minetest.register_craft({
 
 petz.create_form_list_by_owner = function(user_name, user_pos)
 	--Get the values of the list
-	local pet_list_table = kitz.get_active_mobs_by_owner(user_name)
+	local pet_list_table = kitz.get_active_mobs_by_owner(user_name, true)
 	if kitz.table_is_empty(pet_list_table) then
 		minetest.chat_send_player(user_name, "You have no pets with a name to call.")
 		return ''
 	end
 	local pet_list = ""
 	for _, pet in pairs(pet_list_table) do
-		if kitz.is_alive(pet.object) and not(petz.str_is_empty(pet.tag)) then --check if alive
+		if kitz.is_alive(pet.object) then --check if alive
 			local pet_type = pet.type:gsub("^%l", string.upper)
 			local pet_pos = pet.object:get_pos()
 			local distance, pet_pos_x, pet_pos_y, pet_pos_z
