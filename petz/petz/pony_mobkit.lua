@@ -130,6 +130,7 @@ minetest.register_entity("petz:"..pet_name, {
 			self.wagon:set_properties({
 				visual_size = child_ent.visual_size
 			})
+			self.wagon:set_rotation(self.object:get_rotation())  --set to the current rotation of the pony
 			self.wagon = nil
 		end
 	end,
