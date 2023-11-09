@@ -762,7 +762,8 @@ function kitz.vitals(self)
 	local vel = self.object:get_velocity()
 	local velocity_delta = abs(self.lastvelocity.y - vel.y)
 	if velocity_delta > kitz.safe_velocity then
-		kitz.hurt(self, floor(self.max_hp * min(1, velocity_delta/kitz.terminal_velocity)), "terminal velocity")
+		local damage_ratio = min(1, (velocity_delta - kitz.safe_velocity)/(kitz.terminal_velocity - kitz.safe_velocity))
+		kitz.hurt(self, floor(self.max_hp * damage_ratio), "terminal velocity")
 	end
 
 	-- vitals: oxygen
