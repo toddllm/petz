@@ -244,6 +244,16 @@ minetest.register_craft({
     }
 })
 
+minetest.register_craft({
+    type = "shaped",
+    output = 'petz:chicken_nest_egg',
+    recipe = {
+        {'', '', ''},
+        {'group:leaves', 'petz:chicken_egg', 'group:leaves'},
+        {'default:papyrus', 'default:papyrus', 'default:papyrus'},
+    }
+})
+
 --Vanilla Wool
 minetest.register_node("petz:wool_vanilla", {
 	description = S("Vanilla Wool"),
