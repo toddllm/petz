@@ -3,7 +3,7 @@
 --
 
 function kitz.make_misc_sound(self, chance, max_hear_distance)
-	if self.muted == true then
+	if self.muted == true or self.status == "sleep" then
 		return
 	end
 	local random_number = math.random(1, chance)
