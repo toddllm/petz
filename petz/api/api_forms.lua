@@ -295,7 +295,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		return
 	end
     local pet = petz.pet[player_name]
-	if pet and pet.object then
+	if pet and pet.object and not(pet.dead) then
 		if fields.btn_followme then
 			petz.follow(pet, player)
 		elseif fields.btn_standhere then
