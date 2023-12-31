@@ -75,12 +75,13 @@ function kitz.is_neighbor_node_reachable(self,neighbor)	-- todo: take either num
 
 			for p,node in pairs(nodes) do
 				if snpos.x==p.x and snpos.z==p.z then
-					if node.name=='ignore' or (node.walkable and not(kitz.in_group(p, "door"))) then
-						return
+					if node.name=='ignore' or (node.walkable and (petz.settings.out_doors and
+						not(kitz.in_group(p, "door")))) then
+							return
 					end
 				else
 					if node.name=='ignore' or
-						((node.walkable and not(kitz.in_group(p, "door"))) and
+						((node.walkable and (petz.settings.out_doors and not(kitz.in_group(p, "door")))) and
 							kitz.get_node_height(p)>tpos.y+0.001) then
 								return
 					end

@@ -214,6 +214,12 @@ local settings_def = {
 	type = "boolean",
 	default = false,
 	},
+	--Out doors
+	{
+	name = "out_doors",
+	type = "boolean",
+	default = true,
+	},
 	--Lifetime
 	{
 	name = "lifetime",
