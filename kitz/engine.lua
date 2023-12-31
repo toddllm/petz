@@ -173,7 +173,7 @@ function kitz.get_node_height(pos)
 	local node = kitz.nodeatpos(npos)
 	if node == nil then return nil end
 
-	if node.walkable then
+	if node.walkable and not(kitz.in_group(pos, "door")) then
 		if node.drawtype == 'nodebox' then
 			if node.node_box and node.node_box.type == 'fixed' then
 				if type(node.node_box.fixed[1]) == 'number' then
