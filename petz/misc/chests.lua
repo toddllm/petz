@@ -89,7 +89,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 
 	if pos and fields.christmas_msg then
 		local meta = minetest.get_meta(pos)
-		meta:set_string("christmas_msg", fields.christmas_msg)
+		meta:set_string("christmas_msg", minetest.formspec_escape(fields.christmas_msg))
 	end
 
 	return true
