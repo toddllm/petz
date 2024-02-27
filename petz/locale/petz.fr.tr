@@ -1,5 +1,5 @@
 # textdomain: petz
-@1 at full health=L'animal @1 au maximum de sa forme (@2)
+@1 at full health (@2)=L'animal @1 au maximum de sa forme (@2)
 @1 has been tamed!=L'animal: @1; a été apprivoisé!
 Affinity=Affinité
 Ant=Fourmi
