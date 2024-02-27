@@ -86,12 +86,16 @@ function petz.hq_attack(self,prty,tgtobj)
 				return true
 			else
 				kitz.lq_turn2pos(self,tpos)
-				local ent = tgtobj:get_luaentity()
-				if not ent or not ent.height then
-					return
+				local height = 0.5
+				if tgtobj:is_player() then
+					height = 0.35
+				else
+					local ent = tgtobj:get_luaentity()
+					if ent and ent.height then
+						height = ent.height * 0.6
+					end
 				end
-				local t_height = ent.height
-				local height = tgtobj:is_player() and 0.35 or t_height*0.6
+
 				if tpos.y+height>pos.y then
 					petz.lq_jumpattack(self,tpos.y+height-pos.y,tgtobj)
 				else
