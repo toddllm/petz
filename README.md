@@ -1,4 +1,9 @@
-# Petz [petz]
+# This fork will not be maintained
+It was only created to make a PR to original `runsy/petz` repo.
+I have no intention to maintain this.
+ - whosit.
+
+## Petz [petz]
 
 Cute kawaii mobs for Minetest.
 
