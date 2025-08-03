@@ -1,7 +1,10 @@
-# This fork will not be maintained
-It was only created to make a PR to original `runsy/petz` repo.
-I have no intention to maintain this.
- - whosit.
+# Petz [petz] - Luanti Voyager Fork
+
+This fork is maintained as part of the [Luanti Voyager](https://github.com/toddllm/luanti-voyager) project.
+
+**Fork Location**: `/home/tdeshane/luanti/petz-fork`
+
+This fork was originally created by whosit and is now maintained to ensure compatibility with Luanti Voyager servers.
 
 ## Petz [petz]
 
