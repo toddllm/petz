@@ -1,5 +1,9 @@
 # Petz [petz] - Luanti Voyager Fork
 
+<p align="center">
+  <img src="docs/img/banner.png" alt="Petz mod showing various cute animals in Luanti/Minetest" width="800">
+</p>
+
 This fork is maintained as part of the [Luanti Voyager](https://github.com/toddllm/luanti-voyager) project.
 
 **Fork Location**: `/home/tdeshane/luanti/petz-fork`
@@ -8,7 +12,21 @@ This fork was originally created from [yl-whosit/petz](https://github.com/yl-who
 
 ## Petz [petz]
 
-Cute kawaii mobs for Minetest.
+<p align="center">
+  <img src="docs/img/petz_logo.png" alt="Petz Logo" width="200">
+</p>
+
+Cute kawaii mobs for Minetest - now for Luanti!
+
+## Features at a Glance
+
+- 🐾 **50+ Different Animals** - From common pets to exotic creatures
+- 🎮 **Interactive Gameplay** - Pick up, carry, and command your pets
+- 🥕 **Taming System** - Build trust with different food items
+- 🏠 **Pet Orders** - Tell pets to follow, stay, or wander
+- 🎒 **Capture & Transport** - Use lassos and nets to move pets
+- 🥚 **Breeding System** - Raise families of adorable animals
+- 🎨 **Multiple Variants** - Different colors and types of each pet
 
 ## Licenses
 
@@ -26,12 +44,15 @@ There are in a separate github repository:
 
 ### Spawn Eggs
 
-Spawn eggs are available for most pets using the format `petz:<petname>_set`. Examples:
-- `/giveme petz:foxy_set` - Spawns a tamed fox
-- `/giveme petz:kitty_set` - Spawns a tamed kitten
-- `/giveme petz:puppy_set` - Spawns a tamed puppy
-- `/giveme petz:ducky_set` - Spawns a duck
-- `/giveme petz:lamb_set` - Spawns a lamb
+Spawn eggs are available for most pets using the format `petz:<petname>_set`:
+
+| Pet | Icon | Spawn Command | Description |
+|-----|------|---------------|-------------|
+| Fox | <img src="docs/img/fox_icon.png" width="48" alt="Fox"> | `/giveme petz:foxy_set` | Tamed fox companion |
+| Kitten | <img src="docs/img/kitty_icon.png" width="48" alt="Kitten"> | `/giveme petz:kitty_set` | Cute tamed kitten |
+| Puppy | <img src="docs/img/puppy_icon.png" width="48" alt="Puppy"> | `/giveme petz:puppy_set` | Loyal tamed puppy |
+| Lamb | <img src="docs/img/lamb_icon.png" width="48" alt="Lamb"> | `/giveme petz:lamb_set` | Fluffy lamb friend |
+| Duck | 🦆 | `/giveme petz:ducky_set` | Waddles around water |
 
 ### Taming Animals
 
@@ -82,6 +103,24 @@ Once tamed, you can give orders to your pets by right-clicking with an empty han
 4. Check `/var/games/minetest-server/.minetest/mods/petz/petz.conf` for all animal preferences
 5. You cannot capture animals with saddlebags equipped
 6. You need room in your inventory to capture a pet
+
+## Visual Examples
+
+### Popular Pets
+
+<p align="center">
+  <img src="docs/img/panda_icon.png" width="96" alt="Panda"> 
+  <img src="docs/img/lion_icon.png" width="96" alt="Lion"> 
+  <img src="docs/img/chicken_icon.png" width="96" alt="Chicken">
+</p>
+
+### Farm Life
+
+<p align="center">
+  <img src="docs/img/duck_chicken_farm.png" alt="Duck and Chicken Farm" width="600">
+</p>
+
+Create your own farm with ducks, chickens, and other farm animals! They produce eggs and can be bred for sustainable farming.
 
 ### Server Installation
 
