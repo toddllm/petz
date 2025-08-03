@@ -67,6 +67,13 @@ To capture pets and store them as items:
 - **How to capture**: Right-click the tamed pet with the appropriate capture item
 - The pet will be converted to an item in your inventory that you can place elsewhere
 
+### Giving Orders to Pets
+
+Once tamed, you can give orders to your pets by right-clicking with an empty hand and using the orders menu:
+- **Follow me**: Pet follows you around
+- **Stand here**: Pet stays in place (foxes will sit!)
+- **Do your own thing**: Pet wanders freely
+
 ### Important Notes
 
 1. **Right-clicking** only works when holding the correct taming item
