@@ -4,7 +4,7 @@ This fork is maintained as part of the [Luanti Voyager](https://github.com/toddl
 
 **Fork Location**: `/home/tdeshane/luanti/petz-fork`
 
-This fork was originally created by whosit and is now maintained to ensure compatibility with Luanti Voyager servers.
+This fork was originally created from [yl-whosit/petz](https://github.com/yl-whosit/petz) and is now maintained to ensure compatibility with Luanti Voyager servers.
 
 ## Petz [petz]
 
@@ -50,12 +50,22 @@ Different animals require different items for taming:
 - **Pandas**: Use papyrus (`default:papyrus`)
 - **Parrots**: Use wheat seeds (`farming:seed_wheat`)
 
+### Capturing/Picking Up Pets
+
+To capture and carry pets:
+- **Foxes, Dogs, Cats**: Use a lasso (`petz:lasso`)
+- **Small animals (Birds, etc.)**: Use a net (`petz:net`, `mobs:net`, or `fireflies:bug_net`)
+- **How to capture**: Right-click the tamed pet with the appropriate capture item
+- The pet will be converted to an item in your inventory that you can place elsewhere
+
 ### Important Notes
 
 1. **Right-clicking** only works when holding the correct taming item
 2. Animals will follow players holding their favorite food
 3. Some animals like lions require multiple attempts or a whip to tame
 4. Check `/var/games/minetest-server/.minetest/mods/petz/petz.conf` for all animal preferences
+5. You cannot capture animals with saddlebags equipped
+6. You need room in your inventory to capture a pet
 
 ### Server Installation
 
