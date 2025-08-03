@@ -50,9 +50,17 @@ Different animals require different items for taming:
 - **Pandas**: Use papyrus (`default:papyrus`)
 - **Parrots**: Use wheat seeds (`farming:seed_wheat`)
 
-### Capturing/Picking Up Pets
+### Picking Up and Carrying Pets
 
-To capture and carry pets:
+Foxes can now be picked up and carried! This feature uses the attachment API:
+- **To pick up**: Right-click a tamed fox with an empty hand
+- **While carrying**: The fox hovers in front of you and follows your movements
+- **To put down**: Right-click again to place the fox in front of you
+- **Note**: Only the owner can pick up their pet
+
+### Capturing Pets (Item Form)
+
+To capture pets and store them as items:
 - **Foxes, Dogs, Cats**: Use a lasso (`petz:lasso`)
 - **Small animals (Birds, etc.)**: Use a net (`petz:net`, `mobs:net`, or `fireflies:bug_net`)
 - **How to capture**: Right-click the tamed pet with the appropriate capture item

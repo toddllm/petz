@@ -79,6 +79,11 @@ minetest.register_entity("petz:"..pet_name,{
 	end,
 
 	on_rightclick = function(self, clicker)
+		-- Try pickup toggle first
+		if petz.toggle_pickup(self, clicker) then
+			return
+		end
+		-- Fall back to normal petz rightclick behavior
 		petz.on_rightclick(self, clicker)
 	end,
 
