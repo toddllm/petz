@@ -59,6 +59,12 @@ end
 -- Pickup/carry functionality
 function petz.toggle_pickup(self, clicker)
     if not self.is_pickupable or not clicker:is_player() then return false end
+    
+    -- Only allow pickup with empty hand
+    local item = clicker:get_wielded_item()
+    if not item:is_empty() then
+        return false -- let normal rightclick handle items
+    end
 
     local name = clicker:get_player_name()
     -- require ownership if the mob can be owned

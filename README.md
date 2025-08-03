@@ -53,10 +53,11 @@ Different animals require different items for taming:
 ### Picking Up and Carrying Pets
 
 Foxes can now be picked up and carried! This feature uses the attachment API:
-- **To pick up**: Right-click a tamed fox with an empty hand
+- **To pick up**: Right-click a tamed fox with an **empty hand**
 - **While carrying**: The fox hovers in front of you and follows your movements
-- **To put down**: Right-click again to place the fox in front of you
+- **To put down**: Right-click again (with empty hand) to place the fox in front of you
 - **Note**: Only the owner can pick up their pet
+- **Important**: Holding any item (food, tools, etc.) will bypass pickup and use normal interactions
 
 ### Capturing Pets (Item Form)
 
