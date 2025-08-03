@@ -23,6 +23,7 @@ minetest.register_entity("petz:"..pet_name,{
 	give_orders = true,
 	can_be_brushed = true,
 	capture_item = "lasso",
+	is_pickupable = true,
 	follow = petz.settings.foxy_follow,
 	rotate = petz.settings.rotate,
 	physical = true,
