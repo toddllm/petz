@@ -1,3 +1,9 @@
+# v2.0.5
+- Bundle kitz library directly into petz mod
+- Remove kitz external dependency for ContentDB compatibility
+- All mob AI functionality now included in petz mod
+- Ready for ContentDB submission without dependency issues
+
 # v2.0.4
 - Clean repository without submodules for ContentDB submission
 - Removed parent repository dependencies  

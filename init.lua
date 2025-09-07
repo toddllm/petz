@@ -15,6 +15,9 @@ local S = minetest.get_translator(minetest.get_current_modname())
 
 petz = {}
 
+-- Load bundled kitz library
+assert(loadfile(modpath .. "/kitz/init.lua"))()
+
 --
 --Settings
 --
