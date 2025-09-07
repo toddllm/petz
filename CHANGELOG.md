@@ -1,3 +1,8 @@
+# v2.0.7
+- Remove bundled kitz mod.conf to prevent it being treated as separate mod
+- Fix ContentDB kitz dependency validation error 
+- Complete kitz bundling for ContentDB submission
+
 # v2.0.6
 - Fix ContentDB tag validation issue
 - Change tag from "mobs" to "mobs_animals_npcs" for proper ContentDB compatibility
