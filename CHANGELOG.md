@@ -1,3 +1,8 @@
+# v2.0.4
+- Clean repository without submodules for ContentDB submission
+- Removed parent repository dependencies  
+- Standalone petz mod ready for ContentDB
+
 # v2.0.3
 - Added ContentDB configuration files
 - Fixed mod.conf for Luanti ContentDB compatibility
