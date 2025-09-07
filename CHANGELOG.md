@@ -1,3 +1,8 @@
+# v2.0.9
+- Remove devtest from supported_games - lacks required dependencies
+- Fix ContentDB game support validation error
+- Now only supports minetest_game and mtg
+
 # v2.0.8
 - Fix ContentDB tag validation - use correct "mobs" tag instead of "mobs_animals_npcs"
 - Resolves ContentDB tag validation error
