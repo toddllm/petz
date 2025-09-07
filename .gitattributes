@@ -1,0 +1,8 @@
+# Exclude documentation and admin files from ContentDB releases
+docs/ export-ignore
+CHANGELOG.md export-ignore
+CONTENTDB_SUBMISSION.md export-ignore
+*.backup export-ignore
+.gitignore export-ignore
+*.md export-ignore
+!README.md
