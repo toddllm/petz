@@ -53,12 +53,18 @@ function petz.move_head(self, tpos)
 	local final_yaw = yaw + body_yaw --get the head yaw in reference with the body
 	local head_rotation = {x= pitch, y= final_yaw, z= 0} -- the head movement {pitch, yaw, roll}
 	self.head_rotation = vector.add(head_rotation, self.head.rotation_origin) --the offset for the rotation, depends on the blender model
-	self.object:set_bone_position("head", self.head.position, self.head_rotation) --set the head movement
+	self.object:set_bone_override("head", {
+		position = self.head.position,
+		rotation = self.head_rotation
+	}) --set the head movement
 	--minetest.chat_send_all(tostring(kitz.degrees_to_radians(yaw)))
 	return kitz.degrees_to_radians(body_yaw-yaw) --returns body_yaw
 end
 
 --this sets the mob to move it's head back to pointing forwards
 petz.return_head_to_origin = function(self)
-	self.object:set_bone_position("head", self.head.position, self.head.rotation_origin)
+	self.object:set_bone_override("head", {
+		position = self.head.position,
+		rotation = self.head.rotation_origin
+	})
 end
