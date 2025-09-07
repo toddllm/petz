@@ -1,0 +1,10 @@
+{
+    "type": "mod",
+    "title": "Petz",
+    "name": "petz",
+    "short_description": "Cute mobs for Luanti",
+    "tags": ["mobs", "animals", "pets", "creatures"],
+    "content_warnings": [],
+    "license": "LGPL-3.0-or-later",
+    "media_license": "CC-BY-SA-3.0"
+}
