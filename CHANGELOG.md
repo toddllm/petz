@@ -1,3 +1,8 @@
+# v2.0.6
+- Fix ContentDB tag validation issue
+- Change tag from "mobs" to "mobs_animals_npcs" for proper ContentDB compatibility
+- Resolves ContentDB submission error
+
 # v2.0.5
 - Bundle kitz library directly into petz mod
 - Remove kitz external dependency for ContentDB compatibility
